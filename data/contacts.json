@@ -1,0 +1,35 @@
+[
+  {
+    "_id": "c_17805628264383msxz",
+    "name": "manthan",
+    "phone": "63526779",
+    "email": "mnthnkanani@gmail.com",
+    "service": "Garba Training",
+    "message": "i will join your institute\n",
+    "status": "closed",
+    "createdAt": "2026-06-04T08:47:06.438Z",
+    "updatedAt": "2026-06-05T04:51:09.422Z"
+  },
+  {
+    "_id": "c_1780563815470yccyd",
+    "name": "jemish",
+    "phone": " 93136 83554",
+    "email": "dhameliyajemish92@gmail.com",
+    "service": "Garba Training",
+    "message": "i will want to join your institute",
+    "status": "closed",
+    "createdAt": "2026-06-04T09:03:35.470Z",
+    "updatedAt": "2026-06-04T16:54:30.386Z"
+  },
+  {
+    "_id": "c_1780591175667wj4tr",
+    "name": "Priti Kanani",
+    "phone": " 97233 99822",
+    "email": "pritikanani17@gmail.com",
+    "service": "Yoga Classes",
+    "message": "i want to join your yoga classes",
+    "status": "closed",
+    "createdAt": "2026-06-04T16:39:35.667Z",
+    "updatedAt": "2026-06-04T16:54:28.527Z"
+  }
+]

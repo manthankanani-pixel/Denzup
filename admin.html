@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DANZUP STUDIO | Admin Portal</title>
+    <link rel="icon" type="image/png" href="danzup-logo.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0A0A0A',
+                            primary: '#0F172A',
+                            secondary: '#1E293B',
+                            gold: '#D4AF37',
+                            goldLight: '#FDE68A',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #0A0A0A;
+            color: #F8FAFC;
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .text-gold-gradient {
+            background: linear-gradient(135deg, #D4AF37 0%, #FDE68A 50%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-focus:focus {
+            border-color: #D4AF37;
+            outline: none;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0A0A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E293B;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+        /* Style select options to be visible on all browsers */
+        select option {
+            background-color: #1E293B !important;
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-container" class="flex-grow flex items-center justify-center px-4 py-12">
+        <div class="glass-card p-8 rounded-lg max-w-md w-full border border-brand-gold/20">
+            <div class="text-center mb-8">
+                <i class="fas fa-lock text-brand-gold text-4xl mb-3"></i>
+                <h2 class="text-3xl font-bold text-white mb-1">Admin Access</h2>
+                <p class="text-sm text-gray-400 font-light">Enter credentials to manage Danzup Studio</p>
+            </div>
+            
+            <form id="login-form" class="space-y-5">
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1.5 font-medium uppercase tracking-wider">Email Address</label>
+                    <input type="email" id="login-email" class="w-full bg-white/5 border border-white/10 rounded px-4 py-3 text-white gold-border-focus placeholder-gray-500 text-sm" placeholder="admin@danzupstudio.com" required>
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1.5 font-medium uppercase tracking-wider">Password</label>
+                    <input type="password" id="login-password" class="w-full bg-white/5 border border-white/10 rounded px-4 py-3 text-white gold-border-focus placeholder-gray-500 text-sm" placeholder="••••••••" required>
+                </div>
+                
+                <button type="submit" id="login-submit-btn" class="w-full py-3 bg-gradient-to-r from-brand-gold to-[#B5922F] text-black font-bold uppercase text-xs tracking-widest hover:opacity-90 transition rounded flex justify-center items-center gap-2 mt-6">
+                    <span>Unlock Dashboard</span>
+                    <span id="login-spinner" class="hidden animate-spin h-4 w-4 border-2 border-black border-t-transparent rounded-full"></span>
+                </button>
+                <div id="login-error" class="text-center text-xs text-red-400 font-medium mt-3 hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN PORTAL (HIDDEN BY DEFAULT) -->
+    <div id="portal-container" class="hidden flex-grow flex flex-col">
+        <!-- TOP NAV -->
+        <nav class="glass-nav sticky top-0 w-full z-40 py-4 px-6 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="danzup-logo.png" class="h-8 w-auto object-contain rounded" alt="Logo" onerror="this.style.display='none'">
+                <span class="text-lg font-bold font-serif tracking-wider text-gold-gradient">DANZUP STUDIO</span>
+                <span class="bg-white/5 border border-white/10 px-2.5 py-0.5 rounded text-[10px] text-gray-400 font-mono tracking-widest uppercase ml-2">Console</span>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <span class="text-xs text-gray-400 hidden md:inline"><i class="fas fa-user-shield text-brand-gold mr-1.5"></i>Authorized Admin</span>
+                <button onclick="handleLogout()" class="px-3.5 py-1.5 border border-white/10 text-white hover:border-red-500/40 hover:text-red-400 text-xs font-semibold tracking-wider transition rounded uppercase flex items-center gap-1.5">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </nav>
+
+        <!-- DASHBOARD BODY -->
+        <div class="flex-grow flex flex-col lg:flex-row">
+            <!-- SIDEBAR -->
+            <div class="w-full lg:w-64 bg-brand-dark/50 border-r border-white/5 flex flex-col p-4 gap-1 lg:min-h-[calc(100vh-69px)]">
+                <button onclick="switchTab('dashboard')" id="btn-tab-dashboard" class="flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-300 hover:bg-white/5 transition-all text-left bg-white/5 font-semibold text-brand-gold">
+                    <i class="fas fa-chart-line w-5 text-center"></i> Dashboard Overview
+                </button>
+                <button onclick="switchTab('inquiries')" id="btn-tab-inquiries" class="flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left">
+                    <i class="fas fa-envelope-open-text w-5 text-center"></i> Inquiries (Contacts)
+                </button>
+                <button onclick="switchTab('bookings')" id="btn-tab-bookings" class="flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left">
+                    <i class="fas fa-calendar-check w-5 text-center"></i> Class Bookings
+                </button>
+                <button onclick="switchTab('settings')" id="btn-tab-settings" class="flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left">
+                    <i class="fas fa-sliders-h w-5 text-center"></i> System Settings
+                </button>
+            </div>
+
+            <!-- CONTENT WINDOW -->
+            <main class="flex-grow p-6 lg:p-8">
+                <!-- TAB: DASHBOARD -->
+                <section id="tab-dashboard" class="space-y-8">
+                    <div>
+                        <h1 class="text-3xl font-bold text-white mb-2">Overview</h1>
+                        <p class="text-xs text-gray-400 font-light">Real-time statistics and studio activities.</p>
+                    </div>
+
+                    <!-- STATS CARDS -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="glass-card p-6 rounded-lg border border-white/5 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Total Inquiries</p>
+                                <h3 id="stat-total-contacts" class="text-3xl font-serif font-bold text-white">0</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-brand-gold/10 flex items-center justify-center text-brand-gold">
+                                <i class="fas fa-inbox text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="glass-card p-6 rounded-lg border border-white/5 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">New Inquiries</p>
+                                <h3 id="stat-new-contacts" class="text-3xl font-serif font-bold text-brand-gold">0</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center text-red-400">
+                                <i class="fas fa-bell text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="glass-card p-6 rounded-lg border border-white/5 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Total Bookings</p>
+                                <h3 id="stat-total-bookings" class="text-3xl font-serif font-bold text-white">0</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400">
+                                <i class="fas fa-calendar-alt text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="glass-card p-6 rounded-lg border border-white/5 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Pending Bookings</p>
+                                <h3 id="stat-pending-bookings" class="text-3xl font-serif font-bold text-yellow-500">0</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500">
+                                <i class="fas fa-clock text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- QUICK INFO / PANEL -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="glass-card p-6 rounded-lg border border-white/5">
+                            <h4 class="text-lg font-bold mb-4 font-serif text-white flex items-center gap-2">
+                                <i class="fas fa-envelope-open-text text-brand-gold"></i> Recent Inquiries
+                            </h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs">
+                                    <thead>
+                                        <tr class="border-b border-white/10 text-gray-400 uppercase tracking-wider">
+                                            <th class="py-3 font-semibold">Name</th>
+                                            <th class="py-3 font-semibold">Program</th>
+                                            <th class="py-3 font-semibold">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recent-contacts-table">
+                                        <!-- Dynamically filled -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-lg border border-white/5">
+                            <h4 class="text-lg font-bold mb-4 font-serif text-white flex items-center gap-2">
+                                <i class="fas fa-calendar-alt text-brand-gold"></i> Recent Bookings
+                            </h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs">
+                                    <thead>
+                                        <tr class="border-b border-white/10 text-gray-400 uppercase tracking-wider">
+                                            <th class="py-3 font-semibold">Name</th>
+                                            <th class="py-3 font-semibold">Class / Batch</th>
+                                            <th class="py-3 font-semibold">Date</th>
+                                            <th class="py-3 font-semibold">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recent-bookings-table">
+                                        <!-- Dynamically filled -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB: INQUIRIES -->
+                <section id="tab-inquiries" class="hidden space-y-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h1 class="text-3xl font-bold text-white mb-2">Customer Inquiries</h1>
+                            <p class="text-xs text-gray-400 font-light">Submissions from the general contact form.</p>
+                        </div>
+                        <button onclick="loadData()" class="px-3.5 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded text-xs transition flex items-center gap-1.5">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+
+                    <div class="glass-card rounded-lg border border-white/5 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead>
+                                    <tr class="border-b border-white/10 text-gray-400 uppercase tracking-wider bg-white/[0.01]">
+                                        <th class="p-4 font-semibold">Date</th>
+                                        <th class="p-4 font-semibold">Contact Info</th>
+                                        <th class="p-4 font-semibold">Interested Service</th>
+                                        <th class="p-4 font-semibold">Message</th>
+                                        <th class="p-4 font-semibold">Status</th>
+                                        <th class="p-4 font-semibold text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contacts-table">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB: BOOKINGS -->
+                <section id="tab-bookings" class="hidden space-y-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h1 class="text-3xl font-bold text-white mb-2">Class & Trial Bookings</h1>
+                            <p class="text-xs text-gray-400 font-light">Submissions from the trial booking modals.</p>
+                        </div>
+                        <button onclick="loadData()" class="px-3.5 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded text-xs transition flex items-center gap-1.5">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+
+                    <div class="glass-card rounded-lg border border-white/5 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead>
+                                    <tr class="border-b border-white/10 text-gray-400 uppercase tracking-wider bg-white/[0.01]">
+                                        <th class="p-4 font-semibold">Preferred Date</th>
+                                        <th class="p-4 font-semibold">Student Info</th>
+                                        <th class="p-4 font-semibold">Class Details</th>
+                                        <th class="p-4 font-semibold">Batch</th>
+                                        <th class="p-4 font-semibold">Payment Status</th>
+                                        <th class="p-4 font-semibold">Booking Status</th>
+                                        <th class="p-4 font-semibold text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bookings-table">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB: SETTINGS -->
+                <section id="tab-settings" class="hidden space-y-6">
+                    <div>
+                        <h1 class="text-3xl font-bold text-white mb-2">System Settings</h1>
+                        <p class="text-xs text-gray-400 font-light">Manage resources and check backend system logs.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- LOGO UPLOADER CARD -->
+                        <div class="glass-card p-6 rounded-lg border border-white/5 space-y-6">
+                            <div>
+                                <h4 class="text-lg font-bold font-serif text-white mb-1"><i class="fas fa-image text-brand-gold mr-2"></i>Logo Management</h4>
+                                <p class="text-xs text-gray-400">Upload a new image file to update the website logo instantly.</p>
+                            </div>
+                            
+                            <div class="border-2 border-dashed border-white/10 rounded-lg p-8 text-center bg-black/20 hover:border-brand-gold/30 transition-all flex flex-col items-center justify-center">
+                                <i class="fas fa-cloud-upload-alt text-brand-gold text-4xl mb-4"></i>
+                                <span class="text-xs text-gray-400 mb-4 block">Supported formats: JPEG, PNG. Suggested size: 300x80px.</span>
+                                
+                                <input type="file" id="settings-logo-file" accept="image/*" class="hidden">
+                                <button onclick="document.getElementById('settings-logo-file').click()" class="px-5 py-2.5 bg-white/5 border border-white/10 text-white font-semibold text-xs tracking-wider rounded uppercase hover:bg-white/10 transition">
+                                    Select Logo Image File
+                                </button>
+                                <span id="settings-upload-status" class="text-xs text-gray-400 mt-3 block"></span>
+                            </div>
+                        </div>
+
+                        <!-- SYSTEM ENGINE STATUS CARD -->
+                        <div class="glass-card p-6 rounded-lg border border-white/5 space-y-6">
+                            <div>
+                                <h4 class="text-lg font-bold font-serif text-white mb-1"><i class="fas fa-server text-brand-gold mr-2"></i>Backend Engine Status</h4>
+                                <p class="text-xs text-gray-400">Current running database configuration & settings.</p>
+                            </div>
+
+                            <div class="space-y-4 text-xs font-mono">
+                                <div class="flex justify-between items-center p-3 rounded bg-white/[0.02] border border-white/5">
+                                    <span class="text-gray-400">Database Engine:</span>
+                                    <span id="sys-db-type" class="px-2 py-0.5 rounded font-bold uppercase tracking-wider text-[10px] text-white">Detecting...</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 rounded bg-white/[0.02] border border-white/5">
+                                    <span class="text-gray-400">Email System:</span>
+                                    <span id="sys-email-status" class="px-2 py-0.5 rounded font-bold uppercase tracking-wider text-[10px] text-white">Active</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 rounded bg-white/[0.02] border border-white/5">
+                                    <span class="text-gray-400">Server Timezone:</span>
+                                    <span id="sys-timezone" class="text-gray-300">UTC</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 rounded bg-white/[0.02] border border-white/5">
+                                    <span class="text-gray-400">Session Expire:</span>
+                                    <span class="text-gray-300">24 Hours (JWT Security)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="py-6 bg-brand-dark/90 border-t border-white/5 text-center text-xs text-gray-600 font-light">
+        &copy; 2026 Danzup Studio. All Rights Reserved. Dashboard Panel v1.0.0
+    </footer>
+
+    <!-- LOGIC SCRIPT -->
+    <script>
+        const loginContainer = document.getElementById('login-container');
+        const portalContainer = document.getElementById('portal-container');
+        const loginForm = document.getElementById('login-form');
+        const loginSpinner = document.getElementById('login-spinner');
+        const loginError = document.getElementById('login-error');
+        const loginSubmitBtn = document.getElementById('login-submit-btn');
+
+        // Check login state on load
+        window.addEventListener('load', () => {
+            const token = localStorage.getItem('adminToken');
+            if (token) {
+                showPortal();
+            } else {
+                loginContainer.classList.remove('hidden');
+            }
+        });
+
+        // Handle Login
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            loginSpinner.classList.remove('hidden');
+            loginSubmitBtn.disabled = true;
+            loginError.classList.add('hidden');
+
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                const response = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    localStorage.setItem('adminToken', result.token);
+                    loginForm.reset();
+                    showPortal();
+                } else {
+                    loginError.textContent = result.message || 'Login failed. Try again.';
+                    loginError.classList.remove('hidden');
+                }
+            } catch (err) {
+                loginError.textContent = 'Connection error. Check backend server.';
+                loginError.classList.remove('hidden');
+            } finally {
+                loginSpinner.classList.add('hidden');
+                loginSubmitBtn.disabled = false;
+            }
+        });
+
+        // Logout
+        function handleLogout() {
+            localStorage.removeItem('adminToken');
+            portalContainer.classList.add('hidden');
+            loginContainer.classList.remove('hidden');
+        }
+
+        // Show Dashboard Portal
+        function showPortal() {
+            loginContainer.classList.add('hidden');
+            portalContainer.classList.remove('hidden');
+            switchTab('dashboard');
+            loadData();
+        }
+
+        // Switch Active tab
+        let activeTab = 'dashboard';
+        function switchTab(tabId) {
+            // Hide all tabs
+            document.getElementById('tab-dashboard').classList.add('hidden');
+            document.getElementById('tab-inquiries').classList.add('hidden');
+            document.getElementById('tab-bookings').classList.add('hidden');
+            document.getElementById('tab-settings').classList.add('hidden');
+
+            // Show active tab
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+            // Deactivate buttons style
+            document.getElementById('btn-tab-dashboard').className = "flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left";
+            document.getElementById('btn-tab-inquiries').className = "flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left";
+            document.getElementById('btn-tab-bookings').className = "flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left";
+            document.getElementById('btn-tab-settings').className = "flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left";
+
+            // Activate button style
+            const activeBtn = document.getElementById(`btn-tab-${tabId}`);
+            activeBtn.className = "flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-300 bg-white/5 transition-all text-left font-semibold text-brand-gold";
+
+            activeTab = tabId;
+        }
+
+        // Fetch Stats, Contacts, and Bookings data
+        async function loadData() {
+            const token = localStorage.getItem('adminToken');
+            if (!token) return handleLogout();
+
+            const headers = { 'Authorization': `Bearer ${token}` };
+
+            try {
+                // Fetch stats
+                const statsRes = await fetch('/api/admin/stats', { headers });
+                if (statsRes.status === 401) return handleLogout();
+                const statsData = await statsRes.json();
+                
+                if (statsData.success) {
+                    const stats = statsData.stats;
+                    document.getElementById('stat-total-contacts').textContent = stats.totalContacts;
+                    document.getElementById('stat-new-contacts').textContent = stats.newContacts;
+                    document.getElementById('stat-total-bookings').textContent = stats.totalBookings;
+                    document.getElementById('stat-pending-bookings').textContent = stats.pendingBookings;
+                }
+
+                // Fetch inquiries/contacts
+                const contactsRes = await fetch('/api/admin/contacts', { headers });
+                const contactsData = await contactsRes.json();
+                if (contactsData.success) {
+                    fillContactsTable(contactsData.data);
+                }
+
+                // Fetch bookings
+                const bookingsRes = await fetch('/api/admin/bookings', { headers });
+                const bookingsData = await bookingsRes.json();
+                if (bookingsData.success) {
+                    fillBookingsTable(bookingsData.data);
+                }
+
+                // Set server status details in settings
+                document.getElementById('sys-timezone').textContent = new Date().toLocaleTimeString();
+                
+                // Fetch server health check to identify db type
+                const healthRes = await fetch('/api/health');
+                const healthData = await healthRes.json();
+                
+                // Let's call a stats endpoint check or just guess fallback mode based on database save structure
+                // We'll simulate fetching info, or can estimate
+                const isFallBackMode = contactsData.data && contactsData.data.some(c => c._id && c._id.startsWith('c_'));
+                const dbTypeEl = document.getElementById('sys-db-type');
+                if (isFallBackMode) {
+                    dbTypeEl.textContent = "JSON Fallback File Mode";
+                    dbTypeEl.className = "px-2 py-0.5 rounded font-bold uppercase tracking-wider text-[10px] text-yellow-400 bg-yellow-500/10";
+                } else {
+                    dbTypeEl.textContent = "MongoDB Connected";
+                    dbTypeEl.className = "px-2 py-0.5 rounded font-bold uppercase tracking-wider text-[10px] text-green-400 bg-green-500/10";
+                }
+
+            } catch (err) {
+                console.error("Error loading dashboard data:", err);
+            }
+        }
+
+        // Populate Inquiries Tables
+        function fillContactsTable(contacts) {
+            const tableBody = document.getElementById('contacts-table');
+            const recentBody = document.getElementById('recent-contacts-table');
+
+            tableBody.innerHTML = '';
+            recentBody.innerHTML = '';
+
+            if (contacts.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-gray-500 font-light text-sm">No inquiry records found.</td></tr>`;
+                recentBody.innerHTML = `<tr><td colspan="3" class="py-4 text-center text-gray-500">No records.</td></tr>`;
+                return;
+            }
+
+            // Fill all contacts list
+            contacts.forEach(contact => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-b border-white/5 hover:bg-white/[0.01] transition-all';
+                
+                let badgeClass = 'bg-gray-500/10 text-gray-400';
+                if (contact.status === 'new') badgeClass = 'bg-red-500/10 text-red-400';
+                if (contact.status === 'contacted') badgeClass = 'bg-yellow-500/10 text-yellow-400';
+                if (contact.status === 'booked') badgeClass = 'bg-blue-500/10 text-blue-400';
+                if (contact.status === 'closed') badgeClass = 'bg-green-500/10 text-green-400';
+
+                const formattedDate = new Date(contact.createdAt).toLocaleDateString() + ' ' + new Date(contact.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                tr.innerHTML = `
+                    <td class="p-4 font-light text-gray-400">${formattedDate}</td>
+                    <td class="p-4">
+                        <div class="font-bold text-white text-sm">${escapeHtml(contact.name)}</div>
+                        <div class="text-gray-400 font-light mt-0.5">${escapeHtml(contact.phone)}</div>
+                        <div class="text-gray-500 font-light">${escapeHtml(contact.email)}</div>
+                    </td>
+                    <td class="p-4 font-semibold text-brand-gold">${escapeHtml(contact.service)}</td>
+                    <td class="p-4 max-w-xs font-light text-gray-400 truncate hover:text-white cursor-help" title="${escapeHtml(contact.message)}">${escapeHtml(contact.message)}</td>
+                    <td class="p-4">
+                        <span class="px-2 py-0.5 rounded font-semibold uppercase text-[10px] tracking-wide ${badgeClass}">${contact.status}</span>
+                    </td>
+                    <td class="p-4 text-right">
+                        <select onchange="updateInquiryStatus('${contact._id}', this.value)" class="bg-[#1E293B] border border-white/10 text-white rounded text-xs px-2.5 py-1.5 focus:outline-none focus:border-brand-gold">
+                            <option value="new" ${contact.status === 'new' ? 'selected' : ''}>New</option>
+                            <option value="contacted" ${contact.status === 'contacted' ? 'selected' : ''}>Contacted</option>
+                            <option value="booked" ${contact.status === 'booked' ? 'selected' : ''}>Booked</option>
+                            <option value="closed" ${contact.status === 'closed' ? 'selected' : ''}>Closed</option>
+                        </select>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+
+            // Fill top 5 recent overview
+            contacts.slice(0, 5).forEach(contact => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-b border-white/5';
+                
+                let badgeClass = 'text-gray-400';
+                if (contact.status === 'new') badgeClass = 'text-red-400';
+                if (contact.status === 'contacted') badgeClass = 'text-yellow-400';
+                if (contact.status === 'closed') badgeClass = 'text-green-400';
+
+                tr.innerHTML = `
+                    <td class="py-3.5 font-medium text-white">${escapeHtml(contact.name)}</td>
+                    <td class="py-3.5 text-gray-400 font-light">${escapeHtml(contact.service)}</td>
+                    <td class="py-3.5 font-mono text-[10px] uppercase ${badgeClass}">${contact.status}</td>
+                `;
+                recentBody.appendChild(tr);
+            });
+        }
+
+        // Populate Bookings Tables
+        function fillBookingsTable(bookings) {
+            const tableBody = document.getElementById('bookings-table');
+            const recentBody = document.getElementById('recent-bookings-table');
+
+            tableBody.innerHTML = '';
+            recentBody.innerHTML = '';
+
+            if (bookings.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-gray-500 font-light text-sm">No class bookings found.</td></tr>`;
+                recentBody.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-gray-500">No records.</td></tr>`;
+                return;
+            }
+
+            bookings.forEach(booking => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-b border-white/5 hover:bg-white/[0.01] transition-all';
+                
+                let statusBadge = 'bg-yellow-500/10 text-yellow-400';
+                if (booking.status === 'confirmed') statusBadge = 'bg-green-500/10 text-green-400';
+                if (booking.status === 'cancelled') statusBadge = 'bg-red-500/10 text-red-400';
+
+                let paidBadge = booking.paid 
+                    ? '<span class="px-2 py-0.5 rounded font-semibold uppercase text-[10px] bg-green-500/10 text-green-400">Paid</span>'
+                    : '<span class="px-2 py-0.5 rounded font-semibold uppercase text-[10px] bg-red-500/10 text-red-400">Unpaid</span>';
+
+                const formattedBookingDate = new Date(booking.date).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+
+                tr.innerHTML = `
+                    <td class="p-4 font-bold text-white text-sm">${formattedBookingDate}</td>
+                    <td class="p-4">
+                        <div class="font-bold text-white">${escapeHtml(booking.name)}</div>
+                        <div class="text-gray-400 font-light mt-0.5">${escapeHtml(booking.phone)}</div>
+                        <div class="text-gray-500 font-light">${escapeHtml(booking.email)}</div>
+                    </td>
+                    <td class="p-4 font-semibold text-brand-gold">${escapeHtml(booking.service)}</td>
+                    <td class="p-4 font-light text-gray-400">${escapeHtml(booking.batch)}</td>
+                    <td class="p-4">${paidBadge}</td>
+                    <td class="p-4">
+                        <span class="px-2 py-0.5 rounded font-semibold uppercase text-[10px] tracking-wide ${statusBadge}">${booking.status}</span>
+                    </td>
+                    <td class="p-4 text-right flex items-center justify-end gap-2.5 mt-3 select-none">
+                        <button onclick="toggleBookingPayment('${booking._id}', ${!booking.paid})" class="px-2 py-1 border border-white/10 hover:border-brand-gold text-[10px] rounded text-gray-300 hover:text-brand-gold transition uppercase font-semibold">
+                            ${booking.paid ? 'Unpay' : 'Pay'}
+                        </button>
+                        <select onchange="updateBookingStatus('${booking._id}', this.value)" class="bg-[#1E293B] border border-white/10 text-white rounded text-xs px-2.5 py-1.5 focus:outline-none focus:border-brand-gold">
+                            <option value="pending" ${booking.status === 'pending' ? 'selected' : ''}>Pending</option>
+                            <option value="confirmed" ${booking.status === 'confirmed' ? 'selected' : ''}>Confirm</option>
+                            <option value="cancelled" ${booking.status === 'cancelled' ? 'selected' : ''}>Cancel</option>
+                        </select>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+
+            // Populate top 5 recent bookings overview
+            bookings.slice(0, 5).forEach(booking => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-b border-white/5';
+                
+                let statusColor = 'text-yellow-400';
+                if (booking.status === 'confirmed') statusColor = 'text-green-400';
+                if (booking.status === 'cancelled') statusColor = 'text-red-400';
+
+                const formattedDate = new Date(booking.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+                tr.innerHTML = `
+                    <td class="py-3.5 font-medium text-white">${escapeHtml(booking.name)}</td>
+                    <td class="py-3.5 text-gray-400 font-light">${escapeHtml(booking.service)}</td>
+                    <td class="py-3.5 text-gray-400 font-mono text-[10px]">${formattedDate}</td>
+                    <td class="py-3.5 font-mono text-[10px] uppercase ${statusColor}">${booking.status}</td>
+                `;
+                recentBody.appendChild(tr);
+            });
+        }
+
+        // Update inquiry status
+        async function updateInquiryStatus(id, newStatus) {
+            const token = localStorage.getItem('adminToken');
+            if (!token) return handleLogout();
+
+            try {
+                const response = await fetch(`/api/admin/contacts/${id}/status`, {
+                    method: 'PUT',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    loadData();
+                } else {
+                    alert('Error updating status: ' + result.message);
+                }
+            } catch (err) {
+                console.error("Status update error:", err);
+            }
+        }
+
+        // Update booking status
+        async function updateBookingStatus(id, newStatus) {
+            const token = localStorage.getItem('adminToken');
+            if (!token) return handleLogout();
+
+            try {
+                const response = await fetch(`/api/admin/bookings/${id}/status`, {
+                    method: 'PUT',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    loadData();
+                } else {
+                    alert('Error updating status: ' + result.message);
+                }
+            } catch (err) {
+                console.error("Status update error:", err);
+            }
+        }
+
+        // Toggle booking payment
+        async function toggleBookingPayment(id, paidStatus) {
+            const token = localStorage.getItem('adminToken');
+            if (!token) return handleLogout();
+
+            try {
+                // Find current status to pass along
+                const bookingsRes = await fetch('/api/admin/bookings', { headers: { 'Authorization': `Bearer ${token}` } });
+                const bookingsData = await bookingsRes.json();
+                const bookingObj = bookingsData.data.find(b => b._id === id);
+                if (!bookingObj) return;
+
+                const response = await fetch(`/api/admin/bookings/${id}/status`, {
+                    method: 'PUT',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ status: bookingObj.status, paid: paidStatus })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    loadData();
+                } else {
+                    alert('Error updating payment status.');
+                }
+            } catch (err) {
+                console.error("Payment toggle error:", err);
+            }
+        }
+
+        // Handle settings logo upload
+        document.getElementById('settings-logo-file').addEventListener('change', async function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('logo', file);
+
+            const statusSpan = document.getElementById('settings-upload-status');
+            statusSpan.textContent = 'Uploading new logo image...';
+            statusSpan.className = 'text-xs text-brand-gold mt-3 block';
+
+            try {
+                const response = await fetch('/api/upload-logo', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                if (result.success) {
+                    statusSpan.textContent = '✨ Logo updated successfully! Page will refresh...';
+                    statusSpan.className = 'text-xs text-green-400 mt-3 block';
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                } else {
+                    statusSpan.textContent = '❌ Upload failed: ' + result.message;
+                    statusSpan.className = 'text-xs text-red-400 mt-3 block';
+                }
+            } catch (err) {
+                statusSpan.textContent = '❌ Network error during upload.';
+                statusSpan.className = 'text-xs text-red-400 mt-3 block';
+            }
+        });
+
+        // Simple HTML Escaping to prevent XSS
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+    </script>
+</body>
+</html>
