@@ -60,6 +60,7 @@
         .text-gold-gradient {
             background: linear-gradient(135deg, #D4AF37 0%, #FDE68A 50%, #D4AF37 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .gold-border-focus:focus {
@@ -86,13 +87,124 @@
             background-color: #1E293B !important;
             color: #ffffff !important;
         }
+
+        /* --- PRELOADER --- */
+        #preloader {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        #preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .animate-preloader-text {
+            animation: preloaderTextFadeIn 1s ease-out 0.4s forwards;
+        }
+        .animate-preloader-subtext {
+            animation: preloaderTextFadeIn 1s ease-out 0.8s forwards;
+        }
+        @keyframes preloaderTextFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- PAGE FADE-IN TRANSITIONS --- */
+        .animate-fade-in {
+            animation: fadeInPage 0.5s ease-out forwards;
+        }
+        @keyframes fadeInPage {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- 3D TILT EFFECT --- */
+        .tilt-3d {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease, border-color 0.6s ease;
+        }
+
+        /* --- HIDE SCROLLBARS BUT RETAIN FUNCTIONALITY --- */
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-none {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* --- ENTRY CASCADE ANIMATIONS --- */
+        .animate-nav-slide {
+            animation: navSlideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .animate-sidebar-slide {
+            animation: sidebarSlideRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .animate-content-fade {
+            animation: contentFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes navSlideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes sidebarSlideRight {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes contentFadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
+    <!-- PRELOADER -->
+    <div id="preloader" class="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-[#0A0A0A] transition-all duration-1000 ease-in-out">
+        <div class="flex flex-col items-center justify-center relative">
+            <div class="w-24 h-24 mb-6 relative flex items-center justify-center">
+                <div class="absolute inset-0 rounded-full border-2 border-brand-gold/10 border-t-brand-gold animate-spin" style="animation-duration: 1.5s;"></div>
+                <img src="danzup-logo.png" class="h-16 w-auto object-contain rounded-md animate-pulse" alt="Logo" onerror="this.src='https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=100&auto=format&fit=crop'">
+            </div>
+            <h2 class="text-2xl md:text-3xl font-serif font-bold text-gold-gradient tracking-widest uppercase mb-1 opacity-0 transform translate-y-4 animate-preloader-text">DANZUP STUDIO</h2>
+            <p class="text-[10px] text-gray-500 uppercase tracking-[0.4em] opacity-0 animate-preloader-subtext">Admin Control Console</p>
+        </div>
+    </div>
+
     <!-- LOGIN SCREEN -->
     <div id="login-container" class="flex-grow flex items-center justify-center px-4 py-12">
-        <div class="glass-card p-8 rounded-lg max-w-md w-full border border-brand-gold/20">
+        <div class="glass-card p-8 rounded-lg max-w-md w-full border border-brand-gold/20 tilt-3d">
             <div class="text-center mb-8">
                 <i class="fas fa-lock text-brand-gold text-4xl mb-3"></i>
                 <h2 class="text-3xl font-bold text-white mb-1">Admin Access</h2>
@@ -121,41 +233,44 @@
     <!-- MAIN PORTAL (HIDDEN BY DEFAULT) -->
     <div id="portal-container" class="hidden flex-grow flex flex-col">
         <!-- TOP NAV -->
-        <nav class="glass-nav sticky top-0 w-full z-40 py-4 px-6 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <img src="danzup-logo.png" class="h-8 w-auto object-contain rounded" alt="Logo" onerror="this.style.display='none'">
-                <span class="text-lg font-bold font-serif tracking-wider text-gold-gradient">DANZUP STUDIO</span>
-                <span class="bg-white/5 border border-white/10 px-2.5 py-0.5 rounded text-[10px] text-gray-400 font-mono tracking-widest uppercase ml-2">Console</span>
+        <nav class="glass-nav sticky top-0 w-full z-40 py-3 sm:py-4 px-4 sm:px-6 flex justify-between items-center gap-2 opacity-0">
+            <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+                <img src="danzup-logo.png" class="h-6 sm:h-8 w-auto object-contain rounded" alt="Logo" onerror="this.style.display='none'">
+                <span class="text-sm sm:text-lg font-bold font-serif tracking-wider text-gold-gradient truncate">DANZUP STUDIO</span>
+                <span class="bg-white/5 border border-white/10 px-1.5 sm:px-2.5 py-0.5 rounded text-[8px] sm:text-[10px] text-gray-400 font-mono tracking-wider sm:tracking-widest uppercase shrink-0">Console</span>
             </div>
             
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2 sm:gap-4 shrink-0">
                 <span class="text-xs text-gray-400 hidden md:inline"><i class="fas fa-user-shield text-brand-gold mr-1.5"></i>Authorized Admin</span>
-                <button onclick="handleLogout()" class="px-3.5 py-1.5 border border-white/10 text-white hover:border-red-500/40 hover:text-red-400 text-xs font-semibold tracking-wider transition rounded uppercase flex items-center gap-1.5">
-                    <i class="fas fa-sign-out-alt"></i> Logout
+                <button onclick="handleLogout()" class="px-2.5 py-1.5 sm:px-3.5 border border-white/10 text-white hover:border-red-500/40 hover:text-red-400 text-[10px] sm:text-xs font-semibold tracking-wider transition rounded uppercase flex items-center gap-1.5 shrink-0">
+                    <i class="fas fa-sign-out-alt"></i> <span class="hidden sm:inline">Logout</span>
                 </button>
             </div>
         </nav>
 
         <!-- DASHBOARD BODY -->
-        <div class="flex-grow flex flex-col lg:flex-row">
+        <div class="flex-grow flex flex-col lg:flex-row min-h-0">
             <!-- SIDEBAR -->
-            <div class="w-full lg:w-64 bg-brand-dark/50 border-r border-white/5 flex flex-col p-4 gap-1 lg:min-h-[calc(100vh-69px)]">
-                <button onclick="switchTab('dashboard')" id="btn-tab-dashboard" class="flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-300 hover:bg-white/5 transition-all text-left bg-white/5 font-semibold text-brand-gold">
+            <div class="w-full lg:w-64 bg-brand-dark/50 border-r lg:border-r border-b lg:border-b-0 border-white/5 flex flex-row lg:flex-col p-2 lg:p-4 gap-2 lg:gap-1 overflow-x-auto lg:overflow-x-visible lg:min-h-[calc(100vh-69px)] shrink-0 scrollbar-none opacity-0">
+                <button onclick="switchTab('dashboard')" id="btn-tab-dashboard" class="flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-300 hover:bg-white/5 transition-all text-left bg-white/5 font-semibold text-brand-gold whitespace-nowrap">
                     <i class="fas fa-chart-line w-5 text-center"></i> Dashboard Overview
                 </button>
-                <button onclick="switchTab('inquiries')" id="btn-tab-inquiries" class="flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left">
+                <button onclick="switchTab('inquiries')" id="btn-tab-inquiries" class="flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left whitespace-nowrap">
                     <i class="fas fa-envelope-open-text w-5 text-center"></i> Inquiries (Contacts)
                 </button>
-                <button onclick="switchTab('bookings')" id="btn-tab-bookings" class="flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left">
+                <button onclick="switchTab('bookings')" id="btn-tab-bookings" class="flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left whitespace-nowrap">
                     <i class="fas fa-calendar-check w-5 text-center"></i> Class Bookings
                 </button>
-                <button onclick="switchTab('settings')" id="btn-tab-settings" class="flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left">
+                <button onclick="switchTab('fees')" id="btn-tab-fees" class="flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left whitespace-nowrap">
+                    <i class="fas fa-file-invoice-dollar w-5 text-center"></i> Fees Management
+                </button>
+                <button onclick="switchTab('settings')" id="btn-tab-settings" class="flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left whitespace-nowrap">
                     <i class="fas fa-sliders-h w-5 text-center"></i> System Settings
                 </button>
             </div>
 
             <!-- CONTENT WINDOW -->
-            <main class="flex-grow p-6 lg:p-8">
+            <main class="flex-grow p-6 lg:p-8 opacity-0">
                 <!-- TAB: DASHBOARD -->
                 <section id="tab-dashboard" class="space-y-8">
                     <div>
@@ -210,7 +325,7 @@
                                 <i class="fas fa-envelope-open-text text-brand-gold"></i> Recent Inquiries
                             </h4>
                             <div class="overflow-x-auto">
-                                <table class="w-full text-left text-xs">
+                                <table class="w-full text-left text-xs min-w-[320px]">
                                     <thead>
                                         <tr class="border-b border-white/10 text-gray-400 uppercase tracking-wider">
                                             <th class="py-3 font-semibold">Name</th>
@@ -230,7 +345,7 @@
                                 <i class="fas fa-calendar-alt text-brand-gold"></i> Recent Bookings
                             </h4>
                             <div class="overflow-x-auto">
-                                <table class="w-full text-left text-xs">
+                                <table class="w-full text-left text-xs min-w-[450px]">
                                     <thead>
                                         <tr class="border-b border-white/10 text-gray-400 uppercase tracking-wider">
                                             <th class="py-3 font-semibold">Name</th>
@@ -250,19 +365,24 @@
 
                 <!-- TAB: INQUIRIES -->
                 <section id="tab-inquiries" class="hidden space-y-6">
-                    <div class="flex justify-between items-center">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                         <div>
                             <h1 class="text-3xl font-bold text-white mb-2">Customer Inquiries</h1>
                             <p class="text-xs text-gray-400 font-light">Submissions from the general contact form.</p>
                         </div>
-                        <button onclick="loadData()" class="px-3.5 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded text-xs transition flex items-center gap-1.5">
-                            <i class="fas fa-sync-alt"></i> Refresh
-                        </button>
+                        <div class="flex items-center gap-2 w-full sm:w-auto justify-start sm:justify-end">
+                            <button onclick="openAddInquiryModal()" class="px-3.5 py-1.5 bg-brand-gold text-black font-bold hover:opacity-90 transition rounded text-xs flex items-center gap-1.5 whitespace-nowrap">
+                                <i class="fas fa-plus"></i> Add Inquiry
+                            </button>
+                            <button onclick="loadData()" class="px-3.5 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded text-xs transition flex items-center gap-1.5 whitespace-nowrap">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
                     </div>
 
                     <div class="glass-card rounded-lg border border-white/5 overflow-hidden">
                         <div class="overflow-x-auto">
-                            <table class="w-full text-left text-xs">
+                            <table class="w-full text-left text-xs min-w-[750px]">
                                 <thead>
                                     <tr class="border-b border-white/10 text-gray-400 uppercase tracking-wider bg-white/[0.01]">
                                         <th class="p-4 font-semibold">Date</th>
@@ -283,19 +403,24 @@
 
                 <!-- TAB: BOOKINGS -->
                 <section id="tab-bookings" class="hidden space-y-6">
-                    <div class="flex justify-between items-center">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                         <div>
                             <h1 class="text-3xl font-bold text-white mb-2">Class & Trial Bookings</h1>
                             <p class="text-xs text-gray-400 font-light">Submissions from the trial booking modals.</p>
                         </div>
-                        <button onclick="loadData()" class="px-3.5 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded text-xs transition flex items-center gap-1.5">
-                            <i class="fas fa-sync-alt"></i> Refresh
-                        </button>
+                        <div class="flex items-center gap-2 w-full sm:w-auto justify-start sm:justify-end">
+                            <button onclick="openAddBookingModal()" class="px-3.5 py-1.5 bg-brand-gold text-black font-bold hover:opacity-90 transition rounded text-xs flex items-center gap-1.5 whitespace-nowrap">
+                                <i class="fas fa-plus"></i> Add Booking
+                            </button>
+                            <button onclick="loadData()" class="px-3.5 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded text-xs transition flex items-center gap-1.5 whitespace-nowrap">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
                     </div>
 
                     <div class="glass-card rounded-lg border border-white/5 overflow-hidden">
                         <div class="overflow-x-auto">
-                            <table class="w-full text-left text-xs">
+                            <table class="w-full text-left text-xs min-w-[850px]">
                                 <thead>
                                     <tr class="border-b border-white/10 text-gray-400 uppercase tracking-wider bg-white/[0.01]">
                                         <th class="p-4 font-semibold">Preferred Date</th>
@@ -315,6 +440,79 @@
                     </div>
                 </section>
 
+                <!-- TAB: FEES -->
+                <section id="tab-fees" class="hidden space-y-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div>
+                            <h1 class="text-3xl font-bold text-white mb-2">Fees Ledger</h1>
+                            <p class="text-xs text-gray-400 font-light">Track student fee balances, installments, and payment schedules.</p>
+                        </div>
+                        <div class="flex items-center gap-2 w-full sm:w-auto justify-start sm:justify-end">
+                            <button onclick="openAddFeeModal()" class="px-3.5 py-1.5 bg-brand-gold text-black font-bold hover:opacity-90 transition rounded text-xs flex items-center gap-1.5 whitespace-nowrap">
+                                <i class="fas fa-plus"></i> Record Fee
+                            </button>
+                            <button onclick="loadData()" class="px-3.5 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded text-xs transition flex items-center gap-1.5 whitespace-nowrap">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- FEES OVERVIEW SUMMARY CARDS -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="glass-card p-6 rounded-lg border border-white/5 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Total Collected</p>
+                                <h3 id="fee-stat-collected" class="text-3xl font-serif font-bold text-green-400">₹0</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center text-green-400">
+                                <i class="fas fa-hand-holding-usd text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="glass-card p-6 rounded-lg border border-white/5 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Pending Balance</p>
+                                <h3 id="fee-stat-pending" class="text-3xl font-serif font-bold text-yellow-500">₹0</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500">
+                                <i class="fas fa-file-invoice text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="glass-card p-6 rounded-lg border border-white/5 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Overdue Accounts</p>
+                                <h3 id="fee-stat-overdue" class="text-3xl font-serif font-bold text-red-500">0</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center text-red-400">
+                                <i class="fas fa-exclamation-triangle text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-lg border border-white/5 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs min-w-[850px]">
+                                <thead>
+                                    <tr class="border-b border-white/10 text-gray-400 uppercase tracking-wider bg-white/[0.01]">
+                                        <th class="p-4 font-semibold">Student Info</th>
+                                        <th class="p-4 font-semibold">Course / Program</th>
+                                        <th class="p-4 font-semibold">Fee Summary</th>
+                                        <th class="p-4 font-semibold">Balance Due</th>
+                                        <th class="p-4 font-semibold">Due Date</th>
+                                        <th class="p-4 font-semibold">Status</th>
+                                        <th class="p-4 font-semibold text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="fees-table">
+                                    <!-- Dynamic rows -->
+                                    <tr>
+                                        <td colspan="7" class="p-8 text-center text-gray-500 font-light text-sm">Loading fee records...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- TAB: SETTINGS -->
                 <section id="tab-settings" class="hidden space-y-6">
                     <div>
@@ -322,7 +520,7 @@
                         <p class="text-xs text-gray-400 font-light">Manage resources and check backend system logs.</p>
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <!-- LOGO UPLOADER CARD -->
                         <div class="glass-card p-6 rounded-lg border border-white/5 space-y-6">
                             <div>
@@ -340,6 +538,39 @@
                                 </button>
                                 <span id="settings-upload-status" class="text-xs text-gray-400 mt-3 block"></span>
                             </div>
+                        </div>
+
+                        <!-- SECURITY CREDENTIALS CARD -->
+                        <div class="glass-card p-6 rounded-lg border border-white/5 space-y-6">
+                            <div>
+                                <h4 class="text-lg font-bold font-serif text-white mb-1"><i class="fas fa-user-shield text-brand-gold mr-2"></i>Admin Credentials</h4>
+                                <p class="text-xs text-gray-400">Update admin login email and password for class booking safety.</p>
+                            </div>
+                            
+                            <form id="settings-credentials-form" class="space-y-4">
+                                <div>
+                                    <label class="block text-gray-400 text-xs mb-1">Admin Email</label>
+                                    <input type="email" id="settings-admin-email" class="w-full bg-white/5 border border-white/10 rounded px-3 py-2 text-white placeholder-gray-600 text-xs" required>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-400 text-xs mb-1">Current Password</label>
+                                    <input type="password" id="settings-current-password" class="w-full bg-white/5 border border-white/10 rounded px-3 py-2 text-white placeholder-gray-600 text-xs" placeholder="Confirm current password" required>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-400 text-xs mb-1">New Password</label>
+                                    <input type="password" id="settings-new-password" class="w-full bg-white/5 border border-white/10 rounded px-3 py-2 text-white placeholder-gray-600 text-xs" placeholder="Leave blank to keep current password">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-400 text-xs mb-1">Confirm New Password</label>
+                                    <input type="password" id="settings-confirm-password" class="w-full bg-white/5 border border-white/10 rounded px-3 py-2 text-white placeholder-gray-600 text-xs" placeholder="Confirm new password">
+                                </div>
+                                
+                                <button type="submit" id="settings-credentials-btn" class="w-full py-2.5 bg-gradient-to-r from-brand-gold to-[#B5922F] text-black font-bold uppercase text-[10px] tracking-wider hover:opacity-90 transition rounded flex justify-center items-center gap-1.5">
+                                    <span>Update Credentials</span>
+                                    <span id="settings-credentials-spinner" class="hidden animate-spin h-3.5 w-3.5 border-2 border-black border-t-transparent rounded-full"></span>
+                                </button>
+                                <div id="settings-credentials-status" class="text-xs font-medium text-center mt-2"></div>
+                            </form>
                         </div>
 
                         <!-- SYSTEM ENGINE STATUS CARD -->
@@ -374,13 +605,311 @@
         </div>
     </div>
 
+    <!-- Add Inquiry Modal -->
+    <div id="add-inquiry-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="glass-card p-8 max-w-md w-full text-left rounded-lg border border-brand-gold/30 relative">
+            <button onclick="closeAddInquiryModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 class="text-2xl font-bold font-serif mb-2 text-white flex items-center gap-2">
+                <i class="fas fa-user-plus text-brand-gold"></i> Manually Add Inquiry
+            </h3>
+            <p class="text-xs text-gray-400 mb-6 font-light">Enter details for offline walk-in visitors interested in classes.</p>
+
+            <form id="add-inquiry-form" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">First Name</label>
+                        <input type="text" id="inquiry-first-name" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 text-xs gold-border-focus" placeholder="First Name" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Last Name</label>
+                        <input type="text" id="inquiry-last-name" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 text-xs gold-border-focus" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Mobile Number</label>
+                        <input type="tel" id="inquiry-phone" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 text-xs gold-border-focus" placeholder="Mobile Number" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Email Address</label>
+                        <input type="email" id="inquiry-email" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 text-xs gold-border-focus" placeholder="mail@example.com" required>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Home Address</label>
+                    <input type="text" id="inquiry-address" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 text-xs gold-border-focus" placeholder="123 Street Name, Area, City" required>
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Interested Program</label>
+                    <select id="inquiry-service" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white text-xs gold-border-focus">
+                        <option value="Wedding Choreography">Wedding Choreography</option>
+                        <option value="Garba Training">Garba Training</option>
+                        <option value="Dance Classes">Dance Classes</option>
+                        <option value="Yoga Classes">Yoga Classes</option>
+                        <option value="Fitness Dance">Fitness Dance</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Message / Notes</label>
+                    <textarea id="inquiry-message" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 text-xs gold-border-focus h-24" placeholder="e.g. Walked in offline to check slots. Interested in sangeet choreo."></textarea>
+                </div>
+
+                <div class="flex gap-3 pt-2">
+                    <button type="button" onclick="closeAddInquiryModal()" class="w-1/3 py-2.5 border border-white/10 text-white font-bold text-xs uppercase tracking-wider hover:bg-white/5 transition rounded">
+                        Cancel
+                    </button>
+                    <button type="submit" id="inquiry-submit-btn" class="w-2/3 py-2.5 bg-gradient-to-r from-brand-gold to-[#B5922F] text-black font-bold text-xs uppercase tracking-wider hover:opacity-90 transition rounded flex justify-center items-center gap-1.5">
+                        <span>Save Inquiry</span>
+                        <span id="inquiry-spinner" class="hidden animate-spin h-3.5 w-3.5 border-2 border-black border-t-transparent rounded-full"></span>
+                    </button>
+                </div>
+                <div id="inquiry-response" class="text-center text-xs font-medium mt-2"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Booking Modal -->
+    <div id="add-booking-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="glass-card p-8 max-w-md w-full text-left rounded-lg border border-brand-gold/30 relative">
+            <button onclick="closeAddBookingModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 class="text-2xl font-bold font-serif mb-2 text-white flex items-center gap-2">
+                <i class="fas fa-calendar-plus text-brand-gold"></i> Manually Add Booking
+            </h3>
+            <p class="text-xs text-gray-400 mb-6 font-light">Enter details for offline class bookings and free trial slots.</p>
+
+            <form id="add-booking-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Student Full Name</label>
+                    <input type="text" id="booking-name" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 text-xs gold-border-focus" placeholder="Student Name" required>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Mobile Number</label>
+                        <input type="tel" id="booking-phone" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 text-xs gold-border-focus" placeholder="Mobile Number" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Email Address</label>
+                        <input type="email" id="booking-email" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 text-xs gold-border-focus" placeholder="mail@example.com" required>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Class / Program</label>
+                        <select id="booking-service" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white text-xs gold-border-focus">
+                            <option value="Wedding Choreography">Wedding Choreography</option>
+                            <option value="Garba Training">Garba Training</option>
+                            <option value="Dance Classes">Dance Classes</option>
+                            <option value="Yoga Classes">Yoga Classes</option>
+                            <option value="Fitness Dance">Fitness Dance</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Batch / Slot</label>
+                        <select id="booking-batch" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white text-xs gold-border-focus">
+                            <option value="Morning Batch (7:00 AM - 8:00 AM)">Morning Batch (7-8 AM)</option>
+                            <option value="Morning Batch (8:00 AM - 9:00 AM)">Morning Batch (8-9 AM)</option>
+                            <option value="Evening Batch (5:00 PM - 6:00 PM)">Evening Batch (5-6 PM)</option>
+                            <option value="Evening Batch (6:00 PM - 7:00 PM)">Evening Batch (6-7 PM)</option>
+                            <option value="Weekend Batch (Sat-Sun)">Weekend Batch</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Preferred Date</label>
+                        <input type="date" id="booking-date" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white text-xs gold-border-focus" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Booking Status</label>
+                        <select id="booking-status" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white text-xs gold-border-focus">
+                            <option value="confirmed">Confirmed</option>
+                            <option value="pending">Pending</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 pt-1">
+                    <input type="checkbox" id="booking-paid" class="accent-brand-gold h-4 w-4 rounded bg-white/5 border border-white/10">
+                    <label for="booking-paid" class="text-xs text-gray-300 select-none cursor-pointer">Mark Booking as Paid (Online Checkout)</label>
+                </div>
+
+                <div class="flex gap-3 pt-2">
+                    <button type="button" onclick="closeAddBookingModal()" class="w-1/3 py-2.5 border border-white/10 text-white font-bold text-xs uppercase tracking-wider hover:bg-white/5 transition rounded">
+                        Cancel
+                    </button>
+                    <button type="submit" id="booking-submit-btn" class="w-2/3 py-2.5 bg-gradient-to-r from-brand-gold to-[#B5922F] text-black font-bold text-xs uppercase tracking-wider hover:opacity-90 transition rounded flex justify-center items-center gap-1.5">
+                        <span>Save Booking</span>
+                        <span id="booking-spinner" class="hidden animate-spin h-3.5 w-3.5 border-2 border-black border-t-transparent rounded-full"></span>
+                    </button>
+                </div>
+                <div id="booking-response" class="text-center text-xs font-medium mt-2"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Fee Modal -->
+    <div id="add-fee-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="glass-card p-8 max-w-md w-full text-left rounded-lg border border-brand-gold/30 relative">
+            <button onclick="closeAddFeeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 class="text-2xl font-bold font-serif mb-2 text-white flex items-center gap-2">
+                <i class="fas fa-file-invoice-dollar text-brand-gold"></i> Record Student Fee
+            </h3>
+            <p class="text-xs text-gray-400 mb-6 font-light">Set up fee requirements and initial payments for students.</p>
+
+            <form id="add-fee-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Student Full Name</label>
+                    <input type="text" id="fee-student-name" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 text-xs gold-border-focus" placeholder="Student Name" required>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Mobile Number</label>
+                        <input type="tel" id="fee-phone" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 text-xs gold-border-focus" placeholder="Mobile Number" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Email Address</label>
+                        <input type="email" id="fee-email" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 text-xs gold-border-focus" placeholder="mail@example.com" required>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Program / Course</label>
+                        <select id="fee-service" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white text-xs gold-border-focus">
+                            <option value="Dance Classes">Dance Classes</option>
+                            <option value="Garba Training">Garba Training</option>
+                            <option value="Yoga Classes">Yoga Classes</option>
+                            <option value="Wedding Choreography">Wedding Choreography</option>
+                            <option value="Fitness Dance">Fitness Dance</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Due Date</label>
+                        <input type="date" id="fee-due-date" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white text-xs gold-border-focus" required>
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Total Fee Amount</label>
+                        <input type="number" id="fee-total-amount" min="1" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 text-xs gold-border-focus" placeholder="₹ Amount" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Paid Amount (Initial)</label>
+                        <input type="number" id="fee-paid-amount" min="0" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 text-xs gold-border-focus" placeholder="₹ Amount" value="0">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Payment Method</label>
+                        <select id="fee-payment-method" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white text-xs gold-border-focus">
+                            <option value="UPI">UPI</option>
+                            <option value="Cash" selected>Cash</option>
+                            <option value="Card">Card</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Notes / Remarks</label>
+                    <textarea id="fee-notes" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 text-xs gold-border-focus h-20" placeholder="e.g. 1st installment paid, balance by sangeet."></textarea>
+                </div>
+
+                <div class="flex gap-3 pt-2">
+                    <button type="button" onclick="closeAddFeeModal()" class="w-1/3 py-2.5 border border-white/10 text-white font-bold text-xs uppercase tracking-wider hover:bg-white/5 transition rounded">
+                        Cancel
+                    </button>
+                    <button type="submit" id="fee-submit-btn" class="w-2/3 py-2.5 bg-gradient-to-r from-brand-gold to-[#B5922F] text-black font-bold text-xs uppercase tracking-wider hover:opacity-90 transition rounded flex justify-center items-center gap-1.5">
+                        <span>Record Fee</span>
+                        <span id="fee-spinner" class="hidden animate-spin h-3.5 w-3.5 border-2 border-black border-t-transparent rounded-full"></span>
+                    </button>
+                </div>
+                <div id="fee-response" class="text-center text-xs font-medium mt-2"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Collect Payment Modal -->
+    <div id="collect-payment-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="glass-card p-8 max-w-md w-full text-left rounded-lg border border-brand-gold/30 relative">
+            <button onclick="closeCollectPaymentModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 class="text-2xl font-bold font-serif mb-2 text-white flex items-center gap-2">
+                <i class="fas fa-cash-register text-brand-gold"></i> Collect Installment
+            </h3>
+            <p class="text-xs text-gray-400 mb-6 font-light">Record fee payment transaction details below.</p>
+
+            <form id="collect-payment-form" class="space-y-4">
+                <input type="hidden" id="payment-fee-id">
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Student</label>
+                    <input type="text" id="payment-student-display" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white text-xs" disabled>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Remaining Balance</label>
+                        <input type="text" id="payment-balance-display" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-brand-gold font-bold text-xs" disabled>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Installment Amount</label>
+                        <input type="number" id="payment-amount" min="1" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 text-xs gold-border-focus font-bold" placeholder="₹ Amount" required>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Payment Method</label>
+                    <select id="payment-method" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white text-xs gold-border-focus">
+                        <option value="UPI">UPI</option>
+                        <option value="Cash" selected>Cash</option>
+                        <option value="Card">Card</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Payment Notes</label>
+                    <textarea id="payment-notes" class="w-full p-2.5 bg-white/5 border border-white/10 rounded text-white placeholder-gray-500 text-xs gold-border-focus h-20" placeholder="e.g. Paid cash at desk."></textarea>
+                </div>
+
+                <div class="flex gap-3 pt-2">
+                    <button type="button" onclick="closeCollectPaymentModal()" class="w-1/3 py-2.5 border border-white/10 text-white font-bold text-xs uppercase tracking-wider hover:bg-white/5 transition rounded">
+                        Cancel
+                    </button>
+                    <button type="submit" id="payment-submit-btn" class="w-2/3 py-2.5 bg-gradient-to-r from-brand-gold to-[#B5922F] text-black font-bold text-xs uppercase tracking-wider hover:opacity-90 transition rounded flex justify-center items-center gap-1.5">
+                        <span>Record Payment</span>
+                        <span id="payment-spinner" class="hidden animate-spin h-3.5 w-3.5 border-2 border-black border-t-transparent rounded-full"></span>
+                    </button>
+                </div>
+                <div id="payment-response" class="text-center text-xs font-medium mt-2"></div>
+            </form>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer class="py-6 bg-brand-dark/90 border-t border-white/5 text-center text-xs text-gray-600 font-light">
         &copy; 2026 Danzup Studio. All Rights Reserved. Dashboard Panel v1.0.0
     </footer>
-
     <!-- LOGIC SCRIPT -->
     <script>
+        // Auto-route API requests to backend server (port 3000) if accessed from a different origin
+        (function() {
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const isWrongPort = isLocal && window.location.port !== '3000';
+            if (isWrongPort) {
+                const originalFetch = window.fetch;
+                window.fetch = function(input, init) {
+                    if (typeof input === 'string' && input.startsWith('/api/')) {
+                        input = 'http://localhost:3000' + input;
+                    }
+                    return originalFetch(input, init);
+                };
+            }
+        })();
+
         const loginContainer = document.getElementById('login-container');
         const portalContainer = document.getElementById('portal-container');
         const loginForm = document.getElementById('login-form');
@@ -388,13 +917,34 @@
         const loginError = document.getElementById('login-error');
         const loginSubmitBtn = document.getElementById('login-submit-btn');
 
-        // Check login state on load
+        // Check login state on load and coordinate entry animations
         window.addEventListener('load', () => {
+
             const token = localStorage.getItem('adminToken');
-            if (token) {
-                showPortal();
+            
+            // Set up preloader and entry cascade triggers
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                setTimeout(() => {
+                    preloader.classList.add('fade-out');
+                    
+                    // Trigger entrance cascade smoothly as preloader disappears
+                    setTimeout(() => {
+                        if (token) {
+                            showPortal();
+                        } else {
+                            loginContainer.classList.remove('hidden');
+                            loginContainer.classList.add('animate-content-fade');
+                        }
+                    }, 400);
+                }, 1200);
             } else {
-                loginContainer.classList.remove('hidden');
+                if (token) {
+                    showPortal();
+                } else {
+                    loginContainer.classList.remove('hidden');
+                    loginContainer.classList.add('animate-content-fade');
+                }
             }
         });
 
@@ -425,7 +975,7 @@
                     loginError.classList.remove('hidden');
                 }
             } catch (err) {
-                loginError.textContent = 'Connection error. Check backend server.';
+                loginError.textContent = 'Connection error. Check backend server and make sure it is running.';
                 loginError.classList.remove('hidden');
             } finally {
                 loginSpinner.classList.add('hidden');
@@ -433,11 +983,54 @@
             }
         });
 
+        // Trigger Entrance cascade animations for portal elements
+        function triggerEntranceCascade() {
+            const nav = document.querySelector('#portal-container nav');
+            const sidebar = document.querySelector('#portal-container .scrollbar-none');
+            const main = document.querySelector('#portal-container main');
+            
+            if (nav) {
+                nav.classList.remove('opacity-0');
+                nav.classList.add('animate-nav-slide');
+            }
+            if (sidebar) {
+                sidebar.classList.remove('opacity-0');
+                sidebar.classList.add('animate-sidebar-slide');
+            }
+            if (main) {
+                main.classList.remove('opacity-0');
+                main.classList.add('animate-content-fade');
+            }
+        }
+
         // Logout
         function handleLogout() {
             localStorage.removeItem('adminToken');
+            
+            // Clear entrance cascade classes so they animate again on next login
+            const nav = document.querySelector('#portal-container nav');
+            const sidebar = document.querySelector('#portal-container .scrollbar-none');
+            const main = document.querySelector('#portal-container main');
+            if (nav) {
+                nav.classList.add('opacity-0');
+                nav.classList.remove('animate-nav-slide');
+            }
+            if (sidebar) {
+                sidebar.classList.add('opacity-0');
+                sidebar.classList.remove('animate-sidebar-slide');
+            }
+            if (main) {
+                main.classList.add('opacity-0');
+                main.classList.remove('animate-content-fade');
+            }
+            
             portalContainer.classList.add('hidden');
             loginContainer.classList.remove('hidden');
+            loginContainer.classList.remove('animate-content-fade');
+            // Re-apply to login container for smooth entrance if they log out
+            setTimeout(() => {
+                loginContainer.classList.add('animate-content-fade');
+            }, 50);
         }
 
         // Show Dashboard Portal
@@ -446,29 +1039,400 @@
             portalContainer.classList.remove('hidden');
             switchTab('dashboard');
             loadData();
+            triggerEntranceCascade();
         }
+
+        // Open manual Add Inquiry modal
+        function openAddInquiryModal() {
+            document.getElementById('add-inquiry-modal').classList.remove('hidden');
+            document.getElementById('add-inquiry-modal').classList.add('flex');
+            document.getElementById('inquiry-response').textContent = '';
+            document.getElementById('add-inquiry-form').reset();
+            document.body.style.overflow = 'hidden'; // Lock scrolling
+        }
+
+        // Close manual Add Inquiry modal
+        function closeAddInquiryModal() {
+            document.getElementById('add-inquiry-modal').classList.add('hidden');
+            document.getElementById('add-inquiry-modal').classList.remove('flex');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Open manual Add Booking modal
+        function openAddBookingModal() {
+            document.getElementById('add-booking-modal').classList.remove('hidden');
+            document.getElementById('add-booking-modal').classList.add('flex');
+            document.getElementById('booking-response').textContent = '';
+            document.getElementById('add-booking-form').reset();
+            
+            // Set default date to today
+            const today = new Date();
+            document.getElementById('booking-date').value = today.toISOString().split('T')[0];
+            
+            document.body.style.overflow = 'hidden'; // Lock scrolling
+        }
+
+        // Close manual Add Booking modal
+        function closeAddBookingModal() {
+            document.getElementById('add-booking-modal').classList.add('hidden');
+            document.getElementById('add-booking-modal').classList.remove('flex');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Open manual Add Fee modal
+        function openAddFeeModal() {
+            document.getElementById('add-fee-modal').classList.remove('hidden');
+            document.getElementById('add-fee-modal').classList.add('flex');
+            document.getElementById('fee-response').textContent = '';
+            document.getElementById('add-fee-form').reset();
+            
+            // Set default due date to 1 week from now
+            const oneWeek = new Date();
+            oneWeek.setDate(oneWeek.getDate() + 7);
+            document.getElementById('fee-due-date').value = oneWeek.toISOString().split('T')[0];
+            
+            document.body.style.overflow = 'hidden'; // Lock scrolling
+        }
+
+        // Close manual Add Fee modal
+        function closeAddFeeModal() {
+            document.getElementById('add-fee-modal').classList.add('hidden');
+            document.getElementById('add-fee-modal').classList.remove('flex');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Open Collect Payment modal
+        function openCollectPaymentModal(id, studentName, remainingBalance) {
+            document.getElementById('payment-fee-id').value = id;
+            document.getElementById('payment-student-display').value = studentName;
+            document.getElementById('payment-balance-display').value = '₹' + remainingBalance;
+            document.getElementById('payment-amount').max = remainingBalance;
+            document.getElementById('payment-amount').value = remainingBalance;
+            
+            document.getElementById('collect-payment-modal').classList.remove('hidden');
+            document.getElementById('collect-payment-modal').classList.add('flex');
+            document.getElementById('payment-response').textContent = '';
+            document.getElementById('collect-payment-form').reset();
+            
+            // Re-populate display fields since reset clears them
+            document.getElementById('payment-fee-id').value = id;
+            document.getElementById('payment-student-display').value = studentName;
+            document.getElementById('payment-balance-display').value = '₹' + remainingBalance;
+            document.getElementById('payment-amount').value = remainingBalance;
+            
+            document.body.style.overflow = 'hidden'; // Lock scrolling
+        }
+
+        // Close Collect Payment modal
+        function closeCollectPaymentModal() {
+            document.getElementById('collect-payment-modal').classList.add('hidden');
+            document.getElementById('collect-payment-modal').classList.remove('flex');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Delete a fee record ledger
+        async function deleteFeeRecord(id) {
+            if (!confirm('Are you sure you want to delete this fee ledger record? This action cannot be undone.')) {
+                return;
+            }
+
+            const token = localStorage.getItem('adminToken');
+            if (!token) return handleLogout();
+
+            try {
+                const response = await fetch(`/api/admin/fees/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const result = await response.json();
+                if (result.success) {
+                    await loadData();
+                } else {
+                    alert('Error deleting fee ledger: ' + result.message);
+                }
+            } catch (err) {
+                console.error("Fee delete error:", err);
+            }
+        }
+
+        // Wire up manual Add Inquiry form submission
+        document.addEventListener('DOMContentLoaded', () => {
+            const addInquiryForm = document.getElementById('add-inquiry-form');
+            if (addInquiryForm) {
+                addInquiryForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const token = localStorage.getItem('adminToken');
+                    if (!token) return handleLogout();
+
+                    const submitBtn = document.getElementById('inquiry-submit-btn');
+                    const spinner = document.getElementById('inquiry-spinner');
+                    const responseDiv = document.getElementById('inquiry-response');
+
+                    submitBtn.disabled = true;
+                    spinner.classList.remove('hidden');
+                    responseDiv.textContent = '';
+
+                    const data = {
+                        firstName: document.getElementById('inquiry-first-name').value,
+                        lastName: document.getElementById('inquiry-last-name').value,
+                        phone: document.getElementById('inquiry-phone').value,
+                        email: document.getElementById('inquiry-email').value,
+                        address: document.getElementById('inquiry-address').value,
+                        service: document.getElementById('inquiry-service').value,
+                        message: document.getElementById('inquiry-message').value
+                    };
+
+                    try {
+                        const response = await fetch('/api/admin/contacts/create', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify(data)
+                        });
+                        const result = await response.json();
+                        if (result.success) {
+                            responseDiv.textContent = '✨ ' + result.message;
+                            responseDiv.className = 'text-center text-xs text-green-400 mt-2';
+                            addInquiryForm.reset();
+                            
+                            // Reload data to show updated stats and lists
+                            await loadData();
+                            
+                            // Close modal after a short delay
+                            setTimeout(() => {
+                                closeAddInquiryModal();
+                            }, 1500);
+                        } else {
+                            responseDiv.textContent = '❌ ' + result.message;
+                            responseDiv.className = 'text-center text-xs text-red-400 mt-2';
+                        }
+                    } catch (err) {
+                        responseDiv.textContent = '❌ Connection failed. Please try again.';
+                        responseDiv.className = 'text-center text-xs text-red-400 mt-2';
+                    } finally {
+                        submitBtn.disabled = false;
+                        spinner.classList.add('hidden');
+                    }
+                });
+            }
+
+            // Wire up manual Add Booking form submission
+            const addBookingForm = document.getElementById('add-booking-form');
+            if (addBookingForm) {
+                addBookingForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const token = localStorage.getItem('adminToken');
+                    if (!token) return handleLogout();
+
+                    const submitBtn = document.getElementById('booking-submit-btn');
+                    const spinner = document.getElementById('booking-spinner');
+                    const responseDiv = document.getElementById('booking-response');
+
+                    submitBtn.disabled = true;
+                    spinner.classList.remove('hidden');
+                    responseDiv.textContent = '';
+
+                    const data = {
+                        name: document.getElementById('booking-name').value,
+                        phone: document.getElementById('booking-phone').value,
+                        email: document.getElementById('booking-email').value,
+                        service: document.getElementById('booking-service').value,
+                        batch: document.getElementById('booking-batch').value,
+                        date: document.getElementById('booking-date').value,
+                        status: document.getElementById('booking-status').value,
+                        paid: document.getElementById('booking-paid').checked
+                    };
+
+                    try {
+                        const response = await fetch('/api/admin/bookings/create', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify(data)
+                        });
+                        const result = await response.json();
+                        if (result.success) {
+                            responseDiv.textContent = '✨ ' + result.message;
+                            responseDiv.className = 'text-center text-xs text-green-400 mt-2';
+                            addBookingForm.reset();
+                            
+                            // Reload data to show updated stats and lists
+                            await loadData();
+                            
+                            // Close modal after a short delay
+                            setTimeout(() => {
+                                closeAddBookingModal();
+                            }, 1500);
+                        } else {
+                            responseDiv.textContent = '❌ ' + result.message;
+                            responseDiv.className = 'text-center text-xs text-red-400 mt-2';
+                        }
+                    } catch (err) {
+                        responseDiv.textContent = '❌ Connection failed. Please try again.';
+                        responseDiv.className = 'text-center text-xs text-red-400 mt-2';
+                    } finally {
+                        submitBtn.disabled = false;
+                        spinner.classList.add('hidden');
+                    }
+                });
+            }
+
+            // Wire up Record Student Fee form submission
+            const addFeeForm = document.getElementById('add-fee-form');
+            if (addFeeForm) {
+                addFeeForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const token = localStorage.getItem('adminToken');
+                    if (!token) return handleLogout();
+
+                    const submitBtn = document.getElementById('fee-submit-btn');
+                    const spinner = document.getElementById('fee-spinner');
+                    const responseDiv = document.getElementById('fee-response');
+
+                    submitBtn.disabled = true;
+                    spinner.classList.remove('hidden');
+                    responseDiv.textContent = '';
+
+                    const data = {
+                        studentName: document.getElementById('fee-student-name').value,
+                        phone: document.getElementById('fee-phone').value,
+                        email: document.getElementById('fee-email').value,
+                        service: document.getElementById('fee-service').value,
+                        totalAmount: document.getElementById('fee-total-amount').value,
+                        paidAmount: document.getElementById('fee-paid-amount').value,
+                        paymentMethod: document.getElementById('fee-payment-method').value,
+                        dueDate: document.getElementById('fee-due-date').value,
+                        notes: document.getElementById('fee-notes').value
+                    };
+
+                    try {
+                        const response = await fetch('/api/admin/fees/create', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify(data)
+                        });
+                        const result = await response.json();
+                        if (result.success) {
+                            responseDiv.textContent = '✨ ' + result.message;
+                            responseDiv.className = 'text-center text-xs text-green-400 mt-2';
+                            addFeeForm.reset();
+                            
+                            await loadData();
+                            
+                            setTimeout(() => {
+                                closeAddFeeModal();
+                            }, 1500);
+                        } else {
+                            responseDiv.textContent = '❌ ' + result.message;
+                            responseDiv.className = 'text-center text-xs text-red-400 mt-2';
+                        }
+                    } catch (err) {
+                        responseDiv.textContent = '❌ Connection failed. Please try again.';
+                        responseDiv.className = 'text-center text-xs text-red-400 mt-2';
+                    } finally {
+                        submitBtn.disabled = false;
+                        spinner.classList.add('hidden');
+                    }
+                });
+            }
+
+            // Wire up Collect Installment payment form submission
+            const collectPaymentForm = document.getElementById('collect-payment-form');
+            if (collectPaymentForm) {
+                collectPaymentForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const token = localStorage.getItem('adminToken');
+                    if (!token) return handleLogout();
+
+                    const feeId = document.getElementById('payment-fee-id').value;
+                    const submitBtn = document.getElementById('payment-submit-btn');
+                    const spinner = document.getElementById('payment-spinner');
+                    const responseDiv = document.getElementById('payment-response');
+
+                    submitBtn.disabled = true;
+                    spinner.classList.remove('hidden');
+                    responseDiv.textContent = '';
+
+                    const data = {
+                        amount: document.getElementById('payment-amount').value,
+                        method: document.getElementById('payment-method').value,
+                        notes: document.getElementById('payment-notes').value
+                    };
+
+                    try {
+                        const response = await fetch(`/api/admin/fees/${feeId}/payments`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify(data)
+                        });
+                        const result = await response.json();
+                        if (result.success) {
+                            responseDiv.textContent = '✨ ' + result.message;
+                            responseDiv.className = 'text-center text-xs text-green-400 mt-2';
+                            collectPaymentForm.reset();
+                            
+                            await loadData();
+                            
+                            setTimeout(() => {
+                                closeCollectPaymentModal();
+                            }, 1500);
+                        } else {
+                            responseDiv.textContent = '❌ ' + result.message;
+                            responseDiv.className = 'text-center text-xs text-red-400 mt-2';
+                        }
+                    } catch (err) {
+                        responseDiv.textContent = '❌ Connection failed. Please try again.';
+                        responseDiv.className = 'text-center text-xs text-red-400 mt-2';
+                    } finally {
+                        submitBtn.disabled = false;
+                        spinner.classList.add('hidden');
+                    }
+                });
+            }
+        });
 
         // Switch Active tab
         let activeTab = 'dashboard';
         function switchTab(tabId) {
             // Hide all tabs
-            document.getElementById('tab-dashboard').classList.add('hidden');
-            document.getElementById('tab-inquiries').classList.add('hidden');
-            document.getElementById('tab-bookings').classList.add('hidden');
-            document.getElementById('tab-settings').classList.add('hidden');
+            const tabs = ['dashboard', 'inquiries', 'bookings', 'fees', 'settings'];
+            tabs.forEach(id => {
+                const el = document.getElementById(`tab-${id}`);
+                if (el) {
+                    el.classList.add('hidden');
+                    el.classList.remove('animate-fade-in');
+                }
+            });
 
             // Show active tab
-            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            const activeEl = document.getElementById(`tab-${tabId}`);
+            if (activeEl) {
+                activeEl.classList.remove('hidden');
+                activeEl.classList.add('animate-fade-in');
+            }
 
             // Deactivate buttons style
             document.getElementById('btn-tab-dashboard').className = "flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left";
             document.getElementById('btn-tab-inquiries').className = "flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left";
             document.getElementById('btn-tab-bookings').className = "flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left";
+            document.getElementById('btn-tab-fees').className = "flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left";
             document.getElementById('btn-tab-settings').className = "flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-400 hover:bg-white/5 transition-all text-left";
 
             // Activate button style
             const activeBtn = document.getElementById(`btn-tab-${tabId}`);
-            activeBtn.className = "flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-300 bg-white/5 transition-all text-left font-semibold text-brand-gold";
+            if (activeBtn) {
+                activeBtn.className = "flex items-center gap-3 px-4 py-3 rounded text-sm text-gray-300 bg-white/5 transition-all text-left font-semibold text-brand-gold";
+            }
 
             activeTab = tabId;
         }
@@ -492,6 +1456,13 @@
                     document.getElementById('stat-new-contacts').textContent = stats.newContacts;
                     document.getElementById('stat-total-bookings').textContent = stats.totalBookings;
                     document.getElementById('stat-pending-bookings').textContent = stats.pendingBookings;
+
+                    // Update Fee stats
+                    if (document.getElementById('fee-stat-collected')) {
+                        document.getElementById('fee-stat-collected').textContent = '₹' + (stats.totalCollectedFees || 0);
+                        document.getElementById('fee-stat-pending').textContent = '₹' + (stats.totalPendingFees || 0);
+                        document.getElementById('fee-stat-overdue').textContent = stats.overdueFeesCount || 0;
+                    }
                 }
 
                 // Fetch inquiries/contacts
@@ -508,8 +1479,25 @@
                     fillBookingsTable(bookingsData.data);
                 }
 
+                // Fetch fee records
+                const feesRes = await fetch('/api/admin/fees', { headers });
+                const feesData = await feesRes.json();
+                if (feesData.success) {
+                    fillFeesTable(feesData.data);
+                }
+
                 // Set server status details in settings
                 document.getElementById('sys-timezone').textContent = new Date().toLocaleTimeString();
+                
+                // Fetch current admin email to pre-fill credentials form
+                const meRes = await fetch('/api/admin/me', { headers });
+                const meData = await meRes.json();
+                if (meData.success) {
+                    const emailInput = document.getElementById('settings-admin-email');
+                    if (emailInput && !emailInput.value) {
+                        emailInput.value = meData.email;
+                    }
+                }
                 
                 // Fetch server health check to identify db type
                 const healthRes = await fetch('/api/health');
@@ -530,6 +1518,62 @@
             } catch (err) {
                 console.error("Error loading dashboard data:", err);
             }
+        }
+
+        // Populate Fees Table
+        function fillFeesTable(fees) {
+            const tableBody = document.getElementById('fees-table');
+            if (!tableBody) return;
+            tableBody.innerHTML = '';
+
+            if (fees.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-gray-500 font-light text-sm">No fee records found.</td></tr>`;
+                return;
+            }
+
+            fees.forEach(fee => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-b border-white/5 hover:bg-white/[0.01] transition-all';
+                
+                let badgeClass = 'bg-gray-500/10 text-gray-400';
+                if (fee.status === 'fully_paid') badgeClass = 'bg-green-500/10 text-green-400';
+                if (fee.status === 'partially_paid') badgeClass = 'bg-yellow-500/10 text-yellow-400';
+                if (fee.status === 'unpaid') badgeClass = 'bg-red-500/10 text-red-400';
+
+                const formattedDueDate = new Date(fee.dueDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                const balance = Math.max(0, fee.totalAmount - fee.paidAmount);
+
+                tr.innerHTML = `
+                    <td class="p-4">
+                        <div class="font-bold text-white text-sm">${escapeHtml(fee.studentName)}</div>
+                        <div class="text-gray-400 font-light mt-0.5">${escapeHtml(fee.phone)}</div>
+                        <div class="text-gray-500 font-light">${escapeHtml(fee.email)}</div>
+                    </td>
+                    <td class="p-4 font-semibold text-brand-gold">${escapeHtml(fee.service)}</td>
+                    <td class="p-4">
+                        <div class="text-white font-medium">Total: ₹${fee.totalAmount}</div>
+                        <div class="text-gray-400 mt-0.5">Paid: ₹${fee.paidAmount}</div>
+                    </td>
+                    <td class="p-4 text-sm font-bold text-brand-gold">₹${balance}</td>
+                    <td class="p-4 font-light text-gray-400">${formattedDueDate}</td>
+                    <td class="p-4">
+                        <span class="px-2 py-0.5 rounded font-semibold uppercase text-[10px] tracking-wide ${badgeClass}">${fee.status.replace('_', ' ')}</span>
+                    </td>
+                    <td class="p-4 text-right">
+                        <div class="flex justify-end gap-2">
+                            ${balance > 0 ? `
+                            <button onclick="openCollectPaymentModal('${fee._id}', '${escapeHtml(fee.studentName)}', ${balance})" class="px-2.5 py-1 bg-brand-gold hover:opacity-90 text-black font-semibold text-[10px] uppercase rounded transition flex items-center gap-1">
+                                <i class="fas fa-plus-circle"></i> Collect
+                            </button>
+                            ` : ''}
+                            <button onclick="deleteFeeRecord('${fee._id}')" class="px-2 py-1 border border-white/10 hover:border-red-500/30 hover:text-red-400 text-gray-400 rounded transition text-[10px] uppercase">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
         }
 
         // Populate Inquiries Tables
@@ -565,6 +1609,7 @@
                         <div class="font-bold text-white text-sm">${escapeHtml(contact.name)}</div>
                         <div class="text-gray-400 font-light mt-0.5">${escapeHtml(contact.phone)}</div>
                         <div class="text-gray-500 font-light">${escapeHtml(contact.email)}</div>
+                        ${contact.address ? `<div class="text-gray-500 font-light text-[10px] mt-1.5 flex items-center gap-1.5"><i class="fas fa-map-marker-alt text-brand-gold text-[9px]"></i>${escapeHtml(contact.address)}</div>` : ''}
                     </td>
                     <td class="p-4 font-semibold text-brand-gold">${escapeHtml(contact.service)}</td>
                     <td class="p-4 max-w-xs font-light text-gray-400 truncate hover:text-white cursor-help" title="${escapeHtml(contact.message)}">${escapeHtml(contact.message)}</td>
@@ -643,15 +1688,17 @@
                     <td class="p-4">
                         <span class="px-2 py-0.5 rounded font-semibold uppercase text-[10px] tracking-wide ${statusBadge}">${booking.status}</span>
                     </td>
-                    <td class="p-4 text-right flex items-center justify-end gap-2.5 mt-3 select-none">
-                        <button onclick="toggleBookingPayment('${booking._id}', ${!booking.paid})" class="px-2 py-1 border border-white/10 hover:border-brand-gold text-[10px] rounded text-gray-300 hover:text-brand-gold transition uppercase font-semibold">
-                            ${booking.paid ? 'Unpay' : 'Pay'}
-                        </button>
-                        <select onchange="updateBookingStatus('${booking._id}', this.value)" class="bg-[#1E293B] border border-white/10 text-white rounded text-xs px-2.5 py-1.5 focus:outline-none focus:border-brand-gold">
-                            <option value="pending" ${booking.status === 'pending' ? 'selected' : ''}>Pending</option>
-                            <option value="confirmed" ${booking.status === 'confirmed' ? 'selected' : ''}>Confirm</option>
-                            <option value="cancelled" ${booking.status === 'cancelled' ? 'selected' : ''}>Cancel</option>
-                        </select>
+                    <td class="p-4 text-right select-none whitespace-nowrap">
+                        <div class="flex items-center justify-end gap-2">
+                            <button onclick="toggleBookingPayment('${booking._id}', ${!booking.paid})" class="px-2 py-1 border border-white/10 hover:border-brand-gold text-[10px] rounded text-gray-300 hover:text-brand-gold transition uppercase font-semibold">
+                                ${booking.paid ? 'Unpay' : 'Pay'}
+                            </button>
+                            <select onchange="updateBookingStatus('${booking._id}', this.value)" class="bg-[#1E293B] border border-white/10 text-white rounded text-xs px-2.5 py-1.5 focus:outline-none focus:border-brand-gold">
+                                <option value="pending" ${booking.status === 'pending' ? 'selected' : ''}>Pending</option>
+                                <option value="confirmed" ${booking.status === 'confirmed' ? 'selected' : ''}>Confirm</option>
+                                <option value="cancelled" ${booking.status === 'cancelled' ? 'selected' : ''}>Cancel</option>
+                            </select>
+                        </div>
                     </td>
                 `;
                 tableBody.appendChild(tr);
@@ -794,6 +1841,37 @@
                 statusSpan.textContent = '❌ Network error during upload.';
                 statusSpan.className = 'text-xs text-red-400 mt-3 block';
             }
+        });
+
+        // 3D Tilt Effect
+        document.querySelectorAll('.tilt-3d').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const xc = x / rect.width - 0.5;
+                const yc = y / rect.height - 0.5;
+
+                const maxRotate = 8; // Max tilt angle
+                const rotateX = -yc * maxRotate;
+                const rotateY = xc * maxRotate;
+
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px) scale(1.01)`;
+                card.style.boxShadow = `${-rotateY * 2}px ${rotateX * 2}px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.15)`;
+            });
+
+            card.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease';
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'rotateX(0deg) rotateY(0deg) translateY(0) scale(1)';
+                card.style.boxShadow = '';
+                card.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease';
+            });
+
+            card.addEventListener('mouseenter', () => {
+                card.style.transition = 'none';
+            });
         });
 
         // Simple HTML Escaping to prevent XSS

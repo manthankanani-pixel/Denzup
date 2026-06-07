@@ -6,9 +6,9 @@
     "email": "mnthnkanani@gmail.com",
     "service": "Garba Training",
     "message": "i will join your institute\n",
-    "status": "closed",
+    "status": "contacted",
     "createdAt": "2026-06-04T08:47:06.438Z",
-    "updatedAt": "2026-06-05T04:51:09.422Z"
+    "updatedAt": "2026-06-05T06:45:26.923Z"
   },
   {
     "_id": "c_1780563815470yccyd",
@@ -17,9 +17,9 @@
     "email": "dhameliyajemish92@gmail.com",
     "service": "Garba Training",
     "message": "i will want to join your institute",
-    "status": "closed",
+    "status": "contacted",
     "createdAt": "2026-06-04T09:03:35.470Z",
-    "updatedAt": "2026-06-04T16:54:30.386Z"
+    "updatedAt": "2026-06-05T06:45:25.629Z"
   },
   {
     "_id": "c_1780591175667wj4tr",
@@ -28,8 +28,83 @@
     "email": "pritikanani17@gmail.com",
     "service": "Yoga Classes",
     "message": "i want to join your yoga classes",
-    "status": "closed",
+    "status": "contacted",
     "createdAt": "2026-06-04T16:39:35.667Z",
-    "updatedAt": "2026-06-04T16:54:28.527Z"
+    "updatedAt": "2026-06-05T06:45:23.683Z"
+  },
+  {
+    "_id": "c_1780647336495d0gs9",
+    "name": "abhay",
+    "phone": "joshi",
+    "email": "abhay@gmail.com",
+    "service": "Wedding Choreography",
+    "message": "ddd",
+    "status": "contacted",
+    "createdAt": "2026-06-05T08:15:36.495Z",
+    "updatedAt": "2026-06-05T08:16:44.065Z"
+  },
+  {
+    "_id": "c_17807225753826vudp",
+    "name": "manthan",
+    "phone": "dudhat",
+    "email": "student@gmail.com",
+    "service": "Wedding Choreography",
+    "message": "abc",
+    "status": "new",
+    "createdAt": "2026-06-06T05:09:35.382Z",
+    "updatedAt": "2026-06-06T05:09:35.382Z"
+  },
+  {
+    "_id": "c_1780722630648ev6o2",
+    "name": "Walkin Customer",
+    "phone": "9876543210",
+    "email": "walkin@example.com",
+    "service": "Dance Classes",
+    "message": "Interested in weekend batch.",
+    "status": "new",
+    "createdAt": "2026-06-06T05:10:30.648Z",
+    "updatedAt": "2026-06-06T05:10:30.648Z"
+  },
+  {
+    "_id": "c_1780723053986850x1",
+    "name": "Manthan Kanani",
+    "firstName": "Manthan",
+    "lastName": "Kanani",
+    "phone": "9876598765",
+    "email": "manthan@example.com",
+    "address": "101 Skyline Apt, Surat",
+    "service": "Yoga Classes",
+    "message": "Interested in evening yoga classes.",
+    "status": "new",
+    "createdAt": "2026-06-06T05:17:33.986Z",
+    "updatedAt": "2026-06-06T05:17:33.986Z"
+  },
+  {
+    "_id": "c_1780733581513ix1g3",
+    "name": "het dhameliya",
+    "firstName": "het",
+    "lastName": "dhameliya",
+    "phone": "9876543210",
+    "email": "walkin@example.com",
+    "address": "mota varacha",
+    "service": "Dance Classes",
+    "message": "heyy look here on my msg",
+    "status": "closed",
+    "createdAt": "2026-06-06T08:13:01.513Z",
+    "updatedAt": "2026-06-06T08:13:36.460Z"
+  },
+  {
+    "_id": "c_17807343080951vdb3",
+    "name": "manthan kanani",
+    "firstName": "manthan",
+    "lastName": "kanani",
+    "phone": "6352677911",
+    "email": "mnthnkanani@gmail.com",
+    "address": "1 shivam",
+    "service": "Garba Training",
+    "message": "heyy i looking the near garba classes",
+    "status": "contacted",
+    "createdAt": "2026-06-06T08:25:08.095Z",
+    "updatedAt": "2026-06-06T08:25:15.586Z"
   }
 ]

@@ -6,7 +6,7 @@ const router = express.Router();
 // Create booking
 router.post("/create", async (req, res) => {
   try {
-    const { name, phone, email, service, batch, date } = req.body;
+    const { name, phone, email, service, batch, date, paid } = req.body;
 
     if (!name || !phone || !email || !service || !batch || !date) {
       return res.status(400).json({
@@ -22,7 +22,8 @@ router.post("/create", async (req, res) => {
       email,
       service,
       batch,
-      date
+      date,
+      paid: !!paid
     });
 
     console.log("📅 New booking request saved:", booking);
@@ -36,6 +37,7 @@ router.post("/create", async (req, res) => {
       <p><strong>Service/Class:</strong> ${service}</p>
       <p><strong>Batch:</strong> ${batch}</p>
       <p><strong>Preferred Date:</strong> ${date}</p>
+      <p><strong>Payment Status:</strong> ${paid ? "Paid (Online Checkout)" : "Unpaid / Free Trial"}</p>
       <p><em>Booking ID: ${booking._id}</em></p>
     `;
 
@@ -48,6 +50,7 @@ router.post("/create", async (req, res) => {
       <ul>
         <li>Batch: ${batch}</li>
         <li>Date: ${date}</li>
+        <li>Payment Status: ${paid ? "Paid (Success)" : "Unpaid / Trial"}</li>
         <li>Status: Pending Confirmation</li>
       </ul>
       <p>Our team will verify the availability and send you a confirmation message shortly.</p>

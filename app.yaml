@@ -1,0 +1,6 @@
+runtime: nodejs20
+instance_class: F1
+env_variables:
+  NODE_ENV: 'production'
+  PORT: '8080'
+# Set environment variables like MONGO_URI, JWT_SECRET, etc. in your Google Cloud App Engine console.

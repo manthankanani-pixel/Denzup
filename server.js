@@ -5,19 +5,38 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 require("dotenv").config();
 
-// Copy Logo from brain folder on startup if available
+// Copy Logo and Owner Photos from brain folder on startup if available
 const fs = require("fs");
 const path = require("path");
-const logoSrc = "C:/Users/Admin/.gemini/antigravity-ide/brain/aea861a5-a295-40f9-9db9-fabea5a6aa34/media__1780553820593.jpg";
-const logoDst = path.join(__dirname, "danzup-logo.png");
-if (fs.existsSync(logoSrc)) {
-  try {
-    fs.copyFileSync(logoSrc, logoDst);
-    console.log("✅ Logo image successfully initialized on startup.");
-  } catch (err) {
-    console.error("❌ Logo copy error:", err.message);
+
+const copyFileOnStartup = (src, dest, successMsg) => {
+  if (fs.existsSync(src)) {
+    try {
+      fs.copyFileSync(src, dest);
+      console.log(successMsg);
+    } catch (err) {
+      console.error(`❌ Copy error for ${path.basename(dest)}:`, err.message);
+    }
   }
-}
+};
+
+copyFileOnStartup(
+  "C:/Users/Admin/.gemini/antigravity-ide/brain/aea861a5-a295-40f9-9db9-fabea5a6aa34/media__1780553820593.jpg",
+  path.join(__dirname, "danzup-logo.png"),
+  "✅ Logo image successfully initialized on startup."
+);
+
+copyFileOnStartup(
+  "C:/Users/Admin/.gemini/antigravity-ide/brain/ffb91a55-8468-41aa-9fed-b55b66823f56/media__1780831840977.png",
+  path.join(__dirname, "hardik.png"),
+  "✅ Owner Hardik photo successfully initialized on startup."
+);
+
+copyFileOnStartup(
+  "C:/Users/Admin/.gemini/antigravity-ide/brain/ffb91a55-8468-41aa-9fed-b55b66823f56/media__1780831849057.png",
+  path.join(__dirname, "akash.png"),
+  "✅ Owner Akash photo successfully initialized on startup."
+);
 
 // Validate environment variables
 const requiredEnvVars = [
@@ -51,7 +70,13 @@ const app = express();
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin: [
+      "http://localhost:3000",
+      "http://127.0.0.1:3000",
+      "http://localhost:5500",
+      "http://127.0.0.1:5500",
+      process.env.FRONTEND_URL
+    ].filter(Boolean),
     credentials: true,
   }),
 );
@@ -88,12 +113,27 @@ app.post("/api/upload-logo", upload.single("logo"), (req, res) => {
   res.json({ success: true, message: "Logo uploaded successfully" });
 });
 
+// Security Hardening: Block public access to sensitive system and configuration files
+app.use((req, res, next) => {
+  const pathLower = req.path.toLowerCase();
+  if (
+    pathLower.includes("/.env") ||
+    pathLower.includes("admin-config.json") ||
+    pathLower.includes("package.json") ||
+    pathLower.includes("package-lock.json") ||
+    pathLower.includes("/data/")
+  ) {
+    return res.status(403).json({ success: false, message: "Forbidden: Access to sensitive configuration data is blocked." });
+  }
+  next();
+});
+
 // Serve static files (HTML, CSS, JS, images)
 app.use(express.static("."));
 
 // Health check
 app.get("/api/health", (req, res) => {
-  res.json({ status: "OK", timestamp: new Date().toISOString() });
+  res.json({ status: "OK", version: "updated-v2", timestamp: new Date().toISOString() });
 });
 
 // Test email endpoint (equivalent to the user's PHP mail test snippet)
