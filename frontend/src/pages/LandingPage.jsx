@@ -337,7 +337,7 @@ export default function LandingPage() {
               ></div>
               <img
                 src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=2069&auto=format&fit=crop"
-                className="img-fluid rounded shadow-lg filter-grayscale hover-filter-normal transition"
+                className="img-fluid rounded shadow-lg grayscale-to-color"
                 style={{ position: 'relative', zIndex: 1 }}
                 alt="About Danzup"
               />

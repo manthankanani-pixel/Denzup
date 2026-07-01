@@ -376,3 +376,14 @@ select option {
 details[open] summary i {
   transform: rotate(180deg);
 }
+
+/* Custom Grayscale to Color Transition for Images */
+.grayscale-to-color {
+  filter: grayscale(100%);
+  transition: filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: filter, transform;
+}
+.grayscale-to-color:hover {
+  filter: grayscale(0%);
+  transform: scale(1.02);
+}
