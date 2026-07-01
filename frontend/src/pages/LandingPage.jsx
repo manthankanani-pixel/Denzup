@@ -967,14 +967,14 @@ export default function LandingPage() {
             {/* Plan 2: Professional (Popular) */}
             <div className="col-12 col-md-6 col-lg-4">
               <div
-                className="glass-panel p-4 p-md-5 text-center relative border border-brand-gold reveal tilt-3d scale-105-default h-100"
+                className="glass-panel p-4 p-md-5 text-center position-relative border border-brand-gold reveal tilt-3d scale-105-default h-100"
                 style={{ transform: 'scale(1.05)', borderColor: 'var(--brand-gold) !important' }}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
               >
                 <div
-                  className="position-absolute bg-brand-gold text-black px-3 py-1 text-xs font-weight-bold text-uppercase tracking-wider rounded-1"
-                  style={{ top: '0', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 10, fontSize: '10px' }}
+                  className="position-absolute gold-gradient-bg text-black px-4 py-1.5 text-xs font-weight-bold text-uppercase tracking-widest rounded-pill shadow-sm"
+                  style={{ top: '0', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 10, fontSize: '11px', letterSpacing: '0.1em' }}
                 >
                   Popular
                 </div>
