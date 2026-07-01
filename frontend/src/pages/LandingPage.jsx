@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import BookingModal from '../components/BookingModal';
 
 export default function LandingPage() {
+  const location = useLocation();
+
+  // Intercept redirect booking state from other routes (e.g. Contact Page)
+  useEffect(() => {
+    if (location.state && location.state.openBooking) {
+      setSelectedService(location.state.openBooking);
+      setIsBookingOpen(true);
+      // Clear navigation state so it doesn't reopen on page refresh
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
+
   // Preloader States
   const [showPreloader, setShowPreloader] = useState(true);
   const [preloaderFade, setPreloaderFade] = useState(false);

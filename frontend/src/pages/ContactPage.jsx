@@ -215,14 +215,14 @@ export default function ContactPage() {
 
         {/* MAP CONTAINER */}
         <div className="row mt-5">
-          <div className="col-12 reveal">
+          <div className="col-12 animate-fade-in">
             <div className="glass-panel p-2 rounded shadow" style={{ height: '400px' }}>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3719.1235122176435!2d72.87114251493616!3d21.226955085892537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04f647970abdf%3A0x7d8123282b0e6dfb!2sRio%20Business%20Hub!5e0!3m2!1sen!2sin!4v1689252030000!5m2!1sen!2sin"
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3249.2835746797955!2d72.87533237454727!3d21.231802180775187!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04fb9031b8d5f%3A0xb032c0a0546853d0!2sRio%20Business%20Hub!5e1!3m2!1sen!2sin!4v1782901989731!5m2!1sen!2sin" 
                 className="w-100 h-100 border-0 rounded"
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="strict-origin-when-cross-origin"
                 title="Danzup Studio Location Map"
               ></iframe>
             </div>
