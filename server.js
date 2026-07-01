@@ -129,7 +129,25 @@ app.use((req, res, next) => {
 });
 
 // Serve static files (HTML, CSS, JS, images)
-app.use(express.static("."));
+app.use(express.static(path.join(__dirname, "dist")));
+
+// Fallback to serving specific image assets from the root if they are not in dist
+app.get(["/danzup-logo.png", "/hardik.png", "/akash.png", "/hero-dancer.jpeg"], (req, res) => {
+  res.sendFile(path.join(__dirname, req.path));
+});
+
+// Redirect old admin HTML requests to the React admin route
+app.get("/admin.html", (req, res) => {
+  res.redirect("/admin");
+});
+
+// Wildcard routing for SPA client-side routes (like /admin)
+app.get("*", (req, res, next) => {
+  if (req.path.startsWith("/api")) {
+    return next();
+  }
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 // Health check
 app.get("/api/health", (req, res) => {

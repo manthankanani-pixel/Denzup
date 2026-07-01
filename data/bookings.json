@@ -138,9 +138,9 @@
     "batch": "Morning (8:00 AM - 9:00 AM)",
     "date": "2026-06-06T00:00:00.000Z",
     "status": "pending",
-    "paid": false,
+    "paid": true,
     "createdAt": "2026-06-05T11:02:32.528Z",
-    "updatedAt": "2026-06-05T11:02:32.528Z"
+    "updatedAt": "2026-07-01T10:01:15.064Z"
   },
   {
     "_id": "b_1780662893390phiqv",
@@ -215,9 +215,9 @@
     "service": "Garba Training",
     "batch": "Evening Batch (5:00 PM - 6:00 PM)",
     "date": "2026-06-06T00:00:00.000Z",
-    "status": "confirmed",
-    "paid": true,
+    "status": "cancelled",
+    "paid": false,
     "createdAt": "2026-06-06T08:25:40.423Z",
-    "updatedAt": "2026-06-06T09:02:34.140Z"
+    "updatedAt": "2026-07-01T10:01:28.579Z"
   }
 ]

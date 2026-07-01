@@ -1,0 +1,360 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/* --- BRAND COLOR TOKENS --- */
+:root {
+  --brand-dark: #0A0A0A;
+  --brand-primary: #0F172A;
+  --brand-secondary: #1E293B;
+  --brand-gold: #D4AF37;
+  --brand-gold-light: #FDE68A;
+  --brand-text: #F8FAFC;
+  --brand-dim: #94A3B8;
+}
+
+/* --- BASE STYLES --- */
+body {
+  background-color: var(--brand-dark) !important;
+  color: var(--brand-text) !important;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, .font-serif {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-sans {
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* Custom Text Selection */
+::selection {
+  background-color: var(--brand-gold) !important;
+  color: #000000 !important;
+}
+
+/* --- SCROLLBAR --- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--brand-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brand-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-gold);
+}
+
+/* --- BRAND UTILITIES & OVERRIDES --- */
+.bg-brand-dark {
+  background-color: var(--brand-dark) !important;
+}
+
+.bg-brand-primary {
+  background-color: var(--brand-primary) !important;
+}
+
+.bg-brand-secondary {
+  background-color: var(--brand-secondary) !important;
+}
+
+.text-brand-gold {
+  color: var(--brand-gold) !important;
+}
+
+.text-brand-dim {
+  color: var(--brand-dim) !important;
+}
+
+.border-brand-gold {
+  border-color: var(--brand-gold) !important;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-nav {
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #D4AF37 0%, #FDE68A 50%, #D4AF37 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.gold-gradient-bg {
+  background: linear-gradient(135deg, #D4AF37 0%, #B5922F 100%);
+  color: #000000 !important;
+}
+
+/* --- ANIMATIONS & REVEALS --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn-luxury {
+  transition: all 0.3s ease;
+}
+
+.btn-luxury:hover {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+  transform: scale(1.02);
+}
+
+/* Input Fields Overrides */
+input,
+textarea,
+select {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+  outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--brand-gold) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 5px rgba(212, 175, 55, 0.3) !important;
+}
+
+/* Select options */
+select option {
+  background-color: #1E293B !important;
+  color: #ffffff !important;
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: #25d366;
+  color: #fff;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  background-color: #128c7e;
+  color: #fff;
+  box-shadow: 0 6px 15px rgba(37, 211, 102, 0.5);
+}
+
+.whatsapp-pulse {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background-color: #25d366;
+  border-radius: 50%;
+  z-index: -1;
+  animation: whatsapp-pulse-anim 2s infinite;
+}
+
+@keyframes whatsapp-pulse-anim {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* SPA Fade-in transitions */
+.animate-fade-in {
+  animation: fadeInPage 0.6s ease-out forwards;
+}
+
+@keyframes fadeInPage {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- PRELOADER --- */
+#preloader {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#preloader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.animate-preloader-text {
+  animation: preloaderTextFadeIn 1s ease-out 0.4s forwards;
+}
+
+.animate-preloader-subtext {
+  animation: preloaderTextFadeIn 1s ease-out 0.8s forwards;
+}
+
+@keyframes preloaderTextFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- HERO FADE IN ANIMATIONS --- */
+.hero-fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-fade-in.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- 3D TILT EFFECT --- */
+.tilt-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease, border-color 0.6s ease;
+}
+
+/* --- QR CODE SCANNER --- */
+@keyframes qrScan {
+  0% {
+    top: 4px;
+  }
+  50% {
+    top: calc(100% - 6px);
+  }
+  100% {
+    top: 4px;
+  }
+}
+
+.animate-qr-scanner {
+  animation: qrScan 2.5s linear infinite;
+}
+
+/* --- PORTAL STYLES --- */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes navSlide {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes sidebarSlide {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes contentFade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-nav-slide {
+  animation: navSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-sidebar-slide {
+  animation: sidebarSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-content-fade {
+  animation: contentFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Bootstrap class customization overrides */
+.btn-gold {
+  background: linear-gradient(135deg, #D4AF37 0%, #B5922F 100%);
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  padding: 10px 24px;
+  transition: all 0.3s;
+}
+
+.btn-gold:hover {
+  opacity: 0.9;
+  color: #000000;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+.btn-outline-white {
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 10px 24px;
+  transition: all 0.3s;
+}
+
+.btn-outline-white:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.nav-link-brand {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  transition: color 0.3s;
+}
+
+.nav-link-brand:hover {
+  color: var(--brand-gold);
+}
+
+.nav-link-brand.active {
+  color: var(--brand-gold);
+  font-weight: bold;
+}

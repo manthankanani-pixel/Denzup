@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "copy-logo": "node -e \"require('fs').copyFileSync('C:/Users/Admin/.gemini/antigravity-ide/brain/9f609bdb-4ee0-4991-9dcd-5d2c8f2e6491/media__1780474520074.jpg', 'danzup-logo.jpg')\""
+    "copy-logo": "node -e \"require('fs').copyFileSync('C:/Users/Admin/.gemini/antigravity-ide/brain/9f609bdb-4ee0-4991-9dcd-5d2c8f2e6491/media__1780474520074.jpg', 'danzup-logo.jpg')\"",
+    "dev-frontend": "npm run dev --prefix frontend",
+    "build-frontend": "npm run build --prefix frontend",
+    "install-all": "npm install && npm install --prefix frontend"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

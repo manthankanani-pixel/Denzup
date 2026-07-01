@@ -89,9 +89,9 @@
     "address": "mota varacha",
     "service": "Dance Classes",
     "message": "heyy look here on my msg",
-    "status": "closed",
+    "status": "contacted",
     "createdAt": "2026-06-06T08:13:01.513Z",
-    "updatedAt": "2026-06-06T08:13:36.460Z"
+    "updatedAt": "2026-07-01T10:00:54.111Z"
   },
   {
     "_id": "c_17807343080951vdb3",
@@ -103,8 +103,8 @@
     "address": "1 shivam",
     "service": "Garba Training",
     "message": "heyy i looking the near garba classes",
-    "status": "contacted",
+    "status": "enrolled",
     "createdAt": "2026-06-06T08:25:08.095Z",
-    "updatedAt": "2026-06-06T08:25:15.586Z"
+    "updatedAt": "2026-07-01T10:00:35.490Z"
   }
 ]
