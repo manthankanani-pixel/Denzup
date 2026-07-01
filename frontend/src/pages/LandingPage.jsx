@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import WhatsAppFloat from '../components/WhatsAppFloat';
@@ -107,13 +107,13 @@ export default function LandingPage() {
         navigateTo('hero');
       }
     };
-    
+
     window.addEventListener('hashchange', handleHashChange);
     // Initial check
     if (window.location.hash) {
       handleHashChange();
     }
-    
+
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
@@ -222,25 +222,24 @@ export default function LandingPage() {
 
   return (
     <div className="bg-brand-dark min-h-screen text-white position-relative">
-      
+
       {/* PRELOADER */}
       {showPreloader && (
-        <div 
-          id="preloader" 
-          className={`position-fixed top-0 start-0 w-100 h-100 d-flex flex-column align-items-center justify-content-center bg-black transition-all duration-1000 ${
-            preloaderFade ? 'fade-out' : ''
-          }`}
+        <div
+          id="preloader"
+          className={`position-fixed top-0 start-0 w-100 h-100 d-flex flex-column align-items-center justify-content-center bg-black transition-all duration-1000 ${preloaderFade ? 'fade-out' : ''
+            }`}
           style={{ zIndex: 2000 }}
         >
           <div className="d-flex flex-column align-items-center justify-content-center position-relative">
             <div className="position-relative mb-4 d-flex align-items-center justify-content-center" style={{ width: '96px', height: '96px' }}>
-              <div 
+              <div
                 className="position-absolute start-0 top-0 w-100 h-100 rounded-circle border border-2 border-brand-gold border-opacity-10 border-top-brand-gold spinner-border"
                 style={{ animationDuration: '1.5s' }}
               ></div>
-              <img 
-                src="/danzup-logo.png" 
-                className="img-fluid rounded" 
+              <img
+                src="/danzup-logo.png"
+                className="img-fluid rounded"
                 style={{ height: '64px', width: 'auto', objectFit: 'contain' }}
                 alt="Logo"
                 onError={(e) => {
@@ -259,27 +258,42 @@ export default function LandingPage() {
       )}
 
       {/* NAVBAR */}
-      <Navbar 
-        activePage={activePage} 
-        onNavigate={navigateTo} 
-        onOpenBooking={openBookingModal} 
+      <Navbar
+        activePage={activePage}
+        onNavigate={navigateTo}
+        onOpenBooking={openBookingModal}
       />
 
       {/* SECTION 1: HERO */}
-      <section 
-        id="hero" 
-        className={`position-relative min-vh-screen d-flex align-items-center justify-content-center overflow-hidden ${getSectionClass('hero')}`}
+      <section
+        id="hero"
+        className={`position-relative min-vh-100 d-flex align-items-center justify-content-center overflow-hidden ${getSectionClass('hero')}`}
       >
         <div className="position-absolute top-0 start-0 w-100 h-100 z-0">
           <div className="position-absolute top-0 start-0 w-100 h-100 bg-black bg-opacity-70 z-1"></div>
           <div className="position-absolute top-0 start-0 w-100 h-100 bg-gradient z-1" style={{ background: 'linear-gradient(to top, var(--brand-dark), transparent, var(--brand-dark))' }}></div>
-          <img 
-            src="https://images.unsplash.com/photo-1535525153412-5a42439a210d?q=80&w=2070&auto=format&fit=crop" 
-            className="w-100 h-100" 
+          <img
+            src="https://images.unsplash.com/photo-1535525153412-5a42439a210d?q=80&w=2070&auto=format&fit=crop"
+            className="w-100 h-100"
             style={{ objectFit: 'cover', opacity: 0.4 }}
-            alt="Hero Background" 
+            alt="Hero Background"
           />
         </div>
+
+        {/* Logo Watermark Background */}
+        <div
+          className="position-absolute top-0 start-0 w-100 h-100 pointer-events-none"
+          style={{
+            backgroundImage: "url('/danzup-logo.png')",
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundSize: 'min(70vw, 450px)',
+            opacity: 0.08,
+            filter: 'invert(1)',
+            mixBlendMode: 'screen',
+            zIndex: 1
+          }}
+        ></div>
         <div className="position-relative z-2 text-center px-3 max-w-5xl mx-auto mt-5">
           <p className="text-brand-gold text-uppercase tracking-widest mb-3 small font-weight-bold hero-fade-in active">
             Premium Dance Academy
@@ -291,15 +305,15 @@ export default function LandingPage() {
             Transform Your Passion Into Performance
           </p>
           <div className="d-flex flex-column flex-md-row gap-3 justify-content-center hero-fade-in active font-sans">
-            <a 
-              href="#classes" 
+            <a
+              href="#classes"
               onClick={(e) => { e.preventDefault(); navigateTo('classes'); }}
               className="btn btn-gold py-3 px-5 text-uppercase tracking-wider font-weight-bold rounded-1 border border-brand-gold"
             >
               JOIN CLASSES
             </a>
-            <a 
-              href="#contact" 
+            <a
+              href="#contact"
               onClick={(e) => { e.preventDefault(); navigateTo('contact'); }}
               className="btn btn-outline-white py-3 px-5 text-uppercase tracking-wider font-weight-bold rounded-1 border border-white-30"
             >
@@ -310,25 +324,25 @@ export default function LandingPage() {
       </section>
 
       {/* SECTION 2: ABOUT */}
-      <section 
-        id="about" 
+      <section
+        id="about"
         className={`py-5 bg-brand-dark ${getSectionClass('about')}`}
       >
         <div className="container py-5 px-4 px-md-5">
           <div className="row g-5 align-items-center">
             <div className="col-12 col-lg-6 reveal position-relative">
-              <div 
-                className="position-absolute border border-brand-gold border-opacity-20 rounded" 
+              <div
+                className="position-absolute border border-brand-gold border-opacity-20 rounded"
                 style={{ top: '-15px', left: '-15px', width: '100%', height: '100%', zIndex: 0 }}
               ></div>
-              <img 
-                src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=2069&auto=format&fit=crop" 
-                className="img-fluid rounded shadow-lg filter-grayscale hover-filter-normal transition" 
+              <img
+                src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=2069&auto=format&fit=crop"
+                className="img-fluid rounded shadow-lg filter-grayscale hover-filter-normal transition"
                 style={{ position: 'relative', zIndex: 1 }}
-                alt="About Danzup" 
+                alt="About Danzup"
               />
-              <div 
-                className="position-absolute glass-panel p-4 rounded d-none d-md-block" 
+              <div
+                className="position-absolute glass-panel p-4 rounded d-none d-md-block"
                 style={{ bottom: '-30px', right: '-15px', zIndex: 2 }}
               >
                 <div className="d-flex align-items-center gap-3">
@@ -382,8 +396,8 @@ export default function LandingPage() {
       </section>
 
       {/* SECTION 2.5: OWNERS & INSTRUCTORS */}
-      <section 
-        id="team" 
+      <section
+        id="team"
         className={`py-5 bg-brand-secondary border-top border-white border-opacity-5 ${getSectionClass('team')}`}
       >
         <div className="container py-5 px-4 px-md-5">
@@ -398,12 +412,12 @@ export default function LandingPage() {
           <div className="row g-4 justify-content-center max-w-4xl mx-auto font-sans">
             {/* Team Member 1 */}
             <div className="col-12 col-md-6">
-              <div 
+              <div
                 className="glass-panel p-4 p-md-5 text-center reveal tilt-3d d-flex flex-column align-items-center h-100"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
               >
-                <div 
+                <div
                   className="rounded-circle overflow-hidden mb-4 border border-2 border-brand-gold border-opacity-30 shadow-lg"
                   style={{ width: '192px', height: '192px' }}
                 >
@@ -420,12 +434,12 @@ export default function LandingPage() {
             </div>
             {/* Team Member 2 */}
             <div className="col-12 col-md-6">
-              <div 
+              <div
                 className="glass-panel p-4 p-md-5 text-center reveal tilt-3d d-flex flex-column align-items-center h-100"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
               >
-                <div 
+                <div
                   className="rounded-circle overflow-hidden mb-4 border border-2 border-brand-gold border-opacity-30 shadow-lg"
                   style={{ width: '192px', height: '192px' }}
                 >
@@ -445,8 +459,8 @@ export default function LandingPage() {
       </section>
 
       {/* SECTION 3: CLASSES */}
-      <section 
-        id="classes" 
+      <section
+        id="classes"
         className={`py-5 bg-brand-primary ${getSectionClass('classes')}`}
       >
         <div className="container py-5 px-4 px-md-5 font-sans">
@@ -464,7 +478,7 @@ export default function LandingPage() {
               { icon: 'fa-spa', title: 'Yoga Classes', text: 'Mindfulness, Flexibility, Strength Training, Meditation, and Wellness Sessions.' },
             ].map((cls, idx) => (
               <div className="col-12 col-md-6 col-lg-4" key={idx}>
-                <div 
+                <div
                   className="glass-panel p-4 p-md-5 reveal tilt-3d h-100 cursor-pointer border-opacity-10 hover-border-brand-gold transition"
                   onClick={() => openBookingModal(cls.title)}
                   onMouseMove={handleMouseMove}
@@ -481,8 +495,8 @@ export default function LandingPage() {
       </section>
 
       {/* SECTION 4: WHY CHOOSE US */}
-      <section 
-        id="why-choose" 
+      <section
+        id="why-choose"
         className={`py-5 bg-brand-dark ${getSectionClass('why-choose')}`}
       >
         <div className="container py-5 px-4 px-md-5 font-sans">
@@ -510,8 +524,8 @@ export default function LandingPage() {
       </section>
 
       {/* SECTION 5: WEDDING SHOWCASE */}
-      <section 
-        id="showcase" 
+      <section
+        id="showcase"
         className={`py-5 bg-brand-primary ${getSectionClass('showcase')}`}
       >
         <div className="container py-5 px-4 px-md-5 font-sans">
@@ -521,18 +535,18 @@ export default function LandingPage() {
           </div>
           <div className="row g-4">
             <div className="col-12 col-md-6">
-              <div 
-                className="reveal overflow-hidden position-relative rounded shadow-lg" 
+              <div
+                className="reveal overflow-hidden position-relative rounded shadow-lg"
                 style={{ height: '320px', cursor: 'pointer' }}
                 onClick={() => openBookingModal('Wedding Choreography')}
               >
-                <img 
-                  src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=2074&auto=format&fit=crop" 
-                  className="w-100 h-100 image-zoom transition" 
-                  style={{ objectFit: 'cover' }} 
-                  alt="Sangeet" 
+                <img
+                  src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=2074&auto=format&fit=crop"
+                  className="w-100 h-100 image-zoom transition"
+                  style={{ objectFit: 'cover' }}
+                  alt="Sangeet"
                 />
-                <div 
+                <div
                   className="position-absolute top-0 start-0 w-100 h-100 bg-black bg-opacity-50 d-flex align-items-center justify-content-center opacity-hover transition"
                 >
                   <span className="text-brand-gold font-serif h4 border border-brand-gold px-4 py-2 bg-black bg-opacity-50">Sangeet</span>
@@ -540,18 +554,18 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="col-12 col-md-6">
-              <div 
-                className="reveal overflow-hidden position-relative rounded shadow-lg" 
+              <div
+                className="reveal overflow-hidden position-relative rounded shadow-lg"
                 style={{ height: '320px', cursor: 'pointer' }}
                 onClick={() => openBookingModal('Wedding Choreography')}
               >
-                <img 
-                  src="https://images.unsplash.com/photo-1591604419794-5c32ddc19c1d?q=80&w=2070&auto=format&fit=crop" 
-                  className="w-100 h-100 image-zoom transition" 
-                  style={{ objectFit: 'cover' }} 
-                  alt="Family Dance" 
+                <img
+                  src="https://images.unsplash.com/photo-1591604419794-5c32ddc19c1d?q=80&w=2070&auto=format&fit=crop"
+                  className="w-100 h-100 image-zoom transition"
+                  style={{ objectFit: 'cover' }}
+                  alt="Family Dance"
                 />
-                <div 
+                <div
                   className="position-absolute top-0 start-0 w-100 h-100 bg-black bg-opacity-50 d-flex align-items-center justify-content-center opacity-hover transition"
                 >
                   <span className="text-brand-gold font-serif h4 border border-brand-gold px-4 py-2 bg-black bg-opacity-50">Family Dance</span>
@@ -560,7 +574,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="mt-5 text-center reveal">
-            <button 
+            <button
               onClick={() => openBookingModal('Wedding Choreography')}
               className="btn btn-outline-brand-gold py-3 px-5 btn-luxury border border-brand-gold text-brand-gold font-weight-bold"
             >
@@ -571,12 +585,12 @@ export default function LandingPage() {
       </section>
 
       {/* SECTION 6: GARBA EXPERIENCE */}
-      <section 
-        id="garba" 
+      <section
+        id="garba"
         className={`py-5 bg-brand-secondary position-relative overflow-hidden ${getSectionClass('garba')}`}
       >
-        <div 
-          className="position-absolute top-0 start-0 w-100 h-100 opacity-10 pointer-events-none" 
+        <div
+          className="position-absolute top-0 start-0 w-100 h-100 opacity-10 pointer-events-none"
           style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/stardust.png')" }}
         ></div>
         <div className="container py-5 px-4 px-md-5 position-relative z-1 font-sans">
@@ -602,7 +616,7 @@ export default function LandingPage() {
                   <span>Advanced Batch (Navratri Prep)</span>
                 </li>
               </ul>
-              <button 
+              <button
                 onClick={() => openBookingModal('Garba Classes')}
                 className="btn btn-gold py-3 px-5 font-weight-bold rounded-1 btn-luxury"
               >
@@ -612,19 +626,19 @@ export default function LandingPage() {
             <div className="col-12 col-lg-6 reveal">
               <div className="row g-3">
                 <div className="col-6 mt-4">
-                  <img 
-                    src="https://images.unsplash.com/photo-1601050690117-5f6e9dcfd0ed?q=80&w=1974&auto=format&fit=crop" 
-                    className="img-fluid rounded shadow" 
-                    style={{ height: '240px', width: '100%', objectFit: 'cover' }} 
-                    alt="Garba 1" 
+                  <img
+                    src="https://images.unsplash.com/photo-1601050690117-5f6e9dcfd0ed?q=80&w=1974&auto=format&fit=crop"
+                    className="img-fluid rounded shadow"
+                    style={{ height: '240px', width: '100%', objectFit: 'cover' }}
+                    alt="Garba 1"
                   />
                 </div>
                 <div className="col-6">
-                  <img 
-                    src="https://images.unsplash.com/photo-1552056768-6b2fcIObf1f7?q=80&w=1973&auto=format&fit=crop" 
-                    className="img-fluid rounded shadow" 
-                    style={{ height: '240px', width: '100%', objectFit: 'cover' }} 
-                    alt="Garba 2" 
+                  <img
+                    src="https://images.unsplash.com/photo-1552056768-6b2fcIObf1f7?q=80&w=1973&auto=format&fit=crop"
+                    className="img-fluid rounded shadow"
+                    style={{ height: '240px', width: '100%', objectFit: 'cover' }}
+                    alt="Garba 2"
                   />
                 </div>
               </div>
@@ -634,26 +648,34 @@ export default function LandingPage() {
       </section>
 
       {/* SECTION 7: STUDENT TRANSFORMATIONS */}
-      <section 
-        id="stats" 
+      <section
+        id="stats"
         className={`py-5 bg-brand-dark ${getSectionClass('stats')}`}
       >
         <div className="container py-4 px-4 px-md-5 font-sans">
           <div className="row g-4 text-center">
             <div className="col-6 col-md-3 reveal">
-              <div className="display-4 font-weight-bold text-brand-gold mb-1">1000+</div>
+              <div className="display-4 font-weight-bold text-brand-gold mb-1">
+                <StatCounter endValue={1000} />+
+              </div>
               <div className="small text-white-50 text-uppercase tracking-wider" style={{ fontSize: '11px' }}>Students Trained</div>
             </div>
             <div className="col-6 col-md-3 reveal">
-              <div className="display-4 font-weight-bold text-brand-gold mb-1">200+</div>
+              <div className="display-4 font-weight-bold text-brand-gold mb-1">
+                <StatCounter endValue={200} />+
+              </div>
               <div className="small text-white-50 text-uppercase tracking-wider" style={{ fontSize: '11px' }}>Wedding Projects</div>
             </div>
             <div className="col-6 col-md-3 reveal">
-              <div className="display-4 font-weight-bold text-brand-gold mb-1">50+</div>
+              <div className="display-4 font-weight-bold text-brand-gold mb-1">
+                <StatCounter endValue={50} />+
+              </div>
               <div className="small text-white-50 text-uppercase tracking-wider" style={{ fontSize: '11px' }}>Events Organized</div>
             </div>
             <div className="col-6 col-md-3 reveal">
-              <div className="display-4 font-weight-bold text-brand-gold mb-1">5.0</div>
+              <div className="display-4 font-weight-bold text-brand-gold mb-1">
+                <StatCounter endValue={5.0} isFloat={true} />
+              </div>
               <div className="small text-white-50 text-uppercase tracking-wider" style={{ fontSize: '11px' }}>Star Rating</div>
             </div>
           </div>
@@ -661,8 +683,8 @@ export default function LandingPage() {
       </section>
 
       {/* SECTION: INSTITUTE LOOK */}
-      <section 
-        id="institute-look" 
+      <section
+        id="institute-look"
         className={`py-5 bg-brand-dark position-relative overflow-hidden ${getSectionClass('institute-look')}`}
       >
         {/* Glow */}
@@ -683,15 +705,15 @@ export default function LandingPage() {
                 Watch our featured video to see our dancers in action and get a feel for the energetic environment where passion meets performance.
               </p>
               <div className="d-flex flex-wrap gap-3 mt-4">
-                <button 
+                <button
                   onClick={() => openBookingModal('Dance Classes')}
                   className="btn btn-gold py-3.5 px-4 font-weight-bold rounded-1 btn-luxury border border-brand-gold"
                 >
                   BOOK A VISIT
                 </button>
-                <a 
-                  href="https://www.instagram.com/danzup_studio/" 
-                  target="_blank" 
+                <a
+                  href="https://www.instagram.com/danzup_studio/"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-outline-white py-3.5 px-4 font-weight-bold rounded-1 d-flex align-items-center gap-2 border border-white-30"
                 >
@@ -704,10 +726,10 @@ export default function LandingPage() {
                 <div className="position-absolute border border-brand-gold border-opacity-10 rounded-4" style={{ top: '-15px', right: '-15px', width: '100%', height: '100%', zIndex: 0 }}></div>
                 <div className="glass-panel p-3 rounded-4 position-relative z-1 shadow-lg w-100">
                   <div className="ratio ratio-9x16 overflow-hidden rounded-3 bg-black" style={{ height: '520px' }}>
-                    <iframe 
-                      className="border-0 w-100" 
-                      src="https://www.instagram.com/reel/DLumHCMBSdB/embed" 
-                      scrolling="no" 
+                    <iframe
+                      className="border-0 w-100"
+                      src="https://www.instagram.com/reel/DLumHCMBSdB/embed"
+                      scrolling="no"
                       allowtransparency="true"
                       allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                       style={{ position: 'absolute', top: '-54px', height: 'calc(100% + 175px)' }}
@@ -721,12 +743,12 @@ export default function LandingPage() {
       </section>
 
       {/* SECTION: THEME DAY CELEBRATIONS */}
-      <section 
-        id="theme-days" 
+      <section
+        id="theme-days"
         className={`py-5 bg-brand-primary position-relative overflow-hidden ${getSectionClass('theme-days')}`}
       >
         <div className="position-absolute rounded-circle pointer-events-none" style={{ top: '25%', right: '25%', width: '400px', height: '400px', backgroundColor: 'rgba(212, 175, 55, 0.05)', filter: 'blur(100px)' }}></div>
-        
+
         <div className="container py-5 px-4 px-md-5 position-relative z-1 font-sans">
           <div className="text-center mb-5 reveal">
             <p className="text-brand-gold text-uppercase tracking-widest small font-weight-bold mb-3">Our Studio Vibe</p>
@@ -743,10 +765,10 @@ export default function LandingPage() {
             <div className="col-12 col-md-6 reveal d-flex flex-column align-items-center">
               <div className="glass-panel p-3 rounded-4 shadow-lg w-100" style={{ maxWidth: '380px' }}>
                 <div className="ratio ratio-9x16 overflow-hidden rounded-3 bg-black" style={{ height: '520px' }}>
-                  <iframe 
-                    className="border-0 w-100" 
-                    src="https://www.instagram.com/reel/DMhiSWoILHe/embed" 
-                    scrolling="no" 
+                  <iframe
+                    className="border-0 w-100"
+                    src="https://www.instagram.com/reel/DMhiSWoILHe/embed"
+                    scrolling="no"
                     allowtransparency="true"
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                     style={{ position: 'absolute', top: '-54px', height: 'calc(100% + 175px)' }}
@@ -765,10 +787,10 @@ export default function LandingPage() {
             <div className="col-12 col-md-6 reveal d-flex flex-column align-items-center">
               <div className="glass-panel p-3 rounded-4 shadow-lg w-100" style={{ maxWidth: '380px' }}>
                 <div className="ratio ratio-9x16 overflow-hidden rounded-3 bg-black" style={{ height: '520px' }}>
-                  <iframe 
-                    className="border-0 w-100" 
-                    src="https://www.instagram.com/reel/DMz-CViIxti/embed" 
-                    scrolling="no" 
+                  <iframe
+                    className="border-0 w-100"
+                    src="https://www.instagram.com/reel/DMz-CViIxti/embed"
+                    scrolling="no"
                     allowtransparency="true"
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                     style={{ position: 'absolute', top: '-54px', height: 'calc(100% + 175px)' }}
@@ -787,8 +809,8 @@ export default function LandingPage() {
       </section>
 
       {/* SECTION 8: GALLERY */}
-      <section 
-        id="gallery" 
+      <section
+        id="gallery"
         className={`py-5 bg-brand-secondary ${getSectionClass('gallery')}`}
       >
         <div className="container py-5 px-4 px-md-5 font-sans">
@@ -818,41 +840,30 @@ export default function LandingPage() {
       </section>
 
       {/* SECTION 9: TESTIMONIALS */}
-      <section 
-        id="testimonials" 
+      <section
+        id="testimonials"
         className={`py-5 bg-brand-dark ${getSectionClass('testimonials')}`}
       >
         <div className="container py-5 px-4 px-md-5 font-sans">
           <div className="text-center mb-5 reveal">
             <h2 className="display-5 font-serif font-weight-bold mb-3 text-white">What Students Say</h2>
           </div>
-          <div className="row g-4">
-            {[
+          <div className="reveal">
+            <TestimonialsSlider testimonials={[
               { text: '"Danzup Studio transformed my wedding dance. The choreography was seamless and our guests are still talking about it!"', author: 'Priya & Rahul' },
-              { text: '"Best Garba classes in the city. The energy during Navratri is unmatched. Highly recommended!"', author: 'Arjun Mehta' },
-              { text: '"The yoga sessions here helped me find my balance again. Beautiful studio and very supportive instructors."', author: 'Sarah Khan' }
-            ].map((testi, idx) => (
-              <div className="col-12 col-md-4 reveal" key={idx}>
-                <div className="glass-panel p-4 p-md-5 h-100">
-                  <div className="text-brand-gold mb-3">
-                    <i className="fas fa-star me-1"></i>
-                    <i className="fas fa-star me-1"></i>
-                    <i className="fas fa-star me-1"></i>
-                    <i className="fas fa-star me-1"></i>
-                    <i className="fas fa-star me-1"></i>
-                  </div>
-                  <p className="text-light mb-4 italic" style={{ fontSize: '14px', lineHeight: '1.6' }}>{testi.text}</p>
-                  <h5 className="h6 font-weight-bold text-white mb-0">- {testi.author}</h5>
-                </div>
-              </div>
-            ))}
+              { text: '"Best Garba classes in the city. The energy during Navratri is unmatched. Highly recommended!"', author: 'Arjun Patel' },
+              { text: '"The yoga sessions here helped me find my balance again. Beautiful studio and very supportive instructors."', author: 'Smit Dudhat' },
+              { text: '"The wedding choreography packages are absolute value for money. They personalized our steps and made us feel so confident!"', author: 'Sneha & Amit' },
+              { text: '"Great atmosphere, top-tier audio systems, and trainers who actually care about your progress. Best dance studio in Surat!"', author: 'Karan Patel' },
+              { text: '"Absolutely love this place! The yoga sessions are serene, and the Zumba batches are incredibly high-energy. The perfect place for dance and fitness."', author: 'Riddhi Desai' }
+            ]} />
           </div>
         </div>
       </section>
 
       {/* SECTION 10: MEMBERSHIP PLANS */}
-      <section 
-        id="membership" 
+      <section
+        id="membership"
         className={`py-5 bg-brand-primary ${getSectionClass('membership')}`}
       >
         <div className="container py-5 px-4 px-md-5 font-sans">
@@ -863,7 +874,7 @@ export default function LandingPage() {
           <div className="row g-4 justify-content-center max-w-5xl mx-auto align-items-center">
             {/* Plan 4: Garba */}
             <div className="col-12 col-md-6 col-lg-4">
-              <div 
+              <div
                 className="glass-panel p-4 p-md-5 text-center reveal tilt-3d h-100"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
@@ -875,7 +886,7 @@ export default function LandingPage() {
                   <li className="mb-2"><i className="fas fa-check text-brand-gold me-2"></i>1 Workshop</li>
                   <li className="mb-0"><i className="fas fa-check text-brand-gold me-2"></i>Garba Event Access</li>
                 </ul>
-                <button 
+                <button
                   onClick={() => openBookingModal('Garba Plan')}
                   className="btn btn-outline-white w-100 py-2.5 rounded-1 text-uppercase text-xs"
                 >
@@ -886,7 +897,7 @@ export default function LandingPage() {
 
             {/* Plan 5: Dance */}
             <div className="col-12 col-md-6 col-lg-4">
-              <div 
+              <div
                 className="glass-panel p-4 p-md-5 text-center reveal tilt-3d h-100"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
@@ -898,7 +909,7 @@ export default function LandingPage() {
                   <li className="mb-2"><i className="fas fa-check text-brand-gold me-2"></i>2 Workshops</li>
                   <li className="mb-0"><i className="fas fa-check text-brand-gold me-2"></i>Dance Event Access</li>
                 </ul>
-                <button 
+                <button
                   onClick={() => openBookingModal('Dance Plan')}
                   className="btn btn-outline-white w-100 py-2.5 rounded-1 text-uppercase text-xs"
                 >
@@ -909,7 +920,7 @@ export default function LandingPage() {
 
             {/* Plan 6: Yoga */}
             <div className="col-12 col-md-6 col-lg-4">
-              <div 
+              <div
                 className="glass-panel p-4 p-md-5 text-center reveal tilt-3d h-100"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
@@ -921,7 +932,7 @@ export default function LandingPage() {
                   <li className="mb-2"><i className="fas fa-check text-brand-gold me-2"></i>1 Workshop</li>
                   <li className="mb-0"><i className="fas fa-check text-brand-gold me-2"></i>Wellness Sessions</li>
                 </ul>
-                <button 
+                <button
                   onClick={() => openBookingModal('Yoga Plan')}
                   className="btn btn-outline-white w-100 py-2.5 rounded-1 text-uppercase text-xs"
                 >
@@ -932,7 +943,7 @@ export default function LandingPage() {
 
             {/* Plan 1: Starter */}
             <div className="col-12 col-md-6 col-lg-4">
-              <div 
+              <div
                 className="glass-panel p-4 p-md-5 text-center reveal tilt-3d h-100"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
@@ -944,7 +955,7 @@ export default function LandingPage() {
                   <li className="mb-2"><i className="fas fa-check text-brand-gold me-2"></i>1 Workshop</li>
                   <li className="mb-0"><i className="fas fa-check text-brand-gold me-2"></i>Studio Access</li>
                 </ul>
-                <button 
+                <button
                   onClick={() => openBookingModal('Starter Plan')}
                   className="btn btn-outline-white w-100 py-2.5 rounded-1 text-uppercase text-xs"
                 >
@@ -955,13 +966,13 @@ export default function LandingPage() {
 
             {/* Plan 2: Professional (Popular) */}
             <div className="col-12 col-md-6 col-lg-4">
-              <div 
+              <div
                 className="glass-panel p-4 p-md-5 text-center relative border border-brand-gold reveal tilt-3d scale-105-default h-100"
                 style={{ transform: 'scale(1.05)', borderColor: 'var(--brand-gold) !important' }}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
               >
-                <div 
+                <div
                   className="position-absolute bg-brand-gold text-black px-3 py-1 text-xs font-weight-bold text-uppercase tracking-wider rounded-1"
                   style={{ top: '0', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 10, fontSize: '10px' }}
                 >
@@ -974,7 +985,7 @@ export default function LandingPage() {
                   <li className="mb-2"><i className="fas fa-check text-brand-gold me-2"></i>Unlimited Workshops</li>
                   <li className="mb-0"><i className="fas fa-check text-brand-gold me-2"></i>Event Priority</li>
                 </ul>
-                <button 
+                <button
                   onClick={() => openBookingModal('Professional Plan')}
                   className="btn btn-gold w-100 py-2.5 rounded-1 text-uppercase text-xs"
                 >
@@ -985,7 +996,7 @@ export default function LandingPage() {
 
             {/* Plan 3: Premium */}
             <div className="col-12 col-md-6 col-lg-4">
-              <div 
+              <div
                 className="glass-panel p-4 p-md-5 text-center reveal tilt-3d h-100"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
@@ -997,7 +1008,7 @@ export default function LandingPage() {
                   <li className="mb-2"><i className="fas fa-check text-brand-gold me-2"></i>Private Coaching</li>
                   <li className="mb-0"><i className="fas fa-check text-brand-gold me-2"></i>VIP Events</li>
                 </ul>
-                <button 
+                <button
                   onClick={() => openBookingModal('Premium Plan')}
                   className="btn btn-outline-white w-100 py-2.5 rounded-1 text-uppercase text-xs"
                 >
@@ -1010,8 +1021,8 @@ export default function LandingPage() {
       </section>
 
       {/* SECTION 11: FAQ */}
-      <section 
-        id="faq" 
+      <section
+        id="faq"
         className={`py-5 bg-brand-dark ${getSectionClass('faq')}`}
       >
         <div className="container py-5 px-4 px-md-5 max-w-3xl font-sans">
@@ -1039,8 +1050,8 @@ export default function LandingPage() {
       </section>
 
       {/* SECTION 12: CONTACT */}
-      <section 
-        id="contact" 
+      <section
+        id="contact"
         className={`py-5 bg-brand-primary position-relative ${getSectionClass('contact')}`}
       >
         <div className="position-absolute top-0 start-0 w-100 h-100 bg-gradient opacity-50 z-0" style={{ background: 'linear-gradient(to right, var(--brand-dark), transparent)' }}></div>
@@ -1091,41 +1102,41 @@ export default function LandingPage() {
                   <div className="row g-3 mb-3">
                     <div className="col-12 col-md-6">
                       <label className="small text-white-50 mb-1 d-block">Name</label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         className="form-control rounded-1"
-                        placeholder="Your Name" 
+                        placeholder="Your Name"
                         value={contactName}
                         onChange={(e) => setContactName(e.target.value)}
-                        required 
+                        required
                       />
                     </div>
                     <div className="col-12 col-md-6">
                       <label className="small text-white-50 mb-1 d-block">Phone</label>
-                      <input 
-                        type="tel" 
+                      <input
+                        type="tel"
                         className="form-control rounded-1"
-                        placeholder="Your Number" 
+                        placeholder="Your Number"
                         value={contactPhone}
                         onChange={(e) => setContactPhone(e.target.value)}
-                        required 
+                        required
                       />
                     </div>
                   </div>
                   <div className="mb-3">
                     <label className="small text-white-50 mb-1 d-block">Email</label>
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       className="form-control rounded-1"
-                      placeholder="Your Email" 
+                      placeholder="Your Email"
                       value={contactEmail}
                       onChange={(e) => setContactEmail(e.target.value)}
-                      required 
+                      required
                     />
                   </div>
                   <div className="mb-3">
                     <label className="small text-white-50 mb-1 d-block">Interested Program</label>
-                    <select 
+                    <select
                       className="form-select rounded-1 text-white bg-transparent"
                       value={contactService}
                       onChange={(e) => setContactService(e.target.value)}
@@ -1140,8 +1151,8 @@ export default function LandingPage() {
                   </div>
                   <div className="mb-4">
                     <label className="small text-white-50 mb-1 d-block">Message</label>
-                    <textarea 
-                      className="form-control rounded-1 h-32" 
+                    <textarea
+                      className="form-control rounded-1 h-32"
                       placeholder="Tell us about your goals..."
                       rows="4"
                       value={contactMessage}
@@ -1149,8 +1160,8 @@ export default function LandingPage() {
                       required
                     ></textarea>
                   </div>
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     disabled={contactLoading}
                     className="btn btn-gold w-100 py-3 rounded-1 btn-luxury d-flex justify-content-center align-items-center gap-2"
                   >
@@ -1177,9 +1188,9 @@ export default function LandingPage() {
           <div className="row g-4 justify-content-between align-items-center">
             <div className="col-12 col-md-4 text-center text-md-start">
               <a href="#" className="navbar-brand d-flex align-items-center justify-content-center justify-content-md-start gap-2 mb-3">
-                <img 
-                  src="/danzup-logo.png" 
-                  className="img-fluid rounded" 
+                <img
+                  src="/danzup-logo.png"
+                  className="img-fluid rounded"
                   style={{ height: '36px', width: 'auto', objectFit: 'contain' }}
                   alt="Danzup Logo"
                   onError={(e) => {
@@ -1203,8 +1214,8 @@ export default function LandingPage() {
             </div>
             <div className="col-12 col-md-4 text-center text-md-end">
               <p className="small text-white-50 mb-1">Developed for ultimate luxury vibes</p>
-              <a 
-                href="/admin" 
+              <a
+                href="/admin"
                 className="small text-brand-gold text-decoration-none"
                 style={{ fontSize: '11px', letterSpacing: '0.1em' }}
               >
@@ -1219,11 +1230,144 @@ export default function LandingPage() {
       <WhatsAppFloat />
 
       {/* BOOKING MODAL */}
-      <BookingModal 
-        isOpen={isBookingOpen} 
-        onClose={() => setIsBookingOpen(false)} 
-        serviceName={selectedService} 
+      <BookingModal
+        isOpen={isBookingOpen}
+        onClose={() => setIsBookingOpen(false)}
+        serviceName={selectedService}
       />
+    </div>
+  );
+}
+
+// Dynamic stat counter component with viewport observation and frame request
+function StatCounter({ endValue, duration = 2000, isFloat = false }) {
+  const [count, setCount] = useState(0);
+  const elementRef = useRef(null);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      if (entry.isIntersecting && !hasAnimated.current) {
+        hasAnimated.current = true;
+        let startTimestamp = null;
+
+        const step = (timestamp) => {
+          if (!startTimestamp) startTimestamp = timestamp;
+          const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+
+          let currentValue = progress * endValue;
+          if (isFloat) {
+            setCount(parseFloat(currentValue.toFixed(1)));
+          } else {
+            setCount(Math.floor(currentValue));
+          }
+
+          if (progress < 1) {
+            window.requestAnimationFrame(step);
+          } else {
+            setCount(endValue);
+          }
+        };
+
+        window.requestAnimationFrame(step);
+      }
+    }, { threshold: 0.1 });
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      if (elementRef.current) {
+        if (observer && observer.unobserve) {
+          observer.unobserve(elementRef.current);
+        }
+      }
+    };
+  }, [endValue, duration, isFloat]);
+
+  return <span ref={elementRef}>{count}</span>;
+}
+
+// Testimonials slider component with loop and responsive sizes
+function TestimonialsSlider({ testimonials }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [itemsToShow, setItemsToShow] = useState(3);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setItemsToShow(1);
+      } else if (window.innerWidth < 992) {
+        setItemsToShow(2);
+      } else {
+        setItemsToShow(3);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const totalItems = testimonials.length;
+  const extendedTestimonials = [...testimonials, ...testimonials];
+
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % totalItems);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [totalItems, isPaused]);
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + totalItems) % totalItems);
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalItems);
+  };
+
+  return (
+    <div
+      className="position-relative overflow-hidden px-1"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      <div
+        className="d-flex transition-all duration-500 ease-in-out py-3"
+        style={{
+          transform: `translateX(-${currentIndex * (100 / itemsToShow)}%)`,
+          gap: '24px'
+        }}
+      >
+        {extendedTestimonials.map((testi, idx) => (
+          <div
+            key={idx}
+            className="flex-shrink-0"
+            style={{
+              width: `calc(${100 / itemsToShow}% - ${(itemsToShow - 1) * 24 / itemsToShow}px)`
+            }}
+          >
+            <div className="glass-panel p-4 p-md-5 h-100 d-flex flex-column justify-content-between">
+              <div>
+                <div className="text-brand-gold mb-3">
+                  <i className="fas fa-star me-1"></i>
+                  <i className="fas fa-star me-1"></i>
+                  <i className="fas fa-star me-1"></i>
+                  <i className="fas fa-star me-1"></i>
+                  <i className="fas fa-star me-1"></i>
+                </div>
+                <p className="text-light mb-4 italic" style={{ fontSize: '14px', lineHeight: '1.6' }}>{testi.text}</p>
+              </div>
+              <h5 className="h6 font-weight-bold text-white mb-0">— {testi.author}</h5>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

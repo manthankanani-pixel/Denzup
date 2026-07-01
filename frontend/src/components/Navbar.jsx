@@ -20,6 +20,20 @@ export default function Navbar({ activePage, onNavigate, onOpenBooking }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    if (location.pathname !== '/') {
+      navigate('/');
+    } else {
+      if (onNavigate) {
+        onNavigate('hero');
+      } else {
+        navigate('/');
+      }
+    }
+    setIsMobileOpen(false);
+  };
+
   const handleLinkClick = (e, targetId) => {
     e.preventDefault();
     if (location.pathname !== '/') {
@@ -80,7 +94,7 @@ export default function Navbar({ activePage, onNavigate, onOpenBooking }) {
         <div className="container px-4 px-md-5 d-flex justify-content-between align-items-center">
           <a 
             href="#" 
-            onClick={(e) => handleLinkClick(e, 'hero')}
+            onClick={handleLogoClick}
             className="navbar-brand d-flex align-items-center gap-2 h-12"
           >
             <img 
