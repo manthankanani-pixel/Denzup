@@ -87,6 +87,14 @@ router.post("/razorpay/create-order", async (req, res) => {
       return res.status(400).json({ success: false, message: "Invalid amount." });
     }
 
+    // Explicit check for missing Razorpay environment credentials
+    if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Razorpay API keys (RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET) are not configured in your server .env file." 
+      });
+    }
+
     const instance = new Razorpay({
       key_id: process.env.RAZORPAY_KEY_ID,
       key_secret: process.env.RAZORPAY_KEY_SECRET,
@@ -108,7 +116,7 @@ router.post("/razorpay/create-order", async (req, res) => {
     });
   } catch (error) {
     console.error("Razorpay order creation error:", error);
-    res.status(500).json({ success: false, message: "Error creating Razorpay order." });
+    res.status(500).json({ success: false, message: `Razorpay SDK Error: ${error.message}` });
   }
 });
 
