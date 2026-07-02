@@ -127,6 +127,12 @@ export default function LandingPage() {
       const reveals = document.querySelectorAll('.reveal');
 
       reveals.forEach((reveal) => {
+        // If the element is hidden (display: none or inside display: none), reset it
+        if (reveal.offsetParent === null) {
+          reveal.classList.remove('active');
+          return;
+        }
+
         const elementTop = reveal.getBoundingClientRect().top;
         if (elementTop < windowHeight - elementVisible) {
           reveal.classList.add('active');
@@ -161,6 +167,9 @@ export default function LandingPage() {
 
     const isScale105 = card.classList.contains('scale-105-default');
     const hoverScale = isScale105 ? 1.07 : 1.02;
+
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
 
     card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(${hoverScale})`;
     card.style.boxShadow = `${-rotateY * 2}px ${rotateX * 2}px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.2)`;
@@ -232,20 +241,24 @@ export default function LandingPage() {
           style={{ zIndex: 2000 }}
         >
           <div className="d-flex flex-column align-items-center justify-content-center position-relative">
-            <div className="position-relative mb-4 d-flex align-items-center justify-content-center" style={{ width: '96px', height: '96px' }}>
+            <div className="position-relative mb-4 d-flex align-items-center justify-content-center" style={{ width: '108px', height: '108px' }}>
               <div
                 className="position-absolute start-0 top-0 w-100 h-100 rounded-circle border border-2 border-brand-gold border-opacity-10 border-top-brand-gold spinner-border"
                 style={{ animationDuration: '1.5s' }}
               ></div>
-              <img
-                src="/danzup-logo.png"
-                className="img-fluid rounded"
-                style={{ height: '64px', width: 'auto', objectFit: 'contain' }}
-                alt="Logo"
-                onError={(e) => {
-                  e.target.src = 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=100&auto=format&fit=crop';
-                }}
-              />
+              <div 
+                className="rounded-circle bg-white d-flex align-items-center justify-content-center shadow-lg"
+                style={{ width: '76px', height: '76px', padding: '6px' }}
+              >
+                <img
+                  src="/danzup-logo.png"
+                  style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
+                  alt="Logo"
+                  onError={(e) => {
+                    e.target.src = 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=100&auto=format&fit=crop';
+                  }}
+                />
+              </div>
             </div>
             <h2 className="h3 font-serif font-weight-bold text-gold-gradient tracking-widest text-uppercase mb-1 opacity-0 transform translate-y-4 animate-preloader-text">
               DANZUP STUDIO
@@ -330,14 +343,14 @@ export default function LandingPage() {
       >
         <div className="container py-5 px-4 px-md-5">
           <div className="row g-5 align-items-center">
-            <div className="col-12 col-lg-6 reveal position-relative">
+            <div className="col-12 col-lg-6 reveal reveal-left position-relative">
               <div
                 className="position-absolute border border-brand-gold border-opacity-20 rounded"
                 style={{ top: '-15px', left: '-15px', width: '100%', height: '100%', zIndex: 0 }}
               ></div>
               <img
                 src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=2069&auto=format&fit=crop"
-                className="img-fluid rounded shadow-lg grayscale-to-color"
+                className="img-fluid rounded shadow-lg about-image-glow"
                 style={{ position: 'relative', zIndex: 1 }}
                 alt="About Danzup"
               />
@@ -353,7 +366,7 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-lg-6 reveal font-sans">
+            <div className="col-12 col-lg-6 reveal reveal-right font-sans">
               <h2 className="display-5 font-serif font-weight-bold mb-4 text-white">
                 About Danzup <span className="text-brand-gold font-serif">Studio</span>
               </h2>
@@ -410,48 +423,70 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="row g-4 justify-content-center max-w-4xl mx-auto font-sans">
-            {/* Team Member 1 */}
+             {/* Team Member 1 */}
             <div className="col-12 col-md-6">
               <div
-                className="glass-panel p-4 p-md-5 text-center reveal tilt-3d d-flex flex-column align-items-center h-100"
+                className="glass-panel p-4 p-md-5 text-center reveal reveal-left tilt-3d d-flex flex-column align-items-center h-100 trainer-card"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
               >
                 <div
-                  className="rounded-circle overflow-hidden mb-4 border border-2 border-brand-gold border-opacity-30 shadow-lg"
+                  className="rounded-circle overflow-hidden mb-4 border border-2 border-brand-gold border-opacity-30 shadow-lg trainer-card-image-wrapper"
                   style={{ width: '192px', height: '192px' }}
                 >
                   <img src="/hardik.png" className="w-100 h-100" style={{ objectFit: 'cover' }} alt="Hardik Chodvadiya" />
                 </div>
-                <h3 className="h4 font-serif font-weight-bold text-white mb-1">Hardik Chodvadiya</h3>
+                <h3 className="h4 font-serif font-weight-bold text-white mb-1 trainer-card-title">Hardik Chodvadiya</h3>
                 <p className="text-brand-gold text-xs font-weight-bold text-uppercase tracking-wider mb-3">
                   Studio Owner & Lead Trainer
                 </p>
-                <p className="small text-white-50 leading-relaxed mb-0" style={{ maxWidth: '280px' }}>
+                <p className="small text-white-50 leading-relaxed mb-4" style={{ maxWidth: '280px' }}>
                   Founder of Danzup Studio, leading choreography with passion, style, and a vision to make premium dance education accessible to everyone.
                 </p>
+                <div className="trainer-socials mt-auto d-flex gap-3 justify-content-center">
+                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="trainer-social-link">
+                    <i className="fab fa-instagram"></i>
+                  </a>
+                  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="trainer-social-link">
+                    <i className="fab fa-facebook-f"></i>
+                  </a>
+                  <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="trainer-social-link">
+                    <i className="fab fa-youtube"></i>
+                  </a>
+                </div>
               </div>
             </div>
             {/* Team Member 2 */}
             <div className="col-12 col-md-6">
               <div
-                className="glass-panel p-4 p-md-5 text-center reveal tilt-3d d-flex flex-column align-items-center h-100"
+                className="glass-panel p-4 p-md-5 text-center reveal reveal-right tilt-3d d-flex flex-column align-items-center h-100 trainer-card"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
               >
                 <div
-                  className="rounded-circle overflow-hidden mb-4 border border-2 border-brand-gold border-opacity-30 shadow-lg"
+                  className="rounded-circle overflow-hidden mb-4 border border-2 border-brand-gold border-opacity-30 shadow-lg trainer-card-image-wrapper"
                   style={{ width: '192px', height: '192px' }}
                 >
                   <img src="/akash.png" className="w-100 h-100" style={{ objectFit: 'cover' }} alt="Akash Tank" />
                 </div>
-                <h3 className="h4 font-serif font-weight-bold text-white mb-1">Akash Tank</h3>
+                <h3 className="h4 font-serif font-weight-bold text-white mb-1 trainer-card-title">Akash Tank</h3>
                 <p className="text-brand-gold text-xs font-weight-bold text-uppercase tracking-wider mb-3">
                   Studio Owner & Lead Trainer
                 </p>
-                <p className="small text-white-50 leading-relaxed mb-0" style={{ maxWidth: '280px' }}>
+                <p className="small text-white-50 leading-relaxed mb-4" style={{ maxWidth: '280px' }}>
                   Co-founder and master instructor, specializing in high-energy choreography, fitness dance, and building stage confidence in students.
                 </p>
+                <div className="trainer-socials mt-auto d-flex gap-3 justify-content-center">
+                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="trainer-social-link">
+                    <i className="fab fa-instagram"></i>
+                  </a>
+                  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="trainer-social-link">
+                    <i className="fab fa-facebook-f"></i>
+                  </a>
+                  <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="trainer-social-link">
+                    <i className="fab fa-youtube"></i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -479,14 +514,22 @@ export default function LandingPage() {
             ].map((cls, idx) => (
               <div className="col-12 col-md-6 col-lg-4" key={idx}>
                 <div
-                  className="glass-panel p-4 p-md-5 reveal tilt-3d h-100 cursor-pointer border-opacity-10 hover-border-brand-gold transition"
+                  className="glass-panel p-4 p-md-5 reveal tilt-3d h-100 cursor-pointer border-opacity-10 hover-border-brand-gold transition class-card"
                   onClick={() => openBookingModal(cls.title)}
                   onMouseMove={handleMouseMove}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div className="fs-1 text-brand-gold mb-3"><i className={`fas ${cls.icon}`}></i></div>
-                  <h3 className="h4 font-serif font-weight-bold text-white mb-2">{cls.title}</h3>
-                  <p className="small text-white-50 mb-0">{cls.text}</p>
+                  <div className="class-card-content d-flex flex-column h-100">
+                    <div className="fs-1 text-brand-gold mb-3 class-card-icon-wrapper">
+                      <i className={`fas ${cls.icon} class-card-icon`}></i>
+                    </div>
+                    <h3 className="h4 font-serif font-weight-bold text-white mb-2 class-card-title">{cls.title}</h3>
+                    <p className="small text-white-50 mb-4 class-card-text">{cls.text}</p>
+                    <div className="mt-auto pt-2 class-card-action text-brand-gold d-flex align-items-center gap-2">
+                      <span className="small text-uppercase tracking-wider font-weight-bold" style={{ fontSize: '11px', letterSpacing: '1.5px' }}>Book Free Trial</span>
+                      <i className="fas fa-chevron-right class-card-arrow" style={{ fontSize: '10px' }}></i>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -536,7 +579,7 @@ export default function LandingPage() {
           <div className="row g-4">
             <div className="col-12 col-md-6">
               <div
-                className="reveal overflow-hidden position-relative rounded shadow-lg"
+                className="reveal reveal-left overflow-hidden position-relative rounded shadow-lg"
                 style={{ height: '320px', cursor: 'pointer' }}
                 onClick={() => openBookingModal('Wedding Choreography')}
               >
@@ -555,7 +598,7 @@ export default function LandingPage() {
             </div>
             <div className="col-12 col-md-6">
               <div
-                className="reveal overflow-hidden position-relative rounded shadow-lg"
+                className="reveal reveal-right overflow-hidden position-relative rounded shadow-lg"
                 style={{ height: '320px', cursor: 'pointer' }}
                 onClick={() => openBookingModal('Wedding Choreography')}
               >
@@ -595,7 +638,7 @@ export default function LandingPage() {
         ></div>
         <div className="container py-5 px-4 px-md-5 position-relative z-1 font-sans">
           <div className="row g-5 align-items-center">
-            <div className="col-12 col-lg-6 reveal">
+            <div className="col-12 col-lg-6 reveal reveal-left">
               <h2 className="display-5 font-serif font-weight-bold mb-4 text-white">
                 The Ultimate <span className="text-gold-gradient font-serif">Garba</span> Experience
               </h2>
@@ -623,7 +666,7 @@ export default function LandingPage() {
                 JOIN GARBA CAMP
               </button>
             </div>
-            <div className="col-12 col-lg-6 reveal">
+            <div className="col-12 col-lg-6 reveal reveal-right">
               <div className="row g-3">
                 <div className="col-6 mt-4">
                   <img
@@ -693,7 +736,7 @@ export default function LandingPage() {
 
         <div className="container py-5 px-4 px-md-5 position-relative z-1">
           <div className="row g-5 align-items-center">
-            <div className="col-12 col-lg-6 reveal font-sans">
+            <div className="col-12 col-lg-6 reveal reveal-left font-sans">
               <p className="text-brand-gold text-uppercase tracking-widest small font-weight-bold mb-3">Experience the Energy</p>
               <h2 className="display-5 font-serif font-weight-bold mb-4 text-white">
                 Institute <span className="text-gold-gradient font-serif">Look & Feel</span>
@@ -721,7 +764,7 @@ export default function LandingPage() {
                 </a>
               </div>
             </div>
-            <div className="col-12 col-lg-6 reveal d-flex justify-content-center">
+            <div className="col-12 col-lg-6 reveal reveal-right d-flex justify-content-center">
               <div className="position-relative w-100" style={{ maxWidth: '380px' }}>
                 <div className="position-absolute border border-brand-gold border-opacity-10 rounded-4" style={{ top: '-15px', right: '-15px', width: '100%', height: '100%', zIndex: 0 }}></div>
                 <div className="glass-panel p-3 rounded-4 position-relative z-1 shadow-lg w-100">
@@ -762,7 +805,7 @@ export default function LandingPage() {
 
           <div className="row g-5 justify-content-center max-w-4xl mx-auto">
             {/* Black Day */}
-            <div className="col-12 col-md-6 reveal d-flex flex-column align-items-center">
+            <div className="col-12 col-md-6 reveal reveal-left d-flex flex-column align-items-center">
               <div className="glass-panel p-3 rounded-4 shadow-lg w-100" style={{ maxWidth: '380px' }}>
                 <div className="ratio ratio-9x16 overflow-hidden rounded-3 bg-black" style={{ height: '520px' }}>
                   <iframe
@@ -784,7 +827,7 @@ export default function LandingPage() {
             </div>
 
             {/* Red Day */}
-            <div className="col-12 col-md-6 reveal d-flex flex-column align-items-center">
+            <div className="col-12 col-md-6 reveal reveal-right d-flex flex-column align-items-center">
               <div className="glass-panel p-3 rounded-4 shadow-lg w-100" style={{ maxWidth: '380px' }}>
                 <div className="ratio ratio-9x16 overflow-hidden rounded-3 bg-black" style={{ height: '520px' }}>
                   <iframe
@@ -1057,7 +1100,7 @@ export default function LandingPage() {
         <div className="position-absolute top-0 start-0 w-100 h-100 bg-gradient opacity-50 z-0" style={{ background: 'linear-gradient(to right, var(--brand-dark), transparent)' }}></div>
         <div className="container py-5 px-4 px-md-5 position-relative z-1 font-sans">
           <div className="row g-5">
-            <div className="col-12 col-lg-6 reveal d-flex flex-column justify-content-center">
+            <div className="col-12 col-lg-6 reveal reveal-left d-flex flex-column justify-content-center">
               <h2 className="display-5 font-serif font-weight-bold mb-4 text-white">
                 Start Your <span className="text-gold-gradient font-serif">Dance Journey</span> Today
               </h2>
@@ -1066,8 +1109,8 @@ export default function LandingPage() {
               </p>
 
               <div className="d-flex flex-column gap-4">
-                <div className="d-flex align-items-center gap-3">
-                  <div className="rounded-circle d-flex align-items-center justify-content-center text-brand-gold" style={{ width: '48px', height: '48px', backgroundColor: 'rgba(212, 175, 55, 0.1)' }}>
+                <div className="d-flex align-items-center gap-3 contact-item">
+                  <div className="rounded-circle d-flex align-items-center justify-content-center text-brand-gold contact-item-icon" style={{ width: '48px', height: '48px', backgroundColor: 'rgba(212, 175, 55, 0.1)' }}>
                     <i className="fas fa-map-marker-alt"></i>
                   </div>
                   <div>
@@ -1075,8 +1118,8 @@ export default function LandingPage() {
                     <p className="small text-white-50 mb-0">YAMUNA CHOWK, Rio Business Hub, 206, Mota Varachha, Surat, Gujarat 394101</p>
                   </div>
                 </div>
-                <div className="d-flex align-items-center gap-3">
-                  <div className="rounded-circle d-flex align-items-center justify-content-center text-brand-gold" style={{ width: '48px', height: '48px', backgroundColor: 'rgba(212, 175, 55, 0.1)' }}>
+                <div className="d-flex align-items-center gap-3 contact-item">
+                  <div className="rounded-circle d-flex align-items-center justify-content-center text-brand-gold contact-item-icon" style={{ width: '48px', height: '48px', backgroundColor: 'rgba(212, 175, 55, 0.1)' }}>
                     <i className="fas fa-phone-alt"></i>
                   </div>
                   <div>
@@ -1084,8 +1127,8 @@ export default function LandingPage() {
                     <p className="small text-white-50 mb-0">+91 099048 77637</p>
                   </div>
                 </div>
-                <div className="d-flex align-items-center gap-3">
-                  <div className="rounded-circle d-flex align-items-center justify-content-center text-brand-gold" style={{ width: '48px', height: '48px', backgroundColor: 'rgba(212, 175, 55, 0.1)' }}>
+                <div className="d-flex align-items-center gap-3 contact-item">
+                  <div className="rounded-circle d-flex align-items-center justify-content-center text-brand-gold contact-item-icon" style={{ width: '48px', height: '48px', backgroundColor: 'rgba(212, 175, 55, 0.1)' }}>
                     <i className="fas fa-envelope"></i>
                   </div>
                   <div>
@@ -1096,8 +1139,12 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="col-12 col-lg-6 reveal">
-              <div className="glass-panel p-4 p-md-5 rounded shadow">
+            <div className="col-12 col-lg-6 reveal reveal-right">
+              <div
+                className="glass-panel p-4 p-md-5 rounded shadow contact-form-panel"
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+              >
                 <form onSubmit={handleContactSubmit}>
                   <div className="row g-3 mb-3">
                     <div className="col-12 col-md-6">
@@ -1240,7 +1287,7 @@ export default function LandingPage() {
 }
 
 // Dynamic stat counter component with viewport observation and frame request
-function StatCounter({ endValue, duration = 2000, isFloat = false }) {
+function StatCounter({ endValue, duration = 15000, isFloat = false }) {
   const [count, setCount] = useState(0);
   const elementRef = useRef(null);
   const hasAnimated = useRef(false);
@@ -1340,7 +1387,7 @@ function TestimonialsSlider({ testimonials }) {
       <div
         className="d-flex transition-all duration-500 ease-in-out py-3"
         style={{
-          transform: `translateX(-${currentIndex * (100 / itemsToShow)}%)`,
+          transform: `translateX(calc(-${currentIndex} * (${100 / itemsToShow}% + ${24 / itemsToShow}px)))`,
           gap: '24px'
         }}
       >

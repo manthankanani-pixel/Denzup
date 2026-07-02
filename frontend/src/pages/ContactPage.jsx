@@ -11,6 +11,35 @@ export default function ContactPage() {
   const [contactLoading, setContactLoading] = useState(false);
   const [contactResponse, setContactResponse] = useState({ text: '', isError: false });
 
+  // 3D Tilt Hover Effects
+  const handleMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const xc = x / rect.width - 0.5;
+    const yc = y / rect.height - 0.5;
+
+    const maxRotate = 6;
+    const rotateX = -yc * maxRotate;
+    const rotateY = xc * maxRotate;
+
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
+
+    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px) scale(1.005)`;
+    card.style.boxShadow = `${-rotateY * 1.5}px ${rotateX * 1.5}px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.15)`;
+    card.style.transition = 'none';
+  };
+
+  const handleMouseLeave = (e) => {
+    const card = e.currentTarget;
+    card.style.transform = `rotateX(0deg) rotateY(0deg) translateY(0) scale(1)`;
+    card.style.boxShadow = '';
+    card.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease';
+  };
+
   const handleContactSubmit = async (e) => {
     e.preventDefault();
     setContactLoading(true);
@@ -91,8 +120,8 @@ export default function ContactPage() {
             </p>
 
             <div className="d-flex flex-column gap-4">
-              <div className="d-flex align-items-center gap-3">
-                <div className="rounded-circle d-flex align-items-center justify-content-center text-brand-gold flex-shrink-0" style={{ width: '48px', height: '48px', backgroundColor: 'rgba(212, 175, 55, 0.1)' }}>
+              <div className="d-flex align-items-center gap-3 contact-item">
+                <div className="rounded-circle d-flex align-items-center justify-content-center text-brand-gold flex-shrink-0 contact-item-icon" style={{ width: '48px', height: '48px', backgroundColor: 'rgba(212, 175, 55, 0.1)' }}>
                   <i className="fas fa-map-marker-alt"></i>
                 </div>
                 <div>
@@ -100,8 +129,8 @@ export default function ContactPage() {
                   <p className="small text-white-50 mb-0"> 206, Rio Business Hub, YAMUNA CHOWK, Mota Varachha, Surat, Gujarat 394101</p>
                 </div>
               </div>
-              <div className="d-flex align-items-center gap-3">
-                <div className="rounded-circle d-flex align-items-center justify-content-center text-brand-gold flex-shrink-0" style={{ width: '48px', height: '48px', backgroundColor: 'rgba(212, 175, 55, 0.1)' }}>
+              <div className="d-flex align-items-center gap-3 contact-item">
+                <div className="rounded-circle d-flex align-items-center justify-content-center text-brand-gold flex-shrink-0 contact-item-icon" style={{ width: '48px', height: '48px', backgroundColor: 'rgba(212, 175, 55, 0.1)' }}>
                   <i className="fas fa-phone-alt"></i>
                 </div>
                 <div>
@@ -109,8 +138,8 @@ export default function ContactPage() {
                   <p className="small text-white-50 mb-0">+91 099048 77637</p>
                 </div>
               </div>
-              <div className="d-flex align-items-center gap-3">
-                <div className="rounded-circle d-flex align-items-center justify-content-center text-brand-gold flex-shrink-0" style={{ width: '48px', height: '48px', backgroundColor: 'rgba(212, 175, 55, 0.1)' }}>
+              <div className="d-flex align-items-center gap-3 contact-item">
+                <div className="rounded-circle d-flex align-items-center justify-content-center text-brand-gold flex-shrink-0 contact-item-icon" style={{ width: '48px', height: '48px', backgroundColor: 'rgba(212, 175, 55, 0.1)' }}>
                   <i className="fas fa-envelope"></i>
                 </div>
                 <div>
@@ -123,7 +152,11 @@ export default function ContactPage() {
 
           {/* Form Column */}
           <div className="col-12 col-lg-7">
-            <div className="glass-panel p-4 p-md-5 rounded shadow-lg border border-white border-opacity-5">
+            <div
+              className="glass-panel p-4 p-md-5 rounded shadow-lg border border-white border-opacity-5 contact-form-panel"
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+            >
               <h3 className="h4 font-serif font-weight-bold mb-4 text-white">Send Us a Message</h3>
               <form onSubmit={handleContactSubmit}>
                 <div className="row g-3 mb-3">

@@ -139,5 +139,16 @@
     "status": "new",
     "createdAt": "2026-07-01T11:36:25.768Z",
     "updatedAt": "2026-07-01T11:36:25.768Z"
+  },
+  {
+    "_id": "c_1782969359561hp9f4",
+    "name": "jemish",
+    "phone": "9313683554",
+    "email": "dhameliyajemish92@gmail.com",
+    "service": "Wedding Choreography",
+    "message": "my buddget is 50k for one days",
+    "status": "contacted",
+    "createdAt": "2026-07-02T05:15:59.561Z",
+    "updatedAt": "2026-07-02T05:29:37.109Z"
   }
 ]
