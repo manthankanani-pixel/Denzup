@@ -310,5 +310,18 @@
     "paid": true,
     "createdAt": "2026-07-02T05:38:26.079Z",
     "updatedAt": "2026-07-02T05:38:26.079Z"
+  },
+  {
+    "_id": "b_1782972323412wad6a",
+    "name": "jemish dhameliya",
+    "phone": "09313683554",
+    "email": "dhameliyajemish92@gmail.com",
+    "service": "Yoga Plan",
+    "batch": "Morning (8:00 AM - 9:00 AM)",
+    "date": "2026-07-03T00:00:00.000Z",
+    "status": "confirmed",
+    "paid": true,
+    "createdAt": "2026-07-02T06:05:23.412Z",
+    "updatedAt": "2026-07-02T06:07:27.566Z"
   }
 ]
