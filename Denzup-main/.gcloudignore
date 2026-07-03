@@ -1,0 +1,24 @@
+# Git ignore rules
+.git
+.gitignore
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# IDEs and editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Local environment and data files
+.env
+data/bookings.json
+data/contacts.json
+data/fees.json
+C:/Users/Admin/.gemini/antigravity-ide/brain/
