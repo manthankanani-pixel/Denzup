@@ -8,7 +8,6 @@ const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || "danzup-default-jwt-secret-key-2026";
 const CONFIG_PATH = path.join(__dirname, "../data/admin-config.json");
 
-// Helper to get admin credentials
 async function getAdminCredentials() {
   try {
     const data = await fs.readFile(CONFIG_PATH, "utf8");
@@ -21,14 +20,12 @@ async function getAdminCredentials() {
   }
 }
 
-// Helper to save admin credentials
 async function saveAdminCredentials(email, password) {
   const dir = path.dirname(CONFIG_PATH);
   await fs.mkdir(dir, { recursive: true });
   await fs.writeFile(CONFIG_PATH, JSON.stringify({ email, password }, null, 2), "utf8");
 }
 
-// Auth Middleware to protect admin routes
 const authenticateAdmin = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
@@ -46,7 +43,6 @@ const authenticateAdmin = (req, res, next) => {
   }
 };
 
-// Admin Login
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -56,7 +52,6 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ success: false, message: "Invalid email or password." });
     }
 
-    // Sign JWT token valid for 24h
     const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: "24h" });
 
     res.json({
@@ -70,7 +65,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// Get dashboard stats (Protected)
 router.get("/stats", authenticateAdmin, async (req, res) => {
   try {
     const stats = await dbManager.getStats();
@@ -84,7 +78,6 @@ router.get("/stats", authenticateAdmin, async (req, res) => {
   }
 });
 
-// Get all contacts/inquiries (Protected)
 router.get("/contacts", authenticateAdmin, async (req, res) => {
   try {
     const contacts = await dbManager.getContacts();
@@ -99,7 +92,6 @@ router.get("/contacts", authenticateAdmin, async (req, res) => {
   }
 });
 
-// Manually create a contact inquiry (Protected)
 router.post("/contacts/create", authenticateAdmin, async (req, res) => {
   try {
     const { firstName, lastName, phone, email, address, service, message } = req.body;
@@ -126,7 +118,6 @@ router.post("/contacts/create", authenticateAdmin, async (req, res) => {
 
     console.log("📝 Manually created contact inquiry saved:", contact);
 
-    // Asynchronously send a confirmation welcome email to the walk-in customer
     const { sendEmail } = require("../models/utils/email");
     const userEmailHtml = `
       <h2>Thank You for Visiting Danzup Studio! 🎉</h2>
@@ -154,7 +145,6 @@ router.post("/contacts/create", authenticateAdmin, async (req, res) => {
 });
 
 
-// Update contact/inquiry status (Protected)
 router.put("/contacts/:id/status", authenticateAdmin, async (req, res) => {
   try {
     const { status } = req.body;
@@ -174,7 +164,6 @@ router.put("/contacts/:id/status", authenticateAdmin, async (req, res) => {
   }
 });
 
-// Get all bookings (Protected)
 router.get("/bookings", authenticateAdmin, async (req, res) => {
   try {
     const bookings = await dbManager.getBookings();
@@ -189,7 +178,6 @@ router.get("/bookings", authenticateAdmin, async (req, res) => {
   }
 });
 
-// Update booking status and paid status (Protected)
 router.put("/bookings/:id/status", authenticateAdmin, async (req, res) => {
   try {
     const { status, paid } = req.body;
@@ -202,7 +190,6 @@ router.put("/bookings/:id/status", authenticateAdmin, async (req, res) => {
       return res.status(404).json({ success: false, message: "Booking not found." });
     }
 
-    // Send confirmation email when status is set to confirmed
     if (status === "confirmed") {
       const { sendEmail } = require("../models/utils/email");
       const userEmailHtml = `
@@ -251,7 +238,6 @@ router.put("/bookings/:id/status", authenticateAdmin, async (req, res) => {
   }
 });
 
-// Manually create a booking (Protected)
 router.post("/bookings/create", authenticateAdmin, async (req, res) => {
   try {
     const { name, phone, email, service, batch, date, paid, status } = req.body;
@@ -276,7 +262,6 @@ router.post("/bookings/create", authenticateAdmin, async (req, res) => {
 
     console.log("📝 Manually created booking saved:", booking);
 
-    // Asynchronously send a confirmation email to the student
     const { sendEmail } = require("../models/utils/email");
     const userEmailHtml = `
       <h2>Class Booking Confirmation! 🎉</h2>
@@ -310,7 +295,6 @@ router.post("/bookings/create", authenticateAdmin, async (req, res) => {
   }
 });
 
-// Get all fees (Protected)
 router.get("/fees", authenticateAdmin, async (req, res) => {
   try {
     const fees = await dbManager.getFees();
@@ -325,7 +309,6 @@ router.get("/fees", authenticateAdmin, async (req, res) => {
   }
 });
 
-// Create a new fee ledger (Protected)
 router.post("/fees/create", authenticateAdmin, async (req, res) => {
   try {
     const { studentName, phone, email, service, totalAmount, paidAmount, paymentMethod, dueDate, notes } = req.body;
@@ -360,7 +343,6 @@ router.post("/fees/create", authenticateAdmin, async (req, res) => {
   }
 });
 
-// Add payment transaction to fee ledger (Protected)
 router.post("/fees/:id/payments", authenticateAdmin, async (req, res) => {
   try {
     const { amount, method, notes } = req.body;
@@ -391,7 +373,6 @@ router.post("/fees/:id/payments", authenticateAdmin, async (req, res) => {
   }
 });
 
-// Delete a fee ledger (Protected)
 router.delete("/fees/:id", authenticateAdmin, async (req, res) => {
   try {
     const fee = await dbManager.deleteFee(req.params.id);
@@ -412,7 +393,6 @@ router.delete("/fees/:id", authenticateAdmin, async (req, res) => {
   }
 });
 
-// Get currently logged-in admin details (Protected)
 router.get("/me", authenticateAdmin, async (req, res) => {
   res.json({
     success: true,
@@ -420,7 +400,6 @@ router.get("/me", authenticateAdmin, async (req, res) => {
   });
 });
 
-// Change admin login credentials (Protected)
 router.put("/change-credentials", authenticateAdmin, async (req, res) => {
   try {
     const { currentPassword, newEmail, newPassword } = req.body;

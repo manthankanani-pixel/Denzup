@@ -3,7 +3,6 @@ const dbManager = require("../models/utils/db");
 const { sendEmail } = require("../models/utils/email");
 const router = express.Router();
 
-// Create booking
 router.post("/create", async (req, res) => {
   try {
     const { name, phone, email, service, batch, date, paid } = req.body;
@@ -15,7 +14,6 @@ router.post("/create", async (req, res) => {
       });
     }
 
-    // Save booking using dbManager
     const booking = await dbManager.saveBooking({
       name,
       phone,
@@ -28,7 +26,6 @@ router.post("/create", async (req, res) => {
 
     console.log("📅 New booking request saved:", booking);
 
-    // Send email notification to admin
     const adminEmailHtml = `
       <h2>New Booking Request from Danzup Studio</h2>
       <p><strong>Name:</strong> ${name}</p>
@@ -41,7 +38,6 @@ router.post("/create", async (req, res) => {
       <p><em>Booking ID: ${booking._id}</em></p>
     `;
 
-    // Send confirmation to user
     const userEmailHtml = `
       <h2>Booking Request Received! 📅</h2>
       <p>Hi ${name},</p>
@@ -57,7 +53,6 @@ router.post("/create", async (req, res) => {
       <p>Best regards,<br>Danzup Studio Team</p>
     `;
 
-    // Attempt to send emails asynchronously
     Promise.all([
       sendEmail(process.env.ADMIN_EMAIL, "🆕 New Danzup Studio Booking Request", adminEmailHtml),
       sendEmail(email, "Booking Confirmation - Danzup Studio", userEmailHtml)
@@ -87,11 +82,10 @@ router.post("/razorpay/create-order", async (req, res) => {
       return res.status(400).json({ success: false, message: "Invalid amount." });
     }
 
-    // Explicit check for missing Razorpay environment credentials
     if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
-      return res.status(400).json({ 
-        success: false, 
-        message: "Razorpay API keys (RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET) are not configured in your server .env file." 
+      return res.status(400).json({
+        success: false,
+        message: "Razorpay API keys (RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET) are not configured in your server .env file."
       });
     }
 
@@ -120,7 +114,6 @@ router.post("/razorpay/create-order", async (req, res) => {
   }
 });
 
-// Verify Razorpay Payment and Save Booking
 router.post("/razorpay/verify-payment", async (req, res) => {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature, bookingData } = req.body;
@@ -151,6 +144,47 @@ router.post("/razorpay/verify-payment", async (req, res) => {
     });
 
     console.log("📅 Verified Razorpay Booking saved:", booking);
+
+    // Auto-generate Fee Ledger for paid bookings
+    let amountPaid = 0;
+    let payMethod = "Card";
+    try {
+      const instance = new Razorpay({
+        key_id: process.env.RAZORPAY_KEY_ID,
+        key_secret: process.env.RAZORPAY_KEY_SECRET,
+      });
+      const order = await instance.orders.fetch(razorpay_order_id);
+      amountPaid = order.amount / 100; // Convert paise to INR
+      
+      const payment = await instance.payments.fetch(razorpay_payment_id);
+      if (payment.method === "upi") {
+        payMethod = "UPI";
+      } else if (payment.method === "netbanking") {
+        payMethod = "Bank Transfer";
+      }
+    } catch (fetchErr) {
+      console.warn("⚠️ Failed to fetch Razorpay details directly, guessing values:", fetchErr.message);
+      // Fallback: estimate amount based on plan prices if API fetch fails
+      const lowerService = service.toLowerCase();
+      amountPaid = lowerService.includes("starter") ? 1999 : lowerService.includes("professional") ? 3999 : lowerService.includes("premium") ? 5999 : lowerService.includes("garba") ? 1499 : lowerService.includes("dance") ? 1999 : lowerService.includes("yoga") ? 1199 : 499;
+    }
+
+    try {
+      const fee = await dbManager.saveFee({
+        studentName: name,
+        phone,
+        email,
+        service,
+        totalAmount: amountPaid,
+        paidAmount: amountPaid,
+        paymentMethod: payMethod,
+        dueDate: new Date(date),
+        notes: `Auto-generated from online booking. Razorpay Payment ID: ${razorpay_payment_id}`
+      });
+      console.log("💰 Auto-generated Fee Ledger saved:", fee);
+    } catch (feeErr) {
+      console.error("❌ Failed to auto-generate Fee Ledger:", feeErr.message);
+    }
 
     const adminEmailHtml = `
       <h2>New Paid Booking from Danzup Studio</h2>

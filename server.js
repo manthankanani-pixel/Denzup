@@ -5,7 +5,6 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 require("dotenv").config();
 
-// Copy Logo and Owner Photos from brain folder on startup if available
 const fs = require("fs");
 const path = require("path");
 
@@ -38,7 +37,6 @@ copyFileOnStartup(
   "✅ Owner Akash photo successfully initialized on startup."
 );
 
-// Validate environment variables
 const requiredEnvVars = [
   "MONGO_URI",
   "EMAIL_USER",
@@ -66,8 +64,13 @@ const adminRoutes = require("./routes/admin");
 
 const app = express();
 
-// Middleware
-app.use(helmet({ contentSecurityPolicy: false }));
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginResourcePolicy: false,
+    crossOriginEmbedderPolicy: false,
+  })
+);
 app.use(
   cors({
     origin: [
@@ -81,23 +84,19 @@ app.use(
   }),
 );
 
-// Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
 });
 app.use(limiter);
 
-// Body parser
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
-// Routes
 app.use("/api/contact", contactRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/admin", adminRoutes);
 
-// Multer setup for logo upload
 const multer = require("multer");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -113,7 +112,6 @@ app.post("/api/upload-logo", upload.single("logo"), (req, res) => {
   res.json({ success: true, message: "Logo uploaded successfully" });
 });
 
-// Security Hardening: Block public access to sensitive system and configuration files
 app.use((req, res, next) => {
   const pathLower = req.path.toLowerCase();
   if (
@@ -128,20 +126,16 @@ app.use((req, res, next) => {
   next();
 });
 
-// Serve static files (HTML, CSS, JS, images)
 app.use(express.static(path.join(__dirname, "dist")));
 
-// Fallback to serving specific image assets from the root if they are not in dist
 app.get(["/danzup-logo.png", "/hardik.png", "/akash.png", "/hero-dancer.jpeg"], (req, res) => {
   res.sendFile(path.join(__dirname, req.path));
 });
 
-// Redirect old admin HTML requests to the React admin route
 app.get("/admin.html", (req, res) => {
   res.redirect("/admin");
 });
 
-// Wildcard routing for SPA client-side routes (like /admin)
 app.get("*", (req, res, next) => {
   if (req.path.startsWith("/api")) {
     return next();
@@ -149,12 +143,10 @@ app.get("*", (req, res, next) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
-// Health check
 app.get("/api/health", (req, res) => {
   res.json({ status: "OK", version: "updated-v2", timestamp: new Date().toISOString() });
 });
 
-// Test email endpoint (equivalent to the user's PHP mail test snippet)
 app.get("/api/test-email", async (req, res) => {
   const { sendEmail } = require("./models/utils/email");
   const to = "recipient@example.com";
@@ -169,7 +161,6 @@ app.get("/api/test-email", async (req, res) => {
   }
 });
 
-// Database Connection & Server Startup
 const dbManager = require("./models/utils/db");
 
 dbManager.init().then(() => {
@@ -178,7 +169,6 @@ dbManager.init().then(() => {
   });
 });
 
-// 404 handler
 app.use("*", (req, res) => {
   res.status(404).json({ message: "Route not found" });
 });

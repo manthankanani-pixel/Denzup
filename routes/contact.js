@@ -3,7 +3,6 @@ const dbManager = require("../models/utils/db");
 const { sendEmail } = require("../models/utils/email");
 const router = express.Router();
 
-// Submit contact form
 router.post("/submit", async (req, res) => {
   try {
     const { name, phone, email, service, message } = req.body;
@@ -15,7 +14,6 @@ router.post("/submit", async (req, res) => {
       });
     }
 
-    // Save contact using dbManager (MongoDB or JSON file fallback)
     const contact = await dbManager.saveContact({
       name,
       phone,
@@ -26,7 +24,6 @@ router.post("/submit", async (req, res) => {
 
     console.log("📝 New contact inquiry saved:", contact);
 
-    // Send email notification to admin
     const adminEmailHtml = `
       <h2>New Inquiry from Danzup Studio</h2>
       <p><strong>Name:</strong> ${name}</p>
@@ -37,7 +34,6 @@ router.post("/submit", async (req, res) => {
       <p><em>Inquiry ID: ${contact._id}</em></p>
     `;
 
-    // Send confirmation to user
     const userEmailHtml = `
       <h2>Thank You for Contacting Danzup Studio! 🎉</h2>
       <p>Hi ${name},</p>
@@ -50,7 +46,6 @@ router.post("/submit", async (req, res) => {
       <p>Best regards,<br>Danzup Studio Team</p>
     `;
 
-    // Attempt to send emails asynchronously so we don't block the user's request
     Promise.all([
       sendEmail(process.env.ADMIN_EMAIL, "🆕 New Danzup Studio Inquiry", adminEmailHtml),
       sendEmail(email, "Thank You - Danzup Studio", userEmailHtml)

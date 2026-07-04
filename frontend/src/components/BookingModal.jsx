@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
+// Helper to format Date object as local YYYY-MM-DD string
+const getLocalDateString = (dateObj) => {
+  const year = dateObj.getFullYear();
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const day = String(dateObj.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 export default function BookingModal({ isOpen, onClose, serviceName }) {
+  const safeServiceName = serviceName || '';
   const [isTrialChecked, setIsTrialChecked] = useState(false);
   const [loading, setLoading] = useState(false);
   const [responseMsg, setResponseMsg] = useState({ text: '', isError: false });
@@ -16,43 +25,48 @@ export default function BookingModal({ isOpen, onClose, serviceName }) {
   useEffect(() => {
     if (isOpen) {
       setResponseMsg({ text: '', isError: false });
-      setIsTrialChecked(serviceName.toLowerCase().includes('trial'));
+      setIsTrialChecked(safeServiceName.toLowerCase().includes('trial'));
       
       // Set min date to tomorrow
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
-      setDate(tomorrow.toISOString().split('T')[0]);
+      setDate(getLocalDateString(tomorrow));
     }
-  }, [isOpen, serviceName]);
+  }, [isOpen, safeServiceName]);
 
   if (!isOpen) return null;
 
   // Determine eligibility for Free Trial (Garba, Dance, Yoga classes and NOT a membership plan)
-  const isPlan = serviceName.toLowerCase().includes('plan');
+  const isPlan = safeServiceName.toLowerCase().includes('plan');
   const eligibleForTrial = !isPlan && ['garba classes', 'dance classes', 'yoga classes', 'free trial', 'trial'].some(cls =>
-    serviceName.toLowerCase().includes(cls)
+    safeServiceName.toLowerCase().includes(cls)
   );
 
   // Price Calculation
   let numericAmount = 499;
-  if (isTrialChecked || serviceName.toLowerCase().includes('trial')) {
+  if (isTrialChecked || safeServiceName.toLowerCase().includes('trial')) {
     numericAmount = 0;
-  } else if (serviceName.includes('Starter')) {
+  } else if (safeServiceName.includes('Starter')) {
     numericAmount = 1999;
-  } else if (serviceName.includes('Professional')) {
+  } else if (safeServiceName.includes('Professional')) {
     numericAmount = 3999;
-  } else if (serviceName.includes('Premium')) {
+  } else if (safeServiceName.includes('Premium')) {
     numericAmount = 5999;
-  } else if (serviceName.includes('Garba Plan')) {
+  } else if (safeServiceName.includes('Garba Plan')) {
     numericAmount = 1499;
-  } else if (serviceName.includes('Dance Plan')) {
+  } else if (safeServiceName.includes('Dance Plan')) {
     numericAmount = 1999;
-  } else if (serviceName.includes('Yoga Plan')) {
+  } else if (safeServiceName.includes('Yoga Plan')) {
     numericAmount = 1199;
   }
 
   const isFreeTrial = numericAmount === 0;
   const priceText = isFreeTrial ? "₹0 (Free Trial)" : `₹${numericAmount}`;
+
+  // Local date min validation for date input
+  const tomorrowObj = new Date();
+  tomorrowObj.setDate(tomorrowObj.getDate() + 1);
+  const minDateStr = getLocalDateString(tomorrowObj);
 
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
@@ -65,9 +79,9 @@ export default function BookingModal({ isOpen, onClose, serviceName }) {
     setLoading(true);
     setResponseMsg({ text: '', isError: false });
 
-    const finalService = isTrialChecked && !serviceName.toLowerCase().includes('trial')
-      ? `${serviceName} (Free Trial)`
-      : serviceName;
+    const finalService = isTrialChecked && !safeServiceName.toLowerCase().includes('trial')
+      ? `${safeServiceName} (Free Trial)`
+      : safeServiceName;
 
     const bookingData = {
       service: finalService,
@@ -146,11 +160,9 @@ export default function BookingModal({ isOpen, onClose, serviceName }) {
       // 3. Open Razorpay checkout options
       const options = {
         key: orderResult.key_id,
-        amount: orderResult.amount,
-        currency: orderResult.currency,
         name: "Danzup Studio",
         description: `Payment for ${finalService}`,
-        image: "/danzup-logo.png",
+        image: window.location.origin + "/danzup-logo.png",
         order_id: orderResult.orderId,
         handler: async function (response) {
           setLoading(true);
@@ -323,7 +335,7 @@ export default function BookingModal({ isOpen, onClose, serviceName }) {
                   className="form-control rounded-1 text-white" 
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  min={new Date(Date.now() + 86400000).toISOString().split('T')[0]} // tomorrow
+                  min={minDateStr} // tomorrow local date
                   required 
                 />
               </div>
