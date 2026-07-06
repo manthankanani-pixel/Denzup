@@ -71,6 +71,15 @@ app.use(
     crossOriginEmbedderPolicy: false
   })
 );
+
+// Explicitly set a clean, modern Permissions-Policy header
+app.use((req, res, next) => {
+  res.setHeader(
+    "Permissions-Policy",
+    "geolocation=*, camera=*, microphone=*, payment=*, accelerometer=*, gyroscope=*, magnetometer=*"
+  );
+  next();
+});
 app.use(
   cors({
     origin: [

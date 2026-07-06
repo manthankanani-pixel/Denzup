@@ -717,7 +717,7 @@ export default function LandingPage() {
             </div>
             <div className="col-6 col-md-3 reveal">
               <div className="display-4 font-weight-bold text-brand-gold mb-1">
-                <StatCounter endValue={5.0} isFloat={true} />
+                <StatCounter endValue={4.6} isFloat={true} />
               </div>
               <div className="small text-white-50 text-uppercase tracking-wider" style={{ fontSize: '11px' }}>Star Rating</div>
             </div>

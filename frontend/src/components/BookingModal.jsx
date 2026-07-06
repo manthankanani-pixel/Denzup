@@ -162,7 +162,9 @@ export default function BookingModal({ isOpen, onClose, serviceName }) {
         key: orderResult.key_id,
         name: "Danzup Studio",
         description: `Payment for ${finalService}`,
-        image: window.location.origin + "/danzup-logo.png",
+        image: (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+          ? "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=120&auto=format&fit=crop"
+          : window.location.origin + "/danzup-logo.png",
         order_id: orderResult.orderId,
         handler: async function (response) {
           setLoading(true);
