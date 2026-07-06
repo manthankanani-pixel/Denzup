@@ -218,7 +218,7 @@
     "status": "cancelled",
     "paid": false,
     "createdAt": "2026-06-06T08:25:40.423Z",
-    "updatedAt": "2026-07-01T10:01:28.579Z"
+    "updatedAt": "2026-07-06T05:33:19.721Z"
   },
   {
     "_id": "b_1782965427631qbt7r",
@@ -358,9 +358,48 @@
     "service": "Professional Plan",
     "batch": "Morning (8:00 AM - 9:00 AM)",
     "date": "2026-07-05T00:00:00.000Z",
-    "status": "pending",
+    "status": "confirmed",
     "paid": true,
     "createdAt": "2026-07-04T05:15:53.048Z",
-    "updatedAt": "2026-07-04T05:15:53.048Z"
+    "updatedAt": "2026-07-04T08:26:57.543Z"
+  },
+  {
+    "_id": "b_1783315512943bat0b",
+    "name": "jemish dhameliya",
+    "phone": "09313683554",
+    "email": "dhameliyajemish92@gmail.com",
+    "service": "Professional Plan",
+    "batch": "Morning (8:00 AM - 9:00 AM)",
+    "date": "2026-07-07T00:00:00.000Z",
+    "status": "confirmed",
+    "paid": true,
+    "createdAt": "2026-07-06T05:25:12.943Z",
+    "updatedAt": "2026-07-06T05:26:29.579Z"
+  },
+  {
+    "_id": "b_1783315640675ncnzb",
+    "name": "jemish dhameliya",
+    "phone": "09313683554",
+    "email": "dhameliyajemish92@gmail.com",
+    "service": "Dance Classes (Free Trial)",
+    "batch": "Morning (8:00 AM - 9:00 AM)",
+    "date": "2026-07-07T00:00:00.000Z",
+    "status": "pending",
+    "paid": false,
+    "createdAt": "2026-07-06T05:27:20.675Z",
+    "updatedAt": "2026-07-06T05:27:20.675Z"
+  },
+  {
+    "_id": "b_1783315679430332dd",
+    "name": "jemish dhameliya",
+    "phone": "09313683554",
+    "email": "dhameliyajemish92@gmail.com",
+    "service": "Dance Classes (Free Trial)",
+    "batch": "Morning (8:00 AM - 9:00 AM)",
+    "date": "2026-07-07T00:00:00.000Z",
+    "status": "pending",
+    "paid": false,
+    "createdAt": "2026-07-06T05:27:59.430Z",
+    "updatedAt": "2026-07-06T05:27:59.430Z"
   }
 ]

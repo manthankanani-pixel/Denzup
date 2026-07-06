@@ -126,7 +126,7 @@ router.post("/contacts/create", authenticateAdmin, async (req, res) => {
       <p>Our team will contact you soon to finalize your class booking.</p>
       <p>Best regards,<br>Danzup Studio Team</p>
     `;
-    sendEmail(email, "Thank You for Visiting - Danzup Studio", userEmailHtml).catch(err => {
+    sendEmail(email, "Thank You for Visiting - Danzup Studio", userEmailHtml).catch((err) => {
       console.warn("⚠️ Customer welcome email failed to send:", err.message);
     });
 
@@ -226,7 +226,7 @@ router.put("/bookings/:id/status", authenticateAdmin, async (req, res) => {
           <p style="font-size: 14px; line-height: 1.6; color: #64748B; margin-top: 5px;">Best regards,<br>Danzup Studio Team</p>
         </div>
       `;
-      sendEmail(booking.email, "Booking Confirmed - Danzup Studio", userEmailHtml).catch(err => {
+      sendEmail(booking.email, "Booking Confirmed - Danzup Studio", userEmailHtml).catch((err) => {
         console.warn("⚠️ Booking confirmation email failed to send:", err.message);
       });
     }
@@ -277,7 +277,7 @@ router.post("/bookings/create", authenticateAdmin, async (req, res) => {
       <p>We look forward to seeing you at Danzup Studio!</p>
       <p>Best regards,<br>Danzup Studio Team</p>
     `;
-    sendEmail(email, "Class Booking Registered - Danzup Studio", userEmailHtml).catch(err => {
+    sendEmail(email, "Class Booking Registered - Danzup Studio", userEmailHtml).catch((err) => {
       console.warn("⚠️ Client booking confirmation email failed to send:", err.message);
     });
 

@@ -24,20 +24,20 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route 
-          path="/admin" 
+        <Route
+          path="/admin"
           element={
-            isAdminAuthenticated ? (
-              <AdminDashboardPage onLogout={handleLogout} />
-            ) : (
-              <AdminLoginPage onLoginSuccess={handleLoginSuccess} />
-            )
-          } 
-        />
+          isAdminAuthenticated ?
+          <AdminDashboardPage onLogout={handleLogout} /> :
+
+          <AdminLoginPage onLoginSuccess={handleLoginSuccess} />
+
+          } />
+        
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    </Router>
-  );
+    </Router>);
+
 }
 
 export default App;

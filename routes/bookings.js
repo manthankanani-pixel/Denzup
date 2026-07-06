@@ -54,16 +54,16 @@ router.post("/create", async (req, res) => {
     `;
 
     Promise.all([
-      sendEmail(process.env.ADMIN_EMAIL, "🆕 New Danzup Studio Booking Request", adminEmailHtml),
-      sendEmail(email, "Booking Confirmation - Danzup Studio", userEmailHtml)
-    ]).catch(err => {
+    sendEmail(process.env.ADMIN_EMAIL, "🆕 New Danzup Studio Booking Request", adminEmailHtml),
+    sendEmail(email, "Booking Confirmation - Danzup Studio", userEmailHtml)]
+    ).catch((err) => {
       console.warn("⚠️ Email sending experienced an issue:", err.message);
     });
 
     res.json({
       success: true,
       message: "Booking request submitted! We will contact you to confirm.",
-      bookingId: booking._id,
+      bookingId: booking._id
     });
   } catch (error) {
     console.error("Booking error:", error);
@@ -71,7 +71,6 @@ router.post("/create", async (req, res) => {
   }
 });
 
-// Create Razorpay Order
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
 
@@ -91,13 +90,13 @@ router.post("/razorpay/create-order", async (req, res) => {
 
     const instance = new Razorpay({
       key_id: process.env.RAZORPAY_KEY_ID,
-      key_secret: process.env.RAZORPAY_KEY_SECRET,
+      key_secret: process.env.RAZORPAY_KEY_SECRET
     });
 
     const options = {
-      amount: Math.round(amount * 100), // in paise
+      amount: Math.round(amount * 100),
       currency: "INR",
-      receipt: "receipt_order_" + Date.now(),
+      receipt: "receipt_order_" + Date.now()
     };
 
     const order = await instance.orders.create(options);
@@ -122,10 +121,10 @@ router.post("/razorpay/verify-payment", async (req, res) => {
       return res.status(400).json({ success: false, message: "Missing payment verification details." });
     }
 
-    const generated_signature = crypto
-      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
-      .update(razorpay_order_id + "|" + razorpay_payment_id)
-      .digest("hex");
+    const generated_signature = crypto.
+    createHmac("sha256", process.env.RAZORPAY_KEY_SECRET).
+    update(razorpay_order_id + "|" + razorpay_payment_id).
+    digest("hex");
 
     if (generated_signature !== razorpay_signature) {
       return res.status(400).json({ success: false, message: "Payment signature verification failed." });
@@ -145,17 +144,16 @@ router.post("/razorpay/verify-payment", async (req, res) => {
 
     console.log("📅 Verified Razorpay Booking saved:", booking);
 
-    // Auto-generate Fee Ledger for paid bookings
     let amountPaid = 0;
     let payMethod = "Card";
     try {
       const instance = new Razorpay({
         key_id: process.env.RAZORPAY_KEY_ID,
-        key_secret: process.env.RAZORPAY_KEY_SECRET,
+        key_secret: process.env.RAZORPAY_KEY_SECRET
       });
       const order = await instance.orders.fetch(razorpay_order_id);
-      amountPaid = order.amount / 100; // Convert paise to INR
-      
+      amountPaid = order.amount / 100;
+
       const payment = await instance.payments.fetch(razorpay_payment_id);
       if (payment.method === "upi") {
         payMethod = "UPI";
@@ -164,7 +162,6 @@ router.post("/razorpay/verify-payment", async (req, res) => {
       }
     } catch (fetchErr) {
       console.warn("⚠️ Failed to fetch Razorpay details directly, guessing values:", fetchErr.message);
-      // Fallback: estimate amount based on plan prices if API fetch fails
       const lowerService = service.toLowerCase();
       amountPaid = lowerService.includes("starter") ? 1999 : lowerService.includes("professional") ? 3999 : lowerService.includes("premium") ? 5999 : lowerService.includes("garba") ? 1499 : lowerService.includes("dance") ? 1999 : lowerService.includes("yoga") ? 1199 : 499;
     }
@@ -216,16 +213,16 @@ router.post("/razorpay/verify-payment", async (req, res) => {
     `;
 
     Promise.all([
-      sendEmail(process.env.ADMIN_EMAIL, "🆕 Paid Booking Request - Danzup Studio", adminEmailHtml),
-      sendEmail(email, "Booking Confirmed - Danzup Studio", userEmailHtml)
-    ]).catch(err => {
+    sendEmail(process.env.ADMIN_EMAIL, "🆕 Paid Booking Request - Danzup Studio", adminEmailHtml),
+    sendEmail(email, "Booking Confirmed - Danzup Studio", userEmailHtml)]
+    ).catch((err) => {
       console.warn("⚠️ Email sending experienced an issue:", err.message);
     });
 
     res.json({
       success: true,
       message: "Payment verified and booking request submitted!",
-      bookingId: booking._id,
+      bookingId: booking._id
     });
   } catch (error) {
     console.error("Payment verification and booking save error:", error);

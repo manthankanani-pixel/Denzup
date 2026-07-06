@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 const proxyOnError = (proxy) => {
   const originalOn = proxy.on;
@@ -18,7 +18,7 @@ const proxyOnError = (proxy) => {
           }
         });
       }
-      return this; // Skip registering subsequent error listeners (like Vite's default logger)
+      return this;
     }
     return originalOn.apply(this, arguments);
   };
@@ -45,7 +45,6 @@ const proxyOnError = (proxy) => {
   proxy.once = customOnce;
 };
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
@@ -53,32 +52,32 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:5000',
         changeOrigin: true,
-        configure: proxyOnError,
+        configure: proxyOnError
       },
       '/danzup-logo.png': {
         target: 'http://localhost:5000',
         changeOrigin: true,
-        configure: proxyOnError,
+        configure: proxyOnError
       },
       '/hardik.png': {
         target: 'http://localhost:5000',
         changeOrigin: true,
-        configure: proxyOnError,
+        configure: proxyOnError
       },
       '/akash.png': {
         target: 'http://localhost:5000',
         changeOrigin: true,
-        configure: proxyOnError,
+        configure: proxyOnError
       },
       '/hero-dancer.jpeg': {
         target: 'http://localhost:5000',
         changeOrigin: true,
-        configure: proxyOnError,
-      },
-    },
+        configure: proxyOnError
+      }
+    }
   },
   build: {
     outDir: '../dist',
-    emptyOutDir: true,
-  },
-})
+    emptyOutDir: true
+  }
+});

@@ -33,24 +33,24 @@ export default function AdminLoginPage({ onLoginSuccess }) {
   };
 
   return (
-    <div 
+    <div
       className="min-vh-screen d-flex align-items-center justify-content-center bg-black p-3 font-sans"
-      style={{ backgroundImage: 'radial-gradient(circle at center, #1E293B 0%, #0A0A0A 100%)' }}
-    >
-      <div 
+      style={{ backgroundImage: 'radial-gradient(circle at center, #1E293B 0%, #0A0A0A 100%)' }}>
+      
+      <div
         className="glass-panel p-4 p-md-5 rounded border border-brand-gold border-opacity-25 w-100 animate-content-fade"
-        style={{ maxWidth: '440px' }}
-      >
+        style={{ maxWidth: '440px' }}>
+        
         <div className="text-center mb-4">
-          <img 
-            src="/danzup-logo.png" 
-            className="img-fluid rounded mb-3" 
+          <img
+            src="/danzup-logo.png"
+            className="img-fluid rounded mb-3"
             style={{ height: '70px', width: 'auto', objectFit: 'contain' }}
             alt="Logo"
             onError={(e) => {
               e.target.src = 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=100&auto=format&fit=crop';
-            }}
-          />
+            }} />
+          
           <h2 className="h4 font-serif font-weight-bold text-gold-gradient tracking-wider text-uppercase mb-1">
             DANZUP STUDIO
           </h2>
@@ -62,57 +62,57 @@ export default function AdminLoginPage({ onLoginSuccess }) {
         <form onSubmit={handleLoginSubmit}>
           <div className="mb-3">
             <label className="small text-white-50 mb-1 d-block">Admin Email</label>
-            <input 
-              type="email" 
+            <input
+              type="email"
               className="form-control rounded-1 py-2.5"
               placeholder="admin@danzupstudio.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required 
-            />
+              required />
+            
           </div>
 
           <div className="mb-4">
             <label className="small text-white-50 mb-1 d-block">Password</label>
-            <input 
-              type="password" 
+            <input
+              type="password"
               className="form-control rounded-1 py-2.5"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required 
-            />
+              required />
+            
           </div>
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={loading}
             className="btn btn-gold w-100 py-3 rounded-1 btn-luxury d-flex justify-content-center align-items-center gap-2 text-uppercase tracking-wider"
-            style={{ fontSize: '12px' }}
-          >
+            style={{ fontSize: '12px' }}>
+            
             <span>Login to Portal</span>
-            {loading && (
-              <span className="spinner-border spinner-border-sm text-dark" role="status" aria-hidden="true"></span>
-            )}
+            {loading &&
+            <span className="spinner-border spinner-border-sm text-dark" role="status" aria-hidden="true"></span>
+            }
           </button>
 
-          {errorMsg && (
-            <div className="text-center small text-danger mt-3 p-2 rounded" style={{ backgroundColor: 'rgba(220,53,69,0.05)' }}>
+          {errorMsg &&
+          <div className="text-center small text-danger mt-3 p-2 rounded" style={{ backgroundColor: 'rgba(220,53,69,0.05)' }}>
               ❌ {errorMsg}
             </div>
-          )}
+          }
         </form>
 
         <div className="text-center mt-4">
-          <a 
+          <a
             href="/"
             className="small text-white-50 text-decoration-none hover-text-brand-gold"
-            style={{ fontSize: '11px' }}
-          >
+            style={{ fontSize: '11px' }}>
+            
             ← Back to Customer Website
           </a>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }

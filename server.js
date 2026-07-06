@@ -38,20 +38,20 @@ copyFileOnStartup(
 );
 
 const requiredEnvVars = [
-  "MONGO_URI",
-  "EMAIL_USER",
-  "EMAIL_PASS",
-  "ADMIN_EMAIL",
-];
+"MONGO_URI",
+"EMAIL_USER",
+"EMAIL_PASS",
+"ADMIN_EMAIL"];
+
 const missingVars = requiredEnvVars.filter((varName) => !process.env[varName]);
 
 if (missingVars.length > 0) {
   console.error(
     "❌ Missing required environment variables:",
-    missingVars.join(", "),
+    missingVars.join(", ")
   );
   console.error(
-    "Please check your .env file and ensure all required variables are set.",
+    "Please check your .env file and ensure all required variables are set."
   );
   process.exit(1);
 }
@@ -68,25 +68,25 @@ app.use(
   helmet({
     contentSecurityPolicy: false,
     crossOriginResourcePolicy: false,
-    crossOriginEmbedderPolicy: false,
+    crossOriginEmbedderPolicy: false
   })
 );
 app.use(
   cors({
     origin: [
-      "http://localhost:3000",
-      "http://127.0.0.1:3000",
-      "http://localhost:5500",
-      "http://127.0.0.1:5500",
-      process.env.FRONTEND_URL
-    ].filter(Boolean),
-    credentials: true,
-  }),
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",
+    process.env.FRONTEND_URL].
+    filter(Boolean),
+    credentials: true
+  })
 );
 
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  max: 100
 });
 app.use(limiter);
 
@@ -104,7 +104,7 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     cb(null, "danzup-logo.png");
-  },
+  }
 });
 const upload = multer({ storage: storage });
 
@@ -115,12 +115,12 @@ app.post("/api/upload-logo", upload.single("logo"), (req, res) => {
 app.use((req, res, next) => {
   const pathLower = req.path.toLowerCase();
   if (
-    pathLower.includes("/.env") ||
-    pathLower.includes("admin-config.json") ||
-    pathLower.includes("package.json") ||
-    pathLower.includes("package-lock.json") ||
-    pathLower.includes("/data/")
-  ) {
+  pathLower.includes("/.env") ||
+  pathLower.includes("admin-config.json") ||
+  pathLower.includes("package.json") ||
+  pathLower.includes("package-lock.json") ||
+  pathLower.includes("/data/"))
+  {
     return res.status(403).json({ success: false, message: "Forbidden: Access to sensitive configuration data is blocked." });
   }
   next();

@@ -6,7 +6,7 @@
     "email": "jane.smith@example.com",
     "service": "Garba Training",
     "totalAmount": 1499,
-    "paidAmount": 1499,
+    "paidAmount": 1898,
     "dueDate": "2026-06-15T00:00:00.000Z",
     "status": "fully_paid",
     "payments": [
@@ -15,11 +15,17 @@
         "method": "Card",
         "date": "2026-06-06T05:31:23.272Z",
         "notes": "Initial Payment"
+      },
+      {
+        "amount": 399,
+        "method": "Cash",
+        "notes": "bank",
+        "date": "2026-07-04T05:21:35.417Z"
       }
     ],
     "notes": "Auto-migrated from existing paid booking.",
     "createdAt": "2026-06-06T05:31:23.272Z",
-    "updatedAt": "2026-06-06T09:02:18.579Z"
+    "updatedAt": "2026-07-04T05:21:35.417Z"
   },
   {
     "_id": "f_17831423426569pbp5",
@@ -218,5 +224,27 @@
     "notes": "Auto-migrated from existing paid booking.",
     "createdAt": "2026-07-04T05:15:53.048Z",
     "updatedAt": "2026-07-04T05:15:53.048Z"
+  },
+  {
+    "_id": "f_1783315514371khrtf",
+    "studentName": "jemish dhameliya",
+    "phone": "09313683554",
+    "email": "dhameliyajemish92@gmail.com",
+    "service": "Professional Plan",
+    "totalAmount": 3999,
+    "paidAmount": 3999,
+    "dueDate": "2026-07-07T00:00:00.000Z",
+    "status": "fully_paid",
+    "payments": [
+      {
+        "amount": 3999,
+        "method": "Bank Transfer",
+        "date": "2026-07-06T05:25:14.370Z",
+        "notes": "Initial Payment"
+      }
+    ],
+    "notes": "Auto-generated from online booking. Razorpay Payment ID: pay_TA6IZhMe0CgbcQ",
+    "createdAt": "2026-07-06T05:25:14.371Z",
+    "updatedAt": "2026-07-06T05:25:14.371Z"
   }
 ]

@@ -11,7 +11,7 @@ export default function ContactPage() {
   const [contactLoading, setContactLoading] = useState(false);
   const [contactResponse, setContactResponse] = useState({ text: '', isError: false });
 
-  // 3D Tilt Hover Effects
+
   const handleMouseMove = (e) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -62,7 +62,7 @@ export default function ContactPage() {
       const result = await response.json();
       if (result.success) {
         setContactResponse({ text: '✨ ' + result.message, isError: false });
-        // Reset form
+
         setContactName('');
         setContactPhone('');
         setContactEmail('');
@@ -80,10 +80,10 @@ export default function ContactPage() {
   return (
     <div className="bg-brand-dark min-h-screen text-white position-relative d-flex flex-column font-sans">
 
-      {/* NAVBAR */}
+      {}
       <Navbar activePage="contact" />
 
-      {/* HEADER HERO */}
+      {}
       <div
         className="py-5 text-center d-flex align-items-center justify-content-center border-bottom border-white border-opacity-5"
         style={{
@@ -92,8 +92,8 @@ export default function ContactPage() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           height: '240px'
-        }}
-      >
+        }}>
+        
         <div>
           <span className="text-brand-gold text-uppercase tracking-widest small font-weight-bold mb-2 d-block">Get In Touch</span>
           <h1 className="display-4 font-serif font-weight-bold text-white mb-2">Contact Us</h1>
@@ -106,11 +106,11 @@ export default function ContactPage() {
         </div>
       </div>
 
-      {/* MAIN CONTAINER */}
+      {}
       <div className="container py-5 px-4 px-md-5 flex-grow-1">
         <div className="row g-5 justify-content-center">
 
-          {/* Details Column */}
+          {}
           <div className="col-12 col-lg-5 d-flex flex-column justify-content-center">
             <h2 className="h3 font-serif font-weight-bold mb-3 text-white">
               Start Your <span className="text-gold-gradient font-serif">Dance Journey</span> Today
@@ -150,13 +150,13 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Form Column */}
+          {}
           <div className="col-12 col-lg-7">
             <div
               className="glass-panel p-4 p-md-5 rounded shadow-lg border border-white border-opacity-5 contact-form-panel"
               onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-            >
+              onMouseLeave={handleMouseLeave}>
+              
               <h3 className="h4 font-serif font-weight-bold mb-4 text-white">Send Us a Message</h3>
               <form onSubmit={handleContactSubmit}>
                 <div className="row g-3 mb-3">
@@ -168,8 +168,8 @@ export default function ContactPage() {
                       placeholder="Your Name"
                       value={contactName}
                       onChange={(e) => setContactName(e.target.value)}
-                      required
-                    />
+                      required />
+                    
                   </div>
                   <div className="col-12 col-md-6">
                     <label className="small text-white-50 mb-1 d-block">Phone</label>
@@ -179,8 +179,8 @@ export default function ContactPage() {
                       placeholder="Your Number"
                       value={contactPhone}
                       onChange={(e) => setContactPhone(e.target.value)}
-                      required
-                    />
+                      required />
+                    
                   </div>
                 </div>
 
@@ -192,8 +192,8 @@ export default function ContactPage() {
                     placeholder="Your Email"
                     value={contactEmail}
                     onChange={(e) => setContactEmail(e.target.value)}
-                    required
-                  />
+                    required />
+                  
                 </div>
 
                 <div className="mb-3">
@@ -201,8 +201,8 @@ export default function ContactPage() {
                   <select
                     className="form-select rounded-1 text-white bg-transparent"
                     value={contactService}
-                    onChange={(e) => setContactService(e.target.value)}
-                  >
+                    onChange={(e) => setContactService(e.target.value)}>
+                    
                     <option value="Wedding Choreography">Wedding Choreography</option>
                     <option value="Garba Training">Garba Training</option>
                     <option value="Dance Classes">Dance Classes</option>
@@ -220,33 +220,33 @@ export default function ContactPage() {
                     rows="4"
                     value={contactMessage}
                     onChange={(e) => setContactMessage(e.target.value)}
-                    required
-                  ></textarea>
+                    required>
+                  </textarea>
                 </div>
 
                 <button
                   type="submit"
                   disabled={contactLoading}
-                  className="btn btn-gold w-100 py-3 rounded-1 btn-luxury d-flex justify-content-center align-items-center gap-2"
-                >
+                  className="btn btn-gold w-100 py-3 rounded-1 btn-luxury d-flex justify-content-center align-items-center gap-2">
+                  
                   <span>Submit Inquiry</span>
-                  {contactLoading && (
-                    <span className="spinner-border spinner-border-sm text-dark" role="status" aria-hidden="true"></span>
-                  )}
+                  {contactLoading &&
+                  <span className="spinner-border spinner-border-sm text-dark" role="status" aria-hidden="true"></span>
+                  }
                 </button>
 
-                {contactResponse.text && (
-                  <div className={`text-center small mt-3 p-2 rounded ${contactResponse.isError ? 'text-danger' : 'text-success'}`} style={{ backgroundColor: 'rgba(255,255,255,0.02)' }}>
+                {contactResponse.text &&
+                <div className={`text-center small mt-3 p-2 rounded ${contactResponse.isError ? 'text-danger' : 'text-success'}`} style={{ backgroundColor: 'rgba(255,255,255,0.02)' }}>
                     {contactResponse.text}
                   </div>
-                )}
+                }
               </form>
             </div>
           </div>
 
         </div>
 
-        {/* MAP CONTAINER */}
+        {}
         <div className="row mt-5">
           <div className="col-12 animate-fade-in">
             <div className="glass-panel p-2 rounded shadow" style={{ height: '400px' }}>
@@ -256,14 +256,14 @@ export default function ContactPage() {
                 allowFullScreen={true}
                 loading="lazy"
                 referrerPolicy="strict-origin-when-cross-origin"
-                title="Danzup Studio Location Map"
-              ></iframe>
+                title="Danzup Studio Location Map">
+              </iframe>
             </div>
           </div>
         </div>
       </div>
 
-      {/* FOOTER */}
+      {}
       <footer className="py-5 bg-brand-dark border-top border-white border-opacity-5">
         <div className="container py-4 px-4 px-md-5 font-sans">
           <div className="row g-4 justify-content-between align-items-center">
@@ -276,8 +276,8 @@ export default function ContactPage() {
                   alt="Danzup Logo"
                   onError={(e) => {
                     e.target.src = 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=100&auto=format&fit=crop';
-                  }}
-                />
+                  }} />
+                
                 <span className="text-gold-gradient font-serif h5 mb-0 font-weight-bold tracking-wider">DANZUP STUDIO</span>
               </a>
               <p className="small text-white-50 mb-0" style={{ maxWidth: '280px' }}>
@@ -298,8 +298,8 @@ export default function ContactPage() {
               <a
                 href="/admin"
                 className="small text-brand-gold text-decoration-none"
-                style={{ fontSize: '11px', letterSpacing: '0.1em' }}
-              >
+                style={{ fontSize: '11px', letterSpacing: '0.1em' }}>
+                
                 ADMIN PORTAL <i className="fas fa-lock small ms-1"></i>
               </a>
             </div>
@@ -307,8 +307,8 @@ export default function ContactPage() {
         </div>
       </footer>
 
-      {/* WHATSAPP FLOAT */}
+      {}
       <WhatsAppFloat />
-    </div>
-  );
+    </div>);
+
 }

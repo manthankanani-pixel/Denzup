@@ -47,22 +47,22 @@ router.post("/submit", async (req, res) => {
     `;
 
     Promise.all([
-      sendEmail(process.env.ADMIN_EMAIL, "🆕 New Danzup Studio Inquiry", adminEmailHtml),
-      sendEmail(email, "Thank You - Danzup Studio", userEmailHtml)
-    ]).catch(err => {
+    sendEmail(process.env.ADMIN_EMAIL, "🆕 New Danzup Studio Inquiry", adminEmailHtml),
+    sendEmail(email, "Thank You - Danzup Studio", userEmailHtml)]
+    ).catch((err) => {
       console.warn("⚠️ Email sending experienced an issue:", err.message);
     });
 
     res.json({
       success: true,
       message: "Inquiry submitted successfully! We'll contact you soon.",
-      contactId: contact._id,
+      contactId: contact._id
     });
   } catch (error) {
     console.error("Contact error:", error);
     res.status(500).json({
       success: false,
-      message: "Server error. Please try again.",
+      message: "Server error. Please try again."
     });
   }
 });

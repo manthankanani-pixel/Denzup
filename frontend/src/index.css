@@ -816,3 +816,36 @@ details[open] summary i {
 .btn-luxury:hover::before {
   left: 100%;
 }
+
+/* Custom Hover Utility Classes */
+.hover-bg-brand-gold:hover,
+.hover-bg-brand-gold:focus,
+.hover-bg-brand-gold.active {
+  background-color: var(--brand-gold) !important;
+}
+
+.hover-text-black:hover,
+.hover-text-black:focus,
+.hover-text-black.active {
+  color: #000000 !important;
+}
+
+.hover-bg-white:hover,
+.hover-bg-white:focus {
+  background-color: #ffffff !important;
+}
+
+.hover-bg-white.hover-bg-opacity-5:hover,
+.hover-bg-white.hover-bg-opacity-5:focus {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.hover-text-white:hover,
+.hover-text-white:focus {
+  color: #ffffff !important;
+}
+
+.transition {
+  transition: all 0.2s ease-in-out;
+}
+
