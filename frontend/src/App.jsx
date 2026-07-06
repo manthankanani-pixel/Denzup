@@ -9,6 +9,7 @@ import CelebrationsPage from './pages/CelebrationsPage';
 import GalleryPage from './pages/GalleryPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<AboutPage />} />
