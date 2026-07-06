@@ -232,32 +232,32 @@ export default function LandingPage() {
   return (
     <div className="bg-brand-dark min-h-screen text-white position-relative">
 
-      {}
+      { }
       {showPreloader &&
-      <div
-        id="preloader"
-        className={`position-fixed top-0 start-0 w-100 h-100 d-flex flex-column align-items-center justify-content-center bg-black transition-all duration-1000 ${preloaderFade ? 'fade-out' : ''}`
-        }
-        style={{ zIndex: 2000 }}>
-        
+        <div
+          id="preloader"
+          className={`position-fixed top-0 start-0 w-100 h-100 d-flex flex-column align-items-center justify-content-center bg-black transition-all duration-1000 ${preloaderFade ? 'fade-out' : ''}`
+          }
+          style={{ zIndex: 2000 }}>
+
           <div className="d-flex flex-column align-items-center justify-content-center position-relative">
             <div className="position-relative mb-4 d-flex align-items-center justify-content-center" style={{ width: '108px', height: '108px' }}>
               <div
-              className="position-absolute start-0 top-0 w-100 h-100 rounded-circle border border-2 border-brand-gold border-opacity-10 border-top-brand-gold spinner-border"
-              style={{ animationDuration: '1.5s' }}>
-            </div>
+                className="position-absolute start-0 top-0 w-100 h-100 rounded-circle border border-2 border-brand-gold border-opacity-10 border-top-brand-gold spinner-border"
+                style={{ animationDuration: '1.5s' }}>
+              </div>
               <div
-              className="rounded-circle bg-white d-flex align-items-center justify-content-center shadow-lg"
-              style={{ width: '76px', height: '76px', padding: '6px' }}>
-              
+                className="rounded-circle bg-white d-flex align-items-center justify-content-center shadow-lg"
+                style={{ width: '76px', height: '76px', padding: '6px' }}>
+
                 <img
-                src="/danzup-logo.png"
-                style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
-                alt="Logo"
-                onError={(e) => {
-                  e.target.src = 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=100&auto=format&fit=crop';
-                }} />
-              
+                  src="/danzup-logo.png"
+                  style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
+                  alt="Logo"
+                  onError={(e) => {
+                    e.target.src = 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=100&auto=format&fit=crop';
+                  }} />
+
               </div>
             </div>
             <h2 className="h3 font-serif font-weight-bold text-gold-gradient tracking-widest text-uppercase mb-1 opacity-0 transform translate-y-4 animate-preloader-text">
@@ -270,18 +270,18 @@ export default function LandingPage() {
         </div>
       }
 
-      {}
+      { }
       <Navbar
         activePage={activePage}
         onNavigate={navigateTo}
         onOpenBooking={openBookingModal} />
-      
 
-      {}
+
+      { }
       <section
         id="hero"
         className={`position-relative min-vh-100 d-flex align-items-center justify-content-center overflow-hidden ${getSectionClass('hero')}`}>
-        
+
         <div className="position-absolute top-0 start-0 w-100 h-100 z-0">
           <div className="position-absolute top-0 start-0 w-100 h-100 bg-black bg-opacity-70 z-1"></div>
           <div className="position-absolute top-0 start-0 w-100 h-100 bg-gradient z-1" style={{ background: 'linear-gradient(to top, var(--brand-dark), transparent, var(--brand-dark))' }}></div>
@@ -290,10 +290,10 @@ export default function LandingPage() {
             className="w-100 h-100"
             style={{ objectFit: 'cover', opacity: 0.4 }}
             alt="Hero Background" />
-          
+
         </div>
 
-        {}
+        { }
         <div
           className="position-absolute top-0 start-0 w-100 h-100 pointer-events-none"
           style={{
@@ -320,27 +320,27 @@ export default function LandingPage() {
           <div className="d-flex flex-column flex-md-row gap-3 justify-content-center hero-fade-in active font-sans">
             <a
               href="#classes"
-              onClick={(e) => {e.preventDefault();navigateTo('classes');}}
+              onClick={(e) => { e.preventDefault(); navigateTo('classes'); }}
               className="btn btn-gold py-3 px-5 text-uppercase tracking-wider font-weight-bold rounded-1 border border-brand-gold">
-              
+
               JOIN CLASSES
             </a>
             <a
               href="#contact"
-              onClick={(e) => {e.preventDefault();navigateTo('contact');}}
+              onClick={(e) => { e.preventDefault(); navigateTo('contact'); }}
               className="btn btn-outline-white py-3 px-5 text-uppercase tracking-wider font-weight-bold rounded-1 border border-white-30">
-              
+
               BOOK FREE TRIAL
             </a>
           </div>
         </div>
       </section>
 
-      {}
+      { }
       <section
         id="about"
         className={`py-5 bg-brand-dark ${getSectionClass('about')}`}>
-        
+
         <div className="container py-5 px-4 px-md-5">
           <div className="row g-5 align-items-center">
             <div className="col-12 col-lg-6 reveal reveal-left position-relative">
@@ -353,11 +353,11 @@ export default function LandingPage() {
                 className="img-fluid rounded shadow-lg about-image-glow"
                 style={{ position: 'relative', zIndex: 1 }}
                 alt="About Danzup" />
-              
+
               <div
                 className="position-absolute glass-panel p-4 rounded d-none d-md-block"
                 style={{ bottom: '-30px', right: '-15px', zIndex: 2 }}>
-                
+
                 <div className="d-flex align-items-center gap-3">
                   <div className="h2 font-serif font-weight-bold text-brand-gold mb-0">5+</div>
                   <div className="small text-uppercase tracking-wider text-white-50" style={{ fontSize: '10px' }}>
@@ -408,11 +408,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {}
+      { }
       <section
         id="team"
         className={`py-5 bg-brand-secondary border-top border-white border-opacity-5 ${getSectionClass('team')}`}>
-        
+
         <div className="container py-5 px-4 px-md-5">
           <div className="text-center mb-5 reveal">
             <h2 className="display-5 font-serif font-weight-bold mb-3 text-white">
@@ -423,17 +423,17 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="row g-4 justify-content-center max-w-4xl mx-auto font-sans">
-             {}
+            { }
             <div className="col-12 col-md-6">
               <div
                 className="glass-panel p-4 p-md-5 text-center reveal reveal-left tilt-3d d-flex flex-column align-items-center h-100 trainer-card"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}>
-                
+
                 <div
                   className="rounded-circle overflow-hidden mb-4 border border-2 border-brand-gold border-opacity-30 shadow-lg trainer-card-image-wrapper"
                   style={{ width: '192px', height: '192px' }}>
-                  
+
                   <img src="/hardik.png" className="w-100 h-100" style={{ objectFit: 'cover' }} alt="Hardik Chodvadiya" />
                 </div>
                 <h3 className="h4 font-serif font-weight-bold text-white mb-1 trainer-card-title">Hardik Chodvadiya</h3>
@@ -456,17 +456,17 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
-            {}
+            { }
             <div className="col-12 col-md-6">
               <div
                 className="glass-panel p-4 p-md-5 text-center reveal reveal-right tilt-3d d-flex flex-column align-items-center h-100 trainer-card"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}>
-                
+
                 <div
                   className="rounded-circle overflow-hidden mb-4 border border-2 border-brand-gold border-opacity-30 shadow-lg trainer-card-image-wrapper"
                   style={{ width: '192px', height: '192px' }}>
-                  
+
                   <img src="/akash.png" className="w-100 h-100" style={{ objectFit: 'cover' }} alt="Akash Tank" />
                 </div>
                 <h3 className="h4 font-serif font-weight-bold text-white mb-1 trainer-card-title">Akash Tank</h3>
@@ -493,11 +493,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {}
+      { }
       <section
         id="classes"
         className={`py-5 bg-brand-primary ${getSectionClass('classes')}`}>
-        
+
         <div className="container py-5 px-4 px-md-5 font-sans">
           <div className="text-center mb-5 reveal">
             <h2 className="display-5 font-serif font-weight-bold mb-3 text-white">Our Classes</h2>
@@ -505,43 +505,43 @@ export default function LandingPage() {
           </div>
           <div className="row g-4">
             {[
-            { icon: 'fa-ring', title: 'Wedding Choreography', text: 'Customized choreography for couples and families. Sangeet, Mehendi, Reception performances.' },
-            { icon: 'fa-music', title: 'Garba Classes', text: 'Traditional and modern Garba training with Navratri preparation programs.' },
-            { icon: 'fa-shoe-prints', title: 'Dance Classes', text: 'Bollywood, Hip-Hop, Contemporary, Freestyle, Semi-Classical, and Fusion Dance.' },
-            { icon: 'fa-child', title: 'Kids Dance Program', text: 'Creative dance learning for children with fun and confidence-building activities.' },
-            { icon: 'fa-heart-pulse', title: 'Fitness Dance', text: 'Zumba, Cardio Dance, Aerobic Dance, and Weight Management Programs.' },
-            { icon: 'fa-spa', title: 'Yoga Classes', text: 'Mindfulness, Flexibility, Strength Training, Meditation, and Wellness Sessions.' }].
-            map((cls, idx) =>
-            <div className="col-12 col-md-6 col-lg-4" key={idx}>
-                <div
-                className="glass-panel p-4 p-md-5 reveal tilt-3d h-100 cursor-pointer border-opacity-10 hover-border-brand-gold transition class-card"
-                onClick={() => openBookingModal(cls.title)}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}>
-                
-                  <div className="class-card-content d-flex flex-column h-100">
-                    <div className="fs-1 text-brand-gold mb-3 class-card-icon-wrapper">
-                      <i className={`fas ${cls.icon} class-card-icon`}></i>
-                    </div>
-                    <h3 className="h4 font-serif font-weight-bold text-white mb-2 class-card-title">{cls.title}</h3>
-                    <p className="small text-white-50 mb-4 class-card-text">{cls.text}</p>
-                    <div className="mt-auto pt-2 class-card-action text-brand-gold d-flex align-items-center gap-2">
-                      <span className="small text-uppercase tracking-wider font-weight-bold" style={{ fontSize: '11px', letterSpacing: '1.5px' }}>Book Free Trial</span>
-                      <i className="fas fa-chevron-right class-card-arrow" style={{ fontSize: '10px' }}></i>
+              { icon: 'fa-ring', title: 'Wedding Choreography', text: 'Customized choreography for couples and families. Sangeet, Mehendi, Reception performances.' },
+              { icon: 'fa-music', title: 'Garba Classes', text: 'Traditional and modern Garba training with Navratri preparation programs.' },
+              { icon: 'fa-shoe-prints', title: 'Dance Classes', text: 'Bollywood, Hip-Hop, Contemporary, Freestyle, Semi-Classical, and Fusion Dance.' },
+              { icon: 'fa-child', title: 'Kids Dance Program', text: 'Creative dance learning for children with fun and confidence-building activities.' },
+              { icon: 'fa-heart-pulse', title: 'Fitness Dance', text: 'Zumba, Cardio Dance, Aerobic Dance, and Weight Management Programs.' },
+              { icon: 'fa-spa', title: 'Yoga Classes', text: 'Mindfulness, Flexibility, Strength Training, Meditation, and Wellness Sessions.' }].
+              map((cls, idx) =>
+                <div className="col-12 col-md-6 col-lg-4" key={idx}>
+                  <div
+                    className="glass-panel p-4 p-md-5 reveal tilt-3d h-100 cursor-pointer border-opacity-10 hover-border-brand-gold transition class-card"
+                    onClick={() => openBookingModal(cls.title)}
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}>
+
+                    <div className="class-card-content d-flex flex-column h-100">
+                      <div className="fs-1 text-brand-gold mb-3 class-card-icon-wrapper">
+                        <i className={`fas ${cls.icon} class-card-icon`}></i>
+                      </div>
+                      <h3 className="h4 font-serif font-weight-bold text-white mb-2 class-card-title">{cls.title}</h3>
+                      <p className="small text-white-50 mb-4 class-card-text">{cls.text}</p>
+                      <div className="mt-auto pt-2 class-card-action text-brand-gold d-flex align-items-center gap-2">
+                        <span className="small text-uppercase tracking-wider font-weight-bold" style={{ fontSize: '11px', letterSpacing: '1.5px' }}>Book Free Trial</span>
+                        <i className="fas fa-chevron-right class-card-arrow" style={{ fontSize: '10px' }}></i>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
           </div>
         </div>
       </section>
 
-      {}
+      { }
       <section
         id="why-choose"
         className={`py-5 bg-brand-dark ${getSectionClass('why-choose')}`}>
-        
+
         <div className="container py-5 px-4 px-md-5 font-sans">
           <div className="text-center mb-5 reveal">
             <h2 className="display-5 font-serif font-weight-bold mb-3 text-white">Why Choose Us</h2>
@@ -549,28 +549,28 @@ export default function LandingPage() {
           </div>
           <div className="row g-4">
             {[
-            { icon: 'fa-user-tie', title: 'Experienced Trainers', text: 'Certified industry experts' },
-            { icon: 'fa-building', title: 'Professional Studio', text: 'Premium infrastructure' },
-            { icon: 'fa-calendar-check', title: 'Flexible Timings', text: 'Batches that fit you' },
-            { icon: 'fa-medal', title: 'Community', text: 'Events and workshops' }].
-            map((item, idx) =>
-            <div className="col-6 col-md-3 text-center" key={idx}>
-                <div className="glass-panel p-4 reveal h-100 border-0 bg-opacity-25">
-                  <i className={`fas ${item.icon} fs-2 text-brand-gold mb-3`}></i>
-                  <h4 className="h6 text-white font-weight-bold mb-1">{item.title}</h4>
-                  <p className="small text-white-50 mb-0" style={{ fontSize: '11px' }}>{item.text}</p>
+              { icon: 'fa-user-tie', title: 'Experienced Trainers', text: 'Certified industry experts' },
+              { icon: 'fa-building', title: 'Professional Studio', text: 'Premium infrastructure' },
+              { icon: 'fa-calendar-check', title: 'Flexible Timings', text: 'Batches that fit you' },
+              { icon: 'fa-medal', title: 'Community', text: 'Events and workshops' }].
+              map((item, idx) =>
+                <div className="col-6 col-md-3 text-center" key={idx}>
+                  <div className="glass-panel p-4 reveal h-100 border-0 bg-opacity-25">
+                    <i className={`fas ${item.icon} fs-2 text-brand-gold mb-3`}></i>
+                    <h4 className="h6 text-white font-weight-bold mb-1">{item.title}</h4>
+                    <p className="small text-white-50 mb-0" style={{ fontSize: '11px' }}>{item.text}</p>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
           </div>
         </div>
       </section>
 
-      {}
+      { }
       <section
         id="showcase"
         className={`py-5 bg-brand-primary ${getSectionClass('showcase')}`}>
-        
+
         <div className="container py-5 px-4 px-md-5 font-sans">
           <div className="text-center mb-5 reveal">
             <h2 className="display-5 font-serif font-weight-bold mb-3 text-white">Wedding Showcase</h2>
@@ -582,16 +582,16 @@ export default function LandingPage() {
                 className="reveal reveal-left overflow-hidden position-relative rounded shadow-lg"
                 style={{ height: '320px', cursor: 'pointer' }}
                 onClick={() => openBookingModal('Wedding Choreography')}>
-                
+
                 <img
                   src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=2074&auto=format&fit=crop"
                   className="w-100 h-100 image-zoom transition"
                   style={{ objectFit: 'cover' }}
                   alt="Sangeet" />
-                
+
                 <div
                   className="position-absolute top-0 start-0 w-100 h-100 bg-black bg-opacity-50 d-flex align-items-center justify-content-center opacity-hover transition">
-                  
+
                   <span className="text-brand-gold font-serif h4 border border-brand-gold px-4 py-2 bg-black bg-opacity-50">Sangeet</span>
                 </div>
               </div>
@@ -601,16 +601,16 @@ export default function LandingPage() {
                 className="reveal reveal-right overflow-hidden position-relative rounded shadow-lg"
                 style={{ height: '320px', cursor: 'pointer' }}
                 onClick={() => openBookingModal('Wedding Choreography')}>
-                
+
                 <img
                   src="https://images.unsplash.com/photo-1591604419794-5c32ddc19c1d?q=80&w=2070&auto=format&fit=crop"
                   className="w-100 h-100 image-zoom transition"
                   style={{ objectFit: 'cover' }}
                   alt="Family Dance" />
-                
+
                 <div
                   className="position-absolute top-0 start-0 w-100 h-100 bg-black bg-opacity-50 d-flex align-items-center justify-content-center opacity-hover transition">
-                  
+
                   <span className="text-brand-gold font-serif h4 border border-brand-gold px-4 py-2 bg-black bg-opacity-50">Family Dance</span>
                 </div>
               </div>
@@ -620,18 +620,18 @@ export default function LandingPage() {
             <button
               onClick={() => openBookingModal('Wedding Choreography')}
               className="btn btn-outline-brand-gold py-3 px-5 btn-luxury border border-brand-gold text-brand-gold font-weight-bold">
-              
+
               PLAN YOUR WEDDING
             </button>
           </div>
         </div>
       </section>
 
-      {}
+      { }
       <section
         id="garba"
         className={`py-5 bg-brand-secondary position-relative overflow-hidden ${getSectionClass('garba')}`}>
-        
+
         <div
           className="position-absolute top-0 start-0 w-100 h-100 opacity-10 pointer-events-none"
           style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/stardust.png')" }}>
@@ -662,7 +662,7 @@ export default function LandingPage() {
               <button
                 onClick={() => openBookingModal('Garba Classes')}
                 className="btn btn-gold py-3 px-5 font-weight-bold rounded-1 btn-luxury">
-                
+
                 JOIN GARBA CAMP
               </button>
             </div>
@@ -674,7 +674,7 @@ export default function LandingPage() {
                     className="img-fluid rounded shadow"
                     style={{ height: '240px', width: '100%', objectFit: 'cover' }}
                     alt="Garba 1" />
-                  
+
                 </div>
                 <div className="col-6">
                   <img
@@ -682,7 +682,7 @@ export default function LandingPage() {
                     className="img-fluid rounded shadow"
                     style={{ height: '240px', width: '100%', objectFit: 'cover' }}
                     alt="Garba 2" />
-                  
+
                 </div>
               </div>
             </div>
@@ -690,11 +690,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {}
+      { }
       <section
         id="stats"
         className={`py-5 bg-brand-dark ${getSectionClass('stats')}`}>
-        
+
         <div className="container py-4 px-4 px-md-5 font-sans">
           <div className="row g-4 text-center">
             <div className="col-6 col-md-3 reveal">
@@ -725,12 +725,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {}
+      { }
       <section
         id="institute-look"
         className={`py-5 bg-brand-dark position-relative overflow-hidden ${getSectionClass('institute-look')}`}>
-        
-        {}
+
+        { }
         <div className="position-absolute rounded-circle pointer-events-none" style={{ top: '20%', left: '20%', width: '400px', height: '400px', backgroundColor: 'rgba(212, 175, 55, 0.05)', filter: 'blur(100px)' }}></div>
         <div className="position-absolute rounded-circle pointer-events-none" style={{ bottom: '20%', right: '20%', width: '400px', height: '400px', backgroundColor: 'rgba(212, 175, 55, 0.05)', filter: 'blur(100px)' }}></div>
 
@@ -751,7 +751,7 @@ export default function LandingPage() {
                 <button
                   onClick={() => openBookingModal('Dance Classes')}
                   className="btn btn-gold py-3.5 px-4 font-weight-bold rounded-1 btn-luxury border border-brand-gold">
-                  
+
                   BOOK A VISIT
                 </button>
                 <a
@@ -759,7 +759,7 @@ export default function LandingPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-outline-white py-3.5 px-4 font-weight-bold rounded-1 d-flex align-items-center gap-2 border border-white-30">
-                  
+
                   <i className="fab fa-instagram text-brand-gold"></i> FOLLOW US
                 </a>
               </div>
@@ -785,11 +785,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {}
+      { }
       <section
         id="theme-days"
         className={`py-5 bg-brand-primary position-relative overflow-hidden ${getSectionClass('theme-days')}`}>
-        
+
         <div className="position-absolute rounded-circle pointer-events-none" style={{ top: '25%', right: '25%', width: '400px', height: '400px', backgroundColor: 'rgba(212, 175, 55, 0.05)', filter: 'blur(100px)' }}></div>
 
         <div className="container py-5 px-4 px-md-5 position-relative z-1 font-sans">
@@ -804,7 +804,7 @@ export default function LandingPage() {
           </div>
 
           <div className="row g-5 justify-content-center max-w-4xl mx-auto">
-            {}
+            { }
             <div className="col-12 col-md-6 reveal reveal-left d-flex flex-column align-items-center">
               <div className="glass-panel p-3 rounded-4 shadow-lg w-100" style={{ maxWidth: '380px' }}>
                 <div className="ratio ratio-9x16 overflow-hidden rounded-3 bg-black" style={{ height: '520px' }}>
@@ -826,7 +826,7 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {}
+            { }
             <div className="col-12 col-md-6 reveal reveal-right d-flex flex-column align-items-center">
               <div className="glass-panel p-3 rounded-4 shadow-lg w-100" style={{ maxWidth: '380px' }}>
                 <div className="ratio ratio-9x16 overflow-hidden rounded-3 bg-black" style={{ height: '520px' }}>
@@ -851,11 +851,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {}
+      { }
       <section
         id="gallery"
         className={`py-5 bg-brand-secondary ${getSectionClass('gallery')}`}>
-        
+
         <div className="container py-5 px-4 px-md-5 font-sans">
           <div className="text-center mb-5 reveal">
             <h2 className="display-5 font-serif font-weight-bold mb-3 text-white">Gallery</h2>
@@ -863,65 +863,65 @@ export default function LandingPage() {
           </div>
           <div className="row g-3">
             {[
-            'https://images.unsplash.com/photo-1547153760-18fc86304498?q=80&w=1974&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1533628150033-14a3f9e44009?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1524594152303-9f1c49bac937?q=80&w=1974&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1572916597494-1b3b6a53d7d5?q=80&w=1974&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1518834107812-67b0b7c58434?q=80&w=1935&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1595152772831-2c1f7d5f16e4?q=80&w=1974&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1526243741027-444d633d7365?q=80&w=2071&auto=format&fit=crop'].
-            map((imgUrl, idx) =>
-            <div className="col-6 col-md-3 reveal" key={idx}>
-                <div className="overflow-hidden rounded position-relative group" style={{ height: '240px' }}>
-                  <img src={imgUrl} className="w-100 h-100 image-zoom transition" style={{ objectFit: 'cover' }} alt={`Gallery ${idx + 1}`} />
+              'https://images.unsplash.com/photo-1547153760-18fc86304498?q=80&w=1974&auto=format&fit=crop',
+              'https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?q=80&w=2070&auto=format&fit=crop',
+              'https://images.unsplash.com/photo-1533628150033-14a3f9e44009?q=80&w=2070&auto=format&fit=crop',
+              'https://images.unsplash.com/photo-1524594152303-9f1c49bac937?q=80&w=1974&auto=format&fit=crop',
+              'https://images.unsplash.com/photo-1572916597494-1b3b6a53d7d5?q=80&w=1974&auto=format&fit=crop',
+              'https://images.unsplash.com/photo-1518834107812-67b0b7c58434?q=80&w=1935&auto=format&fit=crop',
+              'https://images.unsplash.com/photo-1595152772831-2c1f7d5f16e4?q=80&w=1974&auto=format&fit=crop',
+              'https://images.unsplash.com/photo-1526243741027-444d633d7365?q=80&w=2071&auto=format&fit=crop'].
+              map((imgUrl, idx) =>
+                <div className="col-6 col-md-3 reveal" key={idx}>
+                  <div className="overflow-hidden rounded position-relative group" style={{ height: '240px' }}>
+                    <img src={imgUrl} className="w-100 h-100 image-zoom transition" style={{ objectFit: 'cover' }} alt={`Gallery ${idx + 1}`} />
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
           </div>
         </div>
       </section>
 
-      {}
+      { }
       <section
         id="testimonials"
         className={`py-5 bg-brand-dark ${getSectionClass('testimonials')}`}>
-        
+
         <div className="container py-5 px-4 px-md-5 font-sans">
           <div className="text-center mb-5 reveal">
             <h2 className="display-5 font-serif font-weight-bold mb-3 text-white">What Students Say</h2>
           </div>
           <div className="reveal">
             <TestimonialsSlider testimonials={[
-            { text: '"Danzup Studio transformed my wedding dance. The choreography was seamless and our guests are still talking about it!"', author: 'Priya & Rahul' },
-            { text: '"Best Garba classes in the city. The energy during Navratri is unmatched. Highly recommended!"', author: 'Arjun Patel' },
-            { text: '"The yoga sessions here helped me find my balance again. Beautiful studio and very supportive instructors."', author: 'Smit Dudhat' },
-            { text: '"The wedding choreography packages are absolute value for money. They personalized our steps and made us feel so confident!"', author: 'Sneha & Amit' },
-            { text: '"Great atmosphere, top-tier audio systems, and trainers who actually care about your progress. Best dance studio in Surat!"', author: 'Karan Patel' },
-            { text: '"Absolutely love this place! The yoga sessions are serene, and the Zumba batches are incredibly high-energy. The perfect place for dance and fitness."', author: 'Riddhi Desai' }]
+              { text: '"Danzup Studio transformed my wedding dance. The choreography was seamless and our guests are still talking about it!"', author: 'Priya & Rahul' },
+              { text: '"Best Garba classes in the city. The energy during Navratri is unmatched. Highly recommended!"', author: 'Arjun Patel' },
+              { text: '"The yoga sessions here helped me find my balance again. Beautiful studio and very supportive instructors."', author: 'Smit Dudhat' },
+              { text: '"The wedding choreography packages are absolute value for money. They personalized our steps and made us feel so confident!"', author: 'Sneha & Amit' },
+              { text: '"Great atmosphere, top-tier audio systems, and trainers who actually care about your progress. Best dance studio in Surat!"', author: 'Karan Patel' },
+              { text: '"Absolutely love this place! The yoga sessions are serene, and the Zumba batches are incredibly high-energy. The perfect place for dance and fitness."', author: 'Riddhi Desai' }]
             } />
           </div>
         </div>
       </section>
 
-      {}
+      { }
       <section
         id="membership"
         className={`py-5 bg-brand-primary ${getSectionClass('membership')}`}>
-        
+
         <div className="container py-5 px-4 px-md-5 font-sans">
           <div className="text-center mb-5 reveal">
             <h2 className="display-5 font-serif font-weight-bold mb-3 text-white">Membership Plans</h2>
             <p className="text-white-50">Choose the plan that fits your lifestyle.</p>
           </div>
           <div className="row g-4 justify-content-center max-w-5xl mx-auto align-items-center">
-            {}
+            { }
             <div className="col-12 col-md-6 col-lg-4">
               <div
                 className="glass-panel p-4 p-md-5 text-center reveal tilt-3d h-100"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}>
-                
+
                 <h3 className="h5 font-serif font-weight-bold text-white mb-3">Garba</h3>
                 <div className="display-6 font-weight-bold text-brand-gold mb-4">₹1499<span className="small text-white-50 font-weight-normal" style={{ fontSize: '14px' }}>/month</span></div>
                 <ul className="list-unstyled space-y-2 text-white-50 mb-4" style={{ fontSize: '13px' }}>
@@ -932,19 +932,19 @@ export default function LandingPage() {
                 <button
                   onClick={() => openBookingModal('Garba Plan')}
                   className="btn btn-outline-white w-100 py-2.5 rounded-1 text-uppercase text-xs">
-                  
+
                   JOIN GARBA
                 </button>
               </div>
             </div>
 
-            {}
+            { }
             <div className="col-12 col-md-6 col-lg-4">
               <div
                 className="glass-panel p-4 p-md-5 text-center reveal tilt-3d h-100"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}>
-                
+
                 <h3 className="h5 font-serif font-weight-bold text-white mb-3">Dance</h3>
                 <div className="display-6 font-weight-bold text-brand-gold mb-4">₹1999<span className="small text-white-50 font-weight-normal" style={{ fontSize: '14px' }}>/month</span></div>
                 <ul className="list-unstyled space-y-2 text-white-50 mb-4" style={{ fontSize: '13px' }}>
@@ -955,19 +955,19 @@ export default function LandingPage() {
                 <button
                   onClick={() => openBookingModal('Dance Plan')}
                   className="btn btn-outline-white w-100 py-2.5 rounded-1 text-uppercase text-xs">
-                  
+
                   JOIN DANCE
                 </button>
               </div>
             </div>
 
-            {}
+            { }
             <div className="col-12 col-md-6 col-lg-4">
               <div
                 className="glass-panel p-4 p-md-5 text-center reveal tilt-3d h-100"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}>
-                
+
                 <h3 className="h5 font-serif font-weight-bold text-white mb-3">Yoga</h3>
                 <div className="display-6 font-weight-bold text-brand-gold mb-4">₹1199<span className="small text-white-50 font-weight-normal" style={{ fontSize: '14px' }}>/month</span></div>
                 <ul className="list-unstyled space-y-2 text-white-50 mb-4" style={{ fontSize: '13px' }}>
@@ -978,19 +978,19 @@ export default function LandingPage() {
                 <button
                   onClick={() => openBookingModal('Yoga Plan')}
                   className="btn btn-outline-white w-100 py-2.5 rounded-1 text-uppercase text-xs">
-                  
+
                   JOIN YOGA
                 </button>
               </div>
             </div>
 
-            {}
+            { }
             <div className="col-12 col-md-6 col-lg-4">
               <div
                 className="glass-panel p-4 p-md-5 text-center reveal tilt-3d h-100"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}>
-                
+
                 <h3 className="h5 font-serif font-weight-bold text-white mb-3">Starter</h3>
                 <div className="display-6 font-weight-bold text-brand-gold mb-4">₹1999<span className="small text-white-50 font-weight-normal" style={{ fontSize: '14px' }}>/month</span></div>
                 <ul className="list-unstyled space-y-2 text-white-50 mb-4" style={{ fontSize: '13px' }}>
@@ -1001,24 +1001,24 @@ export default function LandingPage() {
                 <button
                   onClick={() => openBookingModal('Starter Plan')}
                   className="btn btn-outline-white w-100 py-2.5 rounded-1 text-uppercase text-xs">
-                  
+
                   GET STARTED
                 </button>
               </div>
             </div>
 
-            {}
+            { }
             <div className="col-12 col-md-6 col-lg-4">
               <div
                 className="glass-panel p-4 p-md-5 text-center position-relative border border-brand-gold reveal tilt-3d scale-105-default h-100"
                 style={{ transform: 'scale(1.05)', borderColor: 'var(--brand-gold) !important' }}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}>
-                
+
                 <div
                   className="position-absolute gold-gradient-bg text-black px-4 py-1.5 text-xs font-weight-bold text-uppercase tracking-widest rounded-pill shadow-sm"
                   style={{ top: '0', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 10, fontSize: '11px', letterSpacing: '0.1em' }}>
-                  
+
                   Popular
                 </div>
                 <h3 className="h5 font-serif font-weight-bold text-white mb-3">Professional</h3>
@@ -1031,19 +1031,19 @@ export default function LandingPage() {
                 <button
                   onClick={() => openBookingModal('Professional Plan')}
                   className="btn btn-gold w-100 py-2.5 rounded-1 text-uppercase text-xs">
-                  
+
                   CHOOSE PLAN
                 </button>
               </div>
             </div>
 
-            {}
+            { }
             <div className="col-12 col-md-6 col-lg-4">
               <div
                 className="glass-panel p-4 p-md-5 text-center reveal tilt-3d h-100"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}>
-                
+
                 <h3 className="h5 font-serif font-weight-bold text-white mb-3">Premium</h3>
                 <div className="display-6 font-weight-bold text-brand-gold mb-4">₹5999<span className="small text-white-50 font-weight-normal" style={{ fontSize: '14px' }}>/month</span></div>
                 <ul className="list-unstyled space-y-2 text-white-50 mb-4" style={{ fontSize: '13px' }}>
@@ -1054,7 +1054,7 @@ export default function LandingPage() {
                 <button
                   onClick={() => openBookingModal('Premium Plan')}
                   className="btn btn-outline-white w-100 py-2.5 rounded-1 text-uppercase text-xs">
-                  
+
                   GO PREMIUM
                 </button>
               </div>
@@ -1063,40 +1063,40 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {}
+      { }
       <section
         id="faq"
         className={`py-5 bg-brand-dark ${getSectionClass('faq')}`}>
-        
+
         <div className="container py-5 px-4 px-md-5 max-w-3xl font-sans">
           <div className="text-center mb-5 reveal">
             <h2 className="display-5 font-serif font-weight-bold mb-3 text-white">Frequently Asked Questions</h2>
           </div>
           <div className="accordion d-flex flex-column gap-3">
             {[
-            { q: 'What age groups can join?', a: 'We offer classes for all age groups starting from 4 years old to seniors. Check our Kids and Senior programs.' },
-            { q: 'Do beginners need prior experience?', a: 'No, we welcome beginners with open arms. Our instructors are trained to teach from scratch.' },
-            { q: 'Are trial classes available?', a: 'Yes! Book a free trial class to experience our studio and teaching style before committing.' },
-            { q: 'Can wedding choreography be customized?', a: 'Absolutely. Every wedding is unique. We tailor choreography to your song selection, family size, and preferences.' },
-            { q: 'Do you offer online sessions?', a: 'Yes, we have hybrid plans and online fitness/yoga sessions available for remote learners.' }].
-            map((faq, idx) =>
-            <details className="group glass-panel p-3 rounded cursor-pointer transition" key={idx} style={{ backgroundColor: 'rgba(30, 41, 59, 0.2)' }}>
-                <summary className="d-flex justify-content-between align-items-center font-weight-bold list-unstyled user-select-none">
-                  <span>{faq.q}</span>
-                  <i className="fas fa-chevron-down text-brand-gold transition duration-300"></i>
-                </summary>
-                <p className="mt-3 text-white-50 small mb-0 leading-relaxed font-sans">{faq.a}</p>
-              </details>
-            )}
+              { q: 'What age groups can join?', a: 'We offer classes for all age groups starting from 4 years old to seniors. Check our Kids and Senior programs.' },
+              { q: 'Do beginners need prior experience?', a: 'No, we welcome beginners with open arms. Our instructors are trained to teach from scratch.' },
+              { q: 'Are trial classes available?', a: 'Yes! Book a free trial class to experience our studio and teaching style before committing.' },
+              { q: 'Can wedding choreography be customized?', a: 'Absolutely. Every wedding is unique. We tailor choreography to your song selection, family size, and preferences.' },
+              { q: 'Do you offer online sessions?', a: 'Yes, we have hybrid plans and online fitness/yoga sessions available for remote learners.' }].
+              map((faq, idx) =>
+                <details className="group glass-panel p-3 rounded cursor-pointer transition" key={idx} style={{ backgroundColor: 'rgba(30, 41, 59, 0.2)' }}>
+                  <summary className="d-flex justify-content-between align-items-center font-weight-bold list-unstyled user-select-none">
+                    <span>{faq.q}</span>
+                    <i className="fas fa-chevron-down text-brand-gold transition duration-300"></i>
+                  </summary>
+                  <p className="mt-3 text-white-50 small mb-0 leading-relaxed font-sans">{faq.a}</p>
+                </details>
+              )}
           </div>
         </div>
       </section>
 
-      {}
+      { }
       <section
         id="contact"
         className={`py-5 bg-brand-primary position-relative ${getSectionClass('contact')}`}>
-        
+
         <div className="position-absolute top-0 start-0 w-100 h-100 bg-gradient opacity-50 z-0" style={{ background: 'linear-gradient(to right, var(--brand-dark), transparent)' }}></div>
         <div className="container py-5 px-4 px-md-5 position-relative z-1 font-sans">
           <div className="row g-5">
@@ -1115,7 +1115,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h4 className="h6 text-white font-weight-bold mb-1">Address</h4>
-                    <p className="small text-white-50 mb-0">YAMUNA CHOWK, Rio Business Hub, 206, Mota Varachha, Surat, Gujarat 394101</p>
+                    <p className="small text-white-50 mb-0"> 206, RIO BUSSINESS HUB,YAMUNA CHOCK, Mota Varachha, Surat, Gujarat 394101</p>
                   </div>
                 </div>
                 <div className="d-flex align-items-center gap-3 contact-item">
@@ -1124,7 +1124,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h4 className="h6 text-white font-weight-bold mb-1">Phone</h4>
-                    <p className="small text-white-50 mb-0">+91 099048 77637</p>
+                    <p className="small text-white-50 mb-0">+91 99048 77637</p>
                   </div>
                 </div>
                 <div className="d-flex align-items-center gap-3 contact-item">
@@ -1144,7 +1144,7 @@ export default function LandingPage() {
                 className="glass-panel p-4 p-md-5 rounded shadow contact-form-panel"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}>
-                
+
                 <form onSubmit={handleContactSubmit}>
                   <div className="row g-3 mb-3">
                     <div className="col-12 col-md-6">
@@ -1156,7 +1156,7 @@ export default function LandingPage() {
                         value={contactName}
                         onChange={(e) => setContactName(e.target.value)}
                         required />
-                      
+
                     </div>
                     <div className="col-12 col-md-6">
                       <label className="small text-white-50 mb-1 d-block">Phone</label>
@@ -1167,7 +1167,7 @@ export default function LandingPage() {
                         value={contactPhone}
                         onChange={(e) => setContactPhone(e.target.value)}
                         required />
-                      
+
                     </div>
                   </div>
                   <div className="mb-3">
@@ -1179,7 +1179,7 @@ export default function LandingPage() {
                       value={contactEmail}
                       onChange={(e) => setContactEmail(e.target.value)}
                       required />
-                    
+
                   </div>
                   <div className="mb-3">
                     <label className="small text-white-50 mb-1 d-block">Interested Program</label>
@@ -1187,7 +1187,7 @@ export default function LandingPage() {
                       className="form-select rounded-1 text-white bg-transparent"
                       value={contactService}
                       onChange={(e) => setContactService(e.target.value)}>
-                      
+
                       <option value="Wedding Choreography">Wedding Choreography</option>
                       <option value="Garba Training">Garba Training</option>
                       <option value="Dance Classes">Dance Classes</option>
@@ -1211,14 +1211,14 @@ export default function LandingPage() {
                     type="submit"
                     disabled={contactLoading}
                     className="btn btn-gold w-100 py-3 rounded-1 btn-luxury d-flex justify-content-center align-items-center gap-2">
-                    
+
                     <span>Book Free Trial</span>
                     {contactLoading &&
-                    <span className="spinner-border spinner-border-sm text-dark" role="status" aria-hidden="true"></span>
+                      <span className="spinner-border spinner-border-sm text-dark" role="status" aria-hidden="true"></span>
                     }
                   </button>
                   {contactResponse.text &&
-                  <div className={`text-center small mt-3 p-2 rounded ${contactResponse.isError ? 'text-danger' : 'text-success'}`} style={{ backgroundColor: 'rgba(255,255,255,0.02)' }}>
+                    <div className={`text-center small mt-3 p-2 rounded ${contactResponse.isError ? 'text-danger' : 'text-success'}`} style={{ backgroundColor: 'rgba(255,255,255,0.02)' }}>
                       {contactResponse.text}
                     </div>
                   }
@@ -1229,11 +1229,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {}
+      { }
       <footer className="py-5 bg-brand-dark border-top border-white border-opacity-5">
         <div className="container py-4 px-4 px-md-5 font-sans">
-          <div className="row g-4 justify-content-between align-items-center">
-            <div className="col-12 col-md-4 text-center text-md-start">
+          <div className="row g-5 justify-content-between">
+            {/* Left Column: Brand Info */}
+            <div className="col-12 col-md-6 col-lg-4 text-center text-md-start">
               <a href="#" className="navbar-brand d-flex align-items-center justify-content-center justify-content-md-start gap-2 mb-3">
                 <img
                   src="/danzup-logo.png"
@@ -1243,45 +1244,68 @@ export default function LandingPage() {
                   onError={(e) => {
                     e.target.src = 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=100&auto=format&fit=crop';
                   }} />
-                
                 <span className="text-gold-gradient font-serif h5 mb-0 font-weight-bold tracking-wider">DANZUP STUDIO</span>
               </a>
-              <p className="small text-white-50 mb-0" style={{ maxWidth: '280px' }}>
-                Premium wedding choreography, garba, dance, fitness and yoga academy in Surat.
+              <p className="small text-white-50 mb-0" style={{ maxWidth: '360px', lineHeight: '1.6' }}>
+                With a Passion for Garba, Excellence in Dance, Dedication to Fitness, and Expertise in Wedding Celebrations, we create meaningful experiences filled with tradition, energy, elegance, and lifelong memories.
               </p>
             </div>
-            <div className="col-12 col-md-4 text-center">
-              <div className="d-flex justify-content-center gap-3 fs-5 mb-3">
-                <a href="https://www.instagram.com/danzup_studio/" target="_blank" rel="noopener noreferrer" className="text-white-50 hover-text-brand-gold"><i className="fab fa-instagram"></i></a>
-                <a href="https://wa.me/919904877637" target="_blank" rel="noopener noreferrer" className="text-white-50 hover-text-brand-gold"><i className="fab fa-whatsapp"></i></a>
-                <a href="#" className="text-white-50 hover-text-brand-gold"><i className="fab fa-facebook"></i></a>
-                <a href="#" className="text-white-50 hover-text-brand-gold"><i className="fab fa-youtube"></i></a>
-              </div>
-              <p className="small text-white-50 mb-0">© {new Date().getFullYear()} Danzup Studio. All Rights Reserved.</p>
+
+            {/* Middle Column: Quick Links */}
+            <div className="col-12 col-md-3 col-lg-2 text-center text-md-start">
+              <h5 className="text-brand-gold text-uppercase tracking-widest small font-weight-bold mb-3 font-sans">Quick Links</h5>
+              <ul className="list-unstyled d-flex flex-column gap-2 mb-0">
+                <li><a href="/#about" className="small text-white-50 text-decoration-none hover-text-brand-gold transition">About Us</a></li>
+                <li><a href="/#classes" className="small text-white-50 text-decoration-none hover-text-brand-gold transition">Our Classes</a></li>
+                <li><a href="/#studio-look" className="small text-white-50 text-decoration-none hover-text-brand-gold transition">Studio Look</a></li>
+                <li><a href="/#celebrations" className="small text-white-50 text-decoration-none hover-text-brand-gold transition">Celebrations</a></li>
+              </ul>
             </div>
-            <div className="col-12 col-md-4 text-center text-md-end">
-              <p className="small text-white-50 mb-1">Developed for ultimate luxury vibes</p>
+
+            {/* Right Column: Contact & Socials */}
+            <div className="col-12 col-md-3 col-lg-3 text-center text-md-start">
+              <h5 className="text-brand-gold text-uppercase tracking-widest small font-weight-bold mb-3 font-sans">Connect</h5>
+              <p className="small text-white-50 mb-2">
+                <i className="fas fa-phone-alt text-brand-gold me-2"></i> +91 99048 77637
+              </p>
+              <p className="small text-white-50 mb-3">
+                <i className="fas fa-envelope text-brand-gold me-2"></i> hello@danzupstudio.com
+              </p>
+              <div className="d-flex justify-content-center justify-content-md-start gap-3 fs-5">
+                <a href="https://www.instagram.com/danzup_studio/" target="_blank" rel="noopener noreferrer" className="text-white-50 hover-text-brand-gold transition"><i className="fab fa-instagram"></i></a>
+                <a href="https://wa.me/919904877637" target="_blank" rel="noopener noreferrer" className="text-white-50 hover-text-brand-gold transition"><i className="fab fa-whatsapp"></i></a>
+                <a href="#" className="text-white-50 hover-text-brand-gold transition"><i className="fab fa-facebook"></i></a>
+                <a href="#" className="text-white-50 hover-text-brand-gold transition"><i className="fab fa-youtube"></i></a>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Row: Copyright & Admin link */}
+          <div className="border-top border-white border-opacity-5 mt-5 pt-4 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+            <p className="small text-white-50 mb-0">© {new Date().getFullYear()} Danzup Studio. All Rights Reserved.</p>
+            <div className="d-flex align-items-center gap-3">
+              <span className="small text-white-30" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)' }}>Developed for ultimate luxury vibes</span>
+              <span className="text-white-30" style={{ color: 'rgba(255,255,255,0.15)' }}>|</span>
               <a
                 href="/admin"
-                className="small text-brand-gold text-decoration-none"
-                style={{ fontSize: '11px', letterSpacing: '0.1em' }}>
-                
-                ADMIN PORTAL <i className="fas fa-lock small ms-1"></i>
+                className="small text-brand-gold text-decoration-none hover-text-white transition d-flex align-items-center gap-1"
+                style={{ fontSize: '11px', letterSpacing: '0.05em' }}>
+                ADMIN PORTAL <i className="fas fa-lock small"></i>
               </a>
             </div>
           </div>
         </div>
       </footer>
 
-      {}
+      { }
       <WhatsAppFloat />
 
-      {}
+      { }
       <BookingModal
         isOpen={isBookingOpen}
         onClose={() => setIsBookingOpen(false)}
         serviceName={selectedService} />
-      
+
     </div>);
 
 }
@@ -1383,22 +1407,22 @@ function TestimonialsSlider({ testimonials }) {
       className="position-relative overflow-hidden px-1"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}>
-      
+
       <div
         className="d-flex transition-all duration-500 ease-in-out py-3"
         style={{
           transform: `translateX(calc(-${currentIndex} * (${100 / itemsToShow}% + ${24 / itemsToShow}px)))`,
           gap: '24px'
         }}>
-        
+
         {extendedTestimonials.map((testi, idx) =>
-        <div
-          key={idx}
-          className="flex-shrink-0"
-          style={{
-            width: `calc(${100 / itemsToShow}% - ${(itemsToShow - 1) * 24 / itemsToShow}px)`
-          }}>
-          
+          <div
+            key={idx}
+            className="flex-shrink-0"
+            style={{
+              width: `calc(${100 / itemsToShow}% - ${(itemsToShow - 1) * 24 / itemsToShow}px)`
+            }}>
+
             <div className="glass-panel p-4 p-md-5 h-100 d-flex flex-column justify-content-between">
               <div>
                 <div className="text-brand-gold mb-3">

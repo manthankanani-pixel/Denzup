@@ -161,5 +161,16 @@
     "status": "contacted",
     "createdAt": "2026-07-06T05:30:21.786Z",
     "updatedAt": "2026-07-06T05:30:44.420Z"
+  },
+  {
+    "_id": "c_1783329851312ke5rm",
+    "name": "jemish dhameliya",
+    "phone": "09313683554",
+    "email": "dhameliyajemish92@gmail.com",
+    "service": "Wedding Choreography",
+    "message": "my budget was 10k per day",
+    "status": "new",
+    "createdAt": "2026-07-06T09:24:11.312Z",
+    "updatedAt": "2026-07-06T09:24:11.312Z"
   }
 ]
