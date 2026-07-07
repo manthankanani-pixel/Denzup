@@ -48,7 +48,7 @@ export default function Footer() {
               <a href="https://www.instagram.com/danzup_studio/" target="_blank" rel="noopener noreferrer" className="text-white-50 hover-text-brand-gold transition"><i className="fab fa-instagram"></i></a>
               <a href="https://wa.me/919904877637" target="_blank" rel="noopener noreferrer" className="text-white-50 hover-text-brand-gold transition"><i className="fab fa-whatsapp"></i></a>
               <a href="#" className="text-white-50 hover-text-brand-gold transition"><i className="fab fa-facebook"></i></a>
-              <a href="#" className="text-white-50 hover-text-brand-gold transition"><i className="fab fa-youtube"></i></a>
+              <a href="https://www.youtube.com/@Danzup_studio" target="_blank" rel="noopener noreferrer" className="text-white-50 hover-text-brand-gold transition"><i className="fab fa-youtube"></i></a>
             </div>
           </div>
         </div>

@@ -174,13 +174,10 @@ export default function AboutPage() {
                   Founder of Danzup Studio, leading choreography with passion, style, and a vision to make premium dance education accessible to everyone.
                 </p>
                 <div className="trainer-socials mt-auto d-flex gap-3 justify-content-center">
-                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="trainer-social-link">
+                  <a href="https://www.instagram.com/hardik_danzup?igsh=b2E2aGw0cWQ5djN2" target="_blank" rel="noopener noreferrer" className="trainer-social-link">
                     <i className="fab fa-instagram"></i>
                   </a>
-                  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="trainer-social-link">
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                  <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="trainer-social-link">
+                  <a href="https://www.youtube.com/@Danzup_studio" target="_blank" rel="noopener noreferrer" className="trainer-social-link">
                     <i className="fab fa-youtube"></i>
                   </a>
                 </div>
@@ -204,13 +201,10 @@ export default function AboutPage() {
                   Co-founder and master instructor, specializing in high-energy choreography, fitness dance, and building stage confidence in students.
                 </p>
                 <div className="trainer-socials mt-auto d-flex gap-3 justify-content-center">
-                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="trainer-social-link">
+                  <a href="https://www.instagram.com/akashtank_danzup?igsh=cWh2dm5jdTc1ZXJp" target="_blank" rel="noopener noreferrer" className="trainer-social-link">
                     <i className="fab fa-instagram"></i>
                   </a>
-                  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="trainer-social-link">
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                  <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="trainer-social-link">
+                  <a href="https://www.youtube.com/@Danzup_studio" target="_blank" rel="noopener noreferrer" className="trainer-social-link">
                     <i className="fab fa-youtube"></i>
                   </a>
                 </div>
