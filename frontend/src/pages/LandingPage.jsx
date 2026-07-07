@@ -145,37 +145,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section id="stats" className="py-5 bg-brand-dark border-top border-white border-opacity-5">
-        <div className="container py-4 px-4 px-md-5 font-sans">
-          <div className="row g-4 text-center">
-            <div className="col-6 col-md-3 reveal">
-              <div className="display-4 font-weight-bold text-brand-gold mb-1">
-                <StatCounter endValue={1000} />+
-              </div>
-              <div className="small text-white-50 text-uppercase tracking-wider" style={{ fontSize: '11px' }}>Students Trained</div>
-            </div>
-            <div className="col-6 col-md-3 reveal">
-              <div className="display-4 font-weight-bold text-brand-gold mb-1">
-                <StatCounter endValue={200} />+
-              </div>
-              <div className="small text-white-50 text-uppercase tracking-wider" style={{ fontSize: '11px' }}>Wedding Projects</div>
-            </div>
-            <div className="col-6 col-md-3 reveal">
-              <div className="display-4 font-weight-bold text-brand-gold mb-1">
-                <StatCounter endValue={50} />+
-              </div>
-              <div className="small text-white-50 text-uppercase tracking-wider" style={{ fontSize: '11px' }}>Events Organized</div>
-            </div>
-            <div className="col-6 col-md-3 reveal">
-              <div className="display-4 font-weight-bold text-brand-gold mb-1">
-                <StatCounter endValue={4.6} isFloat={true} />
-              </div>
-              <div className="small text-white-50 text-uppercase tracking-wider" style={{ fontSize: '11px' }}>Star Rating</div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Highlights / Welcome Intro */}
       <section className="py-5 bg-brand-secondary border-top border-white border-opacity-5">
