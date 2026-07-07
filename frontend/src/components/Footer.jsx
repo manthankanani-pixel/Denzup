@@ -59,12 +59,12 @@ export default function Footer() {
           <div className="d-flex align-items-center gap-3">
             <span className="small text-white-30" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)' }}>Developed for ultimate luxury vibes</span>
             <span className="text-white-30" style={{ color: 'rgba(255,255,255,0.15)' }}>|</span>
-            <a
-              href="/admin"
+            <Link
+              to="/admin"
               className="small text-brand-gold text-decoration-none hover-text-white transition d-flex align-items-center gap-1"
               style={{ fontSize: '11px', letterSpacing: '0.05em' }}>
               ADMIN PORTAL <i className="fas fa-lock small"></i>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

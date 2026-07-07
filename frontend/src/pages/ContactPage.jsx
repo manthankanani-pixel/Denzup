@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import WhatsAppFloat from '../components/WhatsAppFloat';
@@ -100,7 +101,7 @@ export default function ContactPage() {
           <h1 className="display-4 font-serif font-weight-bold text-white mb-2">Contact Us</h1>
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb justify-content-center mb-0" style={{ fontSize: '12px' }}>
-              <li className="breadcrumb-item"><a href="/" className="text-white-50 text-decoration-none">Home</a></li>
+              <li className="breadcrumb-item"><Link to="/" className="text-white-50 text-decoration-none">Home</Link></li>
               <li className="breadcrumb-item active text-brand-gold" aria-current="page">Contact Us</li>
             </ol>
           </nav>

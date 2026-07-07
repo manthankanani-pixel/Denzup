@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link, NavLink } from 'react-router-dom';
 
 export default function Navbar({ onOpenBooking }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -20,16 +20,7 @@ export default function Navbar({ onOpenBooking }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleLogoClick = (e) => {
-    e.preventDefault();
-    navigate('/');
-    setIsMobileOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleLinkClick = (e, path) => {
-    e.preventDefault();
-    navigate(path);
+  const handleNavClick = () => {
     setIsMobileOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -44,12 +35,6 @@ export default function Navbar({ onOpenBooking }) {
     setIsMobileOpen(false);
   };
 
-  const isLinkActive = (path) => {
-    if (path === '/' && location.pathname === '/') return true;
-    if (path !== '/' && location.pathname.startsWith(path)) return true;
-    return false;
-  };
-
   return (
     <>
       <nav
@@ -59,9 +44,9 @@ export default function Navbar({ onOpenBooking }) {
         style={{ zIndex: 1000 }}>
         
         <div className="container px-4 px-md-5 d-flex justify-content-between align-items-center">
-          <a
-            href="/"
-            onClick={handleLogoClick}
+          <Link
+            to="/"
+            onClick={handleNavClick}
             className="navbar-brand d-flex align-items-center gap-2 h-12">
             <img
               src="/danzup-logo.png"
@@ -72,52 +57,52 @@ export default function Navbar({ onOpenBooking }) {
                 e.target.src = 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=100&auto=format&fit=crop';
               }} />
             <span className="text-gold-gradient font-serif h5 mb-0 font-weight-bold tracking-wider">DANZUP STUDIO</span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="d-none d-md-flex align-items-center gap-4">
-            <a
-              href="/"
-              onClick={(e) => handleLinkClick(e, '/')}
-              className={`nav-link-brand ${isLinkActive('/') ? 'active' : ''}`}>
+            <NavLink
+              to="/"
+              onClick={handleNavClick}
+              className={({ isActive }) => `nav-link-brand ${isActive ? 'active' : ''}`}>
               HOME
-            </a>
-            <a
-              href="/about"
-              onClick={(e) => handleLinkClick(e, '/about')}
-              className={`nav-link-brand ${isLinkActive('/about') ? 'active' : ''}`}>
+            </NavLink>
+            <NavLink
+              to="/about"
+              onClick={handleNavClick}
+              className={({ isActive }) => `nav-link-brand ${isActive ? 'active' : ''}`}>
               ABOUT
-            </a>
-            <a
-              href="/classes"
-              onClick={(e) => handleLinkClick(e, '/classes')}
-              className={`nav-link-brand ${isLinkActive('/classes') ? 'active' : ''}`}>
+            </NavLink>
+            <NavLink
+              to="/classes"
+              onClick={handleNavClick}
+              className={({ isActive }) => `nav-link-brand ${isActive ? 'active' : ''}`}>
               CLASSES
-            </a>
-            <a
-              href="/studio-look"
-              onClick={(e) => handleLinkClick(e, '/studio-look')}
-              className={`nav-link-brand ${isLinkActive('/studio-look') ? 'active' : ''}`}>
+            </NavLink>
+            <NavLink
+              to="/studio-look"
+              onClick={handleNavClick}
+              className={({ isActive }) => `nav-link-brand ${isActive ? 'active' : ''}`}>
               STUDIO LOOK
-            </a>
-            <a
-              href="/celebrations"
-              onClick={(e) => handleLinkClick(e, '/celebrations')}
-              className={`nav-link-brand ${isLinkActive('/celebrations') ? 'active' : ''}`}>
+            </NavLink>
+            <NavLink
+              to="/celebrations"
+              onClick={handleNavClick}
+              className={({ isActive }) => `nav-link-brand ${isActive ? 'active' : ''}`}>
               CELEBRATIONS
-            </a>
-            <a
-              href="/gallery"
-              onClick={(e) => handleLinkClick(e, '/gallery')}
-              className={`nav-link-brand ${isLinkActive('/gallery') ? 'active' : ''}`}>
+            </NavLink>
+            <NavLink
+              to="/gallery"
+              onClick={handleNavClick}
+              className={({ isActive }) => `nav-link-brand ${isActive ? 'active' : ''}`}>
               GALLERY
-            </a>
-            <a
-              href="/contact"
-              onClick={(e) => handleLinkClick(e, '/contact')}
-              className={`nav-link-brand ${isLinkActive('/contact') ? 'active' : ''}`}>
+            </NavLink>
+            <NavLink
+              to="/contact"
+              onClick={handleNavClick}
+              className={({ isActive }) => `nav-link-brand ${isActive ? 'active' : ''}`}>
               CONTACT
-            </a>
+            </NavLink>
 
             <div className="dropdown">
               <button
@@ -184,48 +169,48 @@ export default function Navbar({ onOpenBooking }) {
           </button>
 
           <div className="d-flex flex-column align-items-center gap-4 text-center font-serif">
-            <a
-              href="/"
-              onClick={(e) => handleLinkClick(e, '/')}
-              className={`text-white text-decoration-none fs-3 hover-text-brand-gold ${isLinkActive('/') ? 'text-brand-gold' : ''}`}>
+            <NavLink
+              to="/"
+              onClick={handleNavClick}
+              className={({ isActive }) => `text-white text-decoration-none fs-3 hover-text-brand-gold ${isActive ? 'text-brand-gold' : ''}`}>
               Home
-            </a>
-            <a
-              href="/about"
-              onClick={(e) => handleLinkClick(e, '/about')}
-              className={`text-white text-decoration-none fs-3 hover-text-brand-gold ${isLinkActive('/about') ? 'text-brand-gold' : ''}`}>
+            </NavLink>
+            <NavLink
+              to="/about"
+              onClick={handleNavClick}
+              className={({ isActive }) => `text-white text-decoration-none fs-3 hover-text-brand-gold ${isActive ? 'text-brand-gold' : ''}`}>
               About
-            </a>
-            <a
-              href="/classes"
-              onClick={(e) => handleLinkClick(e, '/classes')}
-              className={`text-white text-decoration-none fs-3 hover-text-brand-gold ${isLinkActive('/classes') ? 'text-brand-gold' : ''}`}>
+            </NavLink>
+            <NavLink
+              to="/classes"
+              onClick={handleNavClick}
+              className={({ isActive }) => `text-white text-decoration-none fs-3 hover-text-brand-gold ${isActive ? 'text-brand-gold' : ''}`}>
               Classes
-            </a>
-            <a
-              href="/studio-look"
-              onClick={(e) => handleLinkClick(e, '/studio-look')}
-              className={`text-white text-decoration-none fs-3 hover-text-brand-gold ${isLinkActive('/studio-look') ? 'text-brand-gold' : ''}`}>
+            </NavLink>
+            <NavLink
+              to="/studio-look"
+              onClick={handleNavClick}
+              className={({ isActive }) => `text-white text-decoration-none fs-3 hover-text-brand-gold ${isActive ? 'text-brand-gold' : ''}`}>
               Studio Look
-            </a>
-            <a
-              href="/celebrations"
-              onClick={(e) => handleLinkClick(e, '/celebrations')}
-              className={`text-white text-decoration-none fs-3 hover-text-brand-gold ${isLinkActive('/celebrations') ? 'text-brand-gold' : ''}`}>
+            </NavLink>
+            <NavLink
+              to="/celebrations"
+              onClick={handleNavClick}
+              className={({ isActive }) => `text-white text-decoration-none fs-3 hover-text-brand-gold ${isActive ? 'text-brand-gold' : ''}`}>
               Celebrations
-            </a>
-            <a
-              href="/gallery"
-              onClick={(e) => handleLinkClick(e, '/gallery')}
-              className={`text-white text-decoration-none fs-3 hover-text-brand-gold ${isLinkActive('/gallery') ? 'text-brand-gold' : ''}`}>
+            </NavLink>
+            <NavLink
+              to="/gallery"
+              onClick={handleNavClick}
+              className={({ isActive }) => `text-white text-decoration-none fs-3 hover-text-brand-gold ${isActive ? 'text-brand-gold' : ''}`}>
               Gallery
-            </a>
-            <a
-              href="/contact"
-              onClick={(e) => handleLinkClick(e, '/contact')}
-              className={`text-white text-decoration-none fs-3 hover-text-brand-gold ${isLinkActive('/contact') ? 'text-brand-gold' : ''}`}>
+            </NavLink>
+            <NavLink
+              to="/contact"
+              onClick={handleNavClick}
+              className={({ isActive }) => `text-white text-decoration-none fs-3 hover-text-brand-gold ${isActive ? 'text-brand-gold' : ''}`}>
               Contact
-            </a>
+            </NavLink>
 
             <div className="w-25 border-top border-white border-opacity-10 my-2"></div>
             

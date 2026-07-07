@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function AdminLoginPage({ onLoginSuccess }) {
   const [email, setEmail] = useState('');
@@ -104,13 +105,13 @@ export default function AdminLoginPage({ onLoginSuccess }) {
         </form>
 
         <div className="text-center mt-4">
-          <a
-            href="/"
+          <Link
+            to="/"
             className="small text-white-50 text-decoration-none hover-text-brand-gold"
             style={{ fontSize: '11px' }}>
             
             ← Back to Customer Website
-          </a>
+          </Link>
         </div>
       </div>
     </div>);
