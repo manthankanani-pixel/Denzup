@@ -10,7 +10,6 @@ export default function AboutPage() {
   const [selectedService, setSelectedService] = useState('Dance Classes (Free Trial)');
 
   useEffect(() => {
-    // Setup reveal on scroll
     const revealOnScroll = () => {
       const windowHeight = window.innerHeight;
       const elementVisible = 100;
