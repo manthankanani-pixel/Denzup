@@ -849,3 +849,44 @@ details[open] summary i {
   transition: all 0.2s ease-in-out;
 }
 
+/* --- GALLERY CARD HOVER EFFECT --- */
+.gallery-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s ease, box-shadow 0.5s ease;
+  cursor: pointer;
+}
+
+.gallery-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(10, 10, 10, 0.6) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 1;
+}
+
+.gallery-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--brand-gold) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.35);
+}
+
+.gallery-card:hover::after {
+  opacity: 1;
+}
+
+.gallery-card .image-zoom {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery-card:hover .image-zoom {
+  transform: scale(1.08);
+}
+

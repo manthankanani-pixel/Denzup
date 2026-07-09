@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import TestimonialsSlider from '../components/TestimonialsSlider';
 import WhatsAppFloat from '../components/WhatsAppFloat';
+
+import img1 from '../image/gallery1.jpeg';
+import img2 from '../image/gallery2.jpeg';
+import img3 from '../image/gallery3.jpeg';
+import img4 from '../image/gallery4.jpeg';
+import img5 from '../image/gallery5.jpeg';
+import img6 from '../image/gallery6.jpeg';
 
 export default function GalleryPage() {
   useEffect(() => {
@@ -42,19 +49,11 @@ export default function GalleryPage() {
             <p className="text-white-50">Capturing moments of grace and energy.</p>
           </div>
           <div className="row g-3">
-            {[
-              'https://images.unsplash.com/photo-1547153760-18fc86304498?q=80&w=1974&auto=format&fit=crop',
-              'https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?q=80&w=2070&auto=format&fit=crop',
-              'https://images.unsplash.com/photo-1533628150033-14a3f9e44009?q=80&w=2070&auto=format&fit=crop',
-              'https://images.unsplash.com/photo-1524594152303-9f1c49bac937?q=80&w=1974&auto=format&fit=crop',
-              'https://images.unsplash.com/photo-1572916597494-1b3b6a53d7d5?q=80&w=1974&auto=format&fit=crop',
-              'https://images.unsplash.com/photo-1518834107812-67b0b7c58434?q=80&w=1935&auto=format&fit=crop',
-              'https://images.unsplash.com/photo-1595152772831-2c1f7d5f16e4?q=80&w=1974&auto=format&fit=crop',
-              'https://images.unsplash.com/photo-1526243741027-444d633d7365?q=80&w=2071&auto=format&fit=crop'].
+            {[img1, img2, img3, img4, img5, img6].
               map((imgUrl, idx) =>
-                <div className="col-6 col-md-3 reveal" key={idx}>
-                  <div className="overflow-hidden rounded position-relative group" style={{ height: '240px' }}>
-                    <img src={imgUrl} className="w-100 h-100 image-zoom transition" style={{ objectFit: 'cover' }} alt={`Gallery ${idx + 1}`} />
+                <div className="col-4 reveal" key={idx}>
+                  <div className="ratio ratio-1x1 gallery-card">
+                    <img src={imgUrl} className="w-100 h-100 image-zoom" style={{ objectFit: 'cover' }} alt={`Gallery ${idx + 1}`} />
                   </div>
                 </div>
               )}

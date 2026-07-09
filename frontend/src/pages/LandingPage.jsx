@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import StatCounter from '../components/StatCounter';
 import TestimonialsSlider from '../components/TestimonialsSlider';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import BookingModal from '../components/BookingModal';
