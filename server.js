@@ -22,36 +22,37 @@ const copyFileOnStartup = (src, dest, successMsg) => {
 copyFileOnStartup(
   "C:/Users/Admin/.gemini/antigravity-ide/brain/aea861a5-a295-40f9-9db9-fabea5a6aa34/media__1780553820593.jpg",
   path.join(__dirname, "danzup-logo.png"),
-  "✅ Logo image successfully initialized on startup."
+  "✅ Logo image successfully initialized on startup.",
 );
 
 copyFileOnStartup(
   "C:/Users/Admin/.gemini/antigravity-ide/brain/ffb91a55-8468-41aa-9fed-b55b66823f56/media__1780831840977.png",
   path.join(__dirname, "hardik.png"),
-  "✅ Owner Hardik photo successfully initialized on startup."
+  "✅ Owner Hardik photo successfully initialized on startup.",
 );
 
 copyFileOnStartup(
   "C:/Users/Admin/.gemini/antigravity-ide/brain/ffb91a55-8468-41aa-9fed-b55b66823f56/media__1780831849057.png",
   path.join(__dirname, "akash.png"),
-  "✅ Owner Akash photo successfully initialized on startup."
+  "✅ Owner Akash photo successfully initialized on startup.",
 );
 
 const requiredEnvVars = [
-"MONGO_URI",
-"EMAIL_USER",
-"EMAIL_PASS",
-"ADMIN_EMAIL"];
+  "MONGO_URI",
+  "EMAIL_USER",
+  "EMAIL_PASS",
+  "ADMIN_EMAIL",
+];
 
 const missingVars = requiredEnvVars.filter((varName) => !process.env[varName]);
 
 if (missingVars.length > 0) {
   console.error(
     "❌ Missing required environment variables:",
-    missingVars.join(", ")
+    missingVars.join(", "),
   );
   console.error(
-    "Please check your .env file and ensure all required variables are set."
+    "Please check your .env file and ensure all required variables are set.",
   );
   process.exit(1);
 }
@@ -68,34 +69,34 @@ app.use(
   helmet({
     contentSecurityPolicy: false,
     crossOriginResourcePolicy: false,
-    crossOriginEmbedderPolicy: false
-  })
+    crossOriginEmbedderPolicy: false,
+  }),
 );
 
 // Explicitly set a clean, modern Permissions-Policy header
 app.use((req, res, next) => {
   res.setHeader(
     "Permissions-Policy",
-    "geolocation=*, camera=*, microphone=*, payment=*, accelerometer=*, gyroscope=*, magnetometer=*"
+    "geolocation=*, camera=*, microphone=*, payment=*, accelerometer=*, gyroscope=*, magnetometer=*",
   );
   next();
 });
 app.use(
   cors({
     origin: [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "http://localhost:5500",
-    "http://127.0.0.1:5500",
-    process.env.FRONTEND_URL].
-    filter(Boolean),
-    credentials: true
-  })
+      "http://localhost:3000",
+      "http://127.0.0.1:3000",
+      "http://localhost:5500",
+      "http://127.0.0.1:5500",
+      process.env.FRONTEND_URL,
+    ].filter(Boolean),
+    credentials: true,
+  }),
 );
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100
+  max: 100,
 });
 app.use(limiter);
 
@@ -107,39 +108,52 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/admin", adminRoutes);
 
 const multer = require("multer");
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, ".");
-  },
-  filename: function (req, file, cb) {
-    cb(null, "danzup-logo.png");
-  }
-});
-const upload = multer({ storage: storage });
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 app.post("/api/upload-logo", upload.single("logo"), (req, res) => {
-  res.json({ success: true, message: "Logo uploaded successfully" });
+  if (!req.file) {
+    return res
+      .status(400)
+      .json({ success: false, message: "No logo file uploaded." });
+  }
+
+  // In Vercel's read-only runtime, files cannot be written to disk.
+  // Use req.file.buffer to upload the data to cloud storage or process it in memory.
+  return res.json({
+    success: true,
+    message: "Logo received in memory successfully.",
+    originalName: req.file.originalname,
+    size: req.file.size,
+    mimeType: req.file.mimetype,
+  });
 });
 
 app.use((req, res, next) => {
   const pathLower = req.path.toLowerCase();
   if (
-  pathLower.includes("/.env") ||
-  pathLower.includes("admin-config.json") ||
-  pathLower.includes("package.json") ||
-  pathLower.includes("package-lock.json") ||
-  pathLower.includes("/data/"))
-  {
-    return res.status(403).json({ success: false, message: "Forbidden: Access to sensitive configuration data is blocked." });
+    pathLower.includes("/.env") ||
+    pathLower.includes("admin-config.json") ||
+    pathLower.includes("package.json") ||
+    pathLower.includes("package-lock.json") ||
+    pathLower.includes("/data/")
+  ) {
+    return res.status(403).json({
+      success: false,
+      message: "Forbidden: Access to sensitive configuration data is blocked.",
+    });
   }
   next();
 });
 
 app.use(express.static(path.join(__dirname, "dist")));
 
-app.get(["/danzup-logo.png", "/hardik.png", "/akash.png", "/hero-dancer.jpeg"], (req, res) => {
-  res.sendFile(path.join(__dirname, req.path));
-});
+app.get(
+  ["/danzup-logo.png", "/hardik.png", "/akash.png", "/hero-dancer.jpeg"],
+  (req, res) => {
+    res.sendFile(path.join(__dirname, req.path));
+  },
+);
 
 app.get("/admin.html", (req, res) => {
   res.redirect("/admin");
@@ -153,7 +167,11 @@ app.get("*", (req, res, next) => {
 });
 
 app.get("/api/health", (req, res) => {
-  res.json({ status: "OK", version: "updated-v2", timestamp: new Date().toISOString() });
+  res.json({
+    status: "OK",
+    version: "updated-v2",
+    timestamp: new Date().toISOString(),
+  });
 });
 
 app.get("/api/test-email", async (req, res) => {
@@ -172,12 +190,22 @@ app.get("/api/test-email", async (req, res) => {
 
 const dbManager = require("./models/utils/db");
 
-dbManager.init().then(() => {
-  app.listen(process.env.PORT || 5000, () => {
-    console.log(`🚀 Server running on port ${process.env.PORT || 5000}`);
-  });
+dbManager.init().catch((err) => {
+  console.error("❌ Failed to initialize DB:", err);
+  process.exit(1);
 });
+
+if (require.main === module) {
+  const port = process.env.PORT || 5000;
+  app.listen(port, () => {
+    console.log(`🚀 Server running on port ${port}`);
+  });
+}
 
 app.use("*", (req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
+
+module.exports = app;
+module.exports.default = app;
+module.exports.handler = app;
