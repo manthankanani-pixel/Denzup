@@ -58,6 +58,22 @@ export default function GalleryPage() {
                 </div>
               )}
           </div>
+
+          <div className="row g-4 mt-2">
+            <div className="col-12 reveal">
+              <div className="ratio ratio-9x16 overflow-hidden rounded-3 bg-black mx-auto" style={{ maxWidth: '360px', height: '520px' }}>
+                <iframe
+                  className="border-0 w-100"
+                  src="https://www.instagram.com/reel/DXI_cdaDagy/embed"
+                  scrolling="no"
+                  allowtransparency="true"
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  style={{ position: 'absolute', top: '-54px', height: 'calc(100% + 175px)' }}>
+                </iframe>
+              </div>
+              <p className="text-center text-white-50 mt-3 small">Follow us on Instagram for more reels</p>
+            </div>
+          </div>
         </div>
       </section>
 

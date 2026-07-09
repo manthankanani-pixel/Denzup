@@ -1,33 +1,5 @@
 [
   {
-    "_id": "f_1783142342656sjn73",
-    "studentName": "Jane Smith",
-    "phone": "9876543210",
-    "email": "jane.smith@example.com",
-    "service": "Garba Training",
-    "totalAmount": 1499,
-    "paidAmount": 1898,
-    "dueDate": "2026-06-15T00:00:00.000Z",
-    "status": "fully_paid",
-    "payments": [
-      {
-        "amount": 1499,
-        "method": "Card",
-        "date": "2026-06-06T05:31:23.272Z",
-        "notes": "Initial Payment"
-      },
-      {
-        "amount": 399,
-        "method": "Cash",
-        "notes": "bank",
-        "date": "2026-07-04T05:21:35.417Z"
-      }
-    ],
-    "notes": "Auto-migrated from existing paid booking.",
-    "createdAt": "2026-06-06T05:31:23.272Z",
-    "updatedAt": "2026-07-04T05:21:35.417Z"
-  },
-  {
     "_id": "f_17831423426569pbp5",
     "studentName": "jemish dhameliya",
     "phone": "09313683554",
