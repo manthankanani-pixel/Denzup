@@ -206,6 +206,8 @@ app.use("*", (req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
 
-module.exports = app;
-module.exports.default = app;
-module.exports.handler = app;
+const handler = (req, res) => app(req, res);
+
+module.exports = handler;
+module.exports.default = handler;
+module.exports.handler = handler;
