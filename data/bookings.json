@@ -215,10 +215,10 @@
     "service": "Garba Training",
     "batch": "Evening Batch (5:00 PM - 6:00 PM)",
     "date": "2026-06-06T00:00:00.000Z",
-    "status": "cancelled",
+    "status": "pending",
     "paid": true,
     "createdAt": "2026-06-06T08:25:40.423Z",
-    "updatedAt": "2026-07-09T05:03:56.540Z"
+    "updatedAt": "2026-07-09T05:32:50.541Z"
   },
   {
     "_id": "b_1782965427631qbt7r",
@@ -426,7 +426,7 @@
     "status": "pending",
     "paid": true,
     "createdAt": "2026-07-06T08:26:51.382Z",
-    "updatedAt": "2026-07-06T08:26:51.382Z"
+    "updatedAt": "2026-07-09T05:33:00.796Z"
   },
   {
     "_id": "b_1783406324066j93ru",
@@ -436,9 +436,9 @@
     "service": "Wedding Choreography",
     "batch": "Morning (8:00 AM - 9:00 AM)",
     "date": "2026-07-08T00:00:00.000Z",
-    "status": "pending",
+    "status": "cancelled",
     "paid": true,
     "createdAt": "2026-07-07T06:38:44.066Z",
-    "updatedAt": "2026-07-07T06:38:44.066Z"
+    "updatedAt": "2026-07-09T05:34:24.581Z"
   }
 ]
