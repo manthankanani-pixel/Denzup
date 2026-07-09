@@ -190,17 +190,23 @@ const dbManager = {
     }
   },
 
-  async updateBookingStatus(id, status, paid = undefined) {
+  async updateBookingStatus(id, status = undefined, paid = undefined) {
+    let paidBool = undefined;
+    if (paid !== undefined) {
+      paidBool = String(paid).toLowerCase() === 'true' || paid === true;
+    }
+
     if (isMongoConnected) {
-      const updateFields = { status };
-      if (paid !== undefined) updateFields.paid = paid;
+      const updateFields = {};
+      if (status !== undefined) updateFields.status = status;
+      if (paidBool !== undefined) updateFields.paid = paidBool;
       return await Booking.findByIdAndUpdate(id, updateFields, { new: true });
     } else {
       const bookings = await readJsonFile(BOOKINGS_FILE);
       const index = bookings.findIndex((b) => b._id === id);
       if (index !== -1) {
-        bookings[index].status = status;
-        if (paid !== undefined) bookings[index].paid = paid;
+        if (status !== undefined) bookings[index].status = status;
+        if (paidBool !== undefined) bookings[index].paid = paidBool;
         bookings[index].updatedAt = new Date().toISOString();
         await writeJsonFile(BOOKINGS_FILE, bookings);
         return bookings[index];

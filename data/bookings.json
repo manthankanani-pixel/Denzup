@@ -8,9 +8,9 @@
     "batch": "Morning (8:00 AM - 9:00 AM)",
     "date": "2026-06-06T00:00:00.000Z",
     "status": "pending",
-    "paid": false,
+    "paid": true,
     "createdAt": "2026-06-05T08:31:55.055Z",
-    "updatedAt": "2026-06-05T08:31:55.055Z"
+    "updatedAt": "2026-07-09T05:18:13.186Z"
   },
   {
     "_id": "b_17806483233559a8ie",
@@ -21,9 +21,9 @@
     "batch": "Morning (8:00 AM - 9:00 AM)",
     "date": "2026-06-06T00:00:00.000Z",
     "status": "pending",
-    "paid": false,
+    "paid": true,
     "createdAt": "2026-06-05T08:32:03.355Z",
-    "updatedAt": "2026-06-05T08:32:03.355Z"
+    "updatedAt": "2026-07-09T05:18:12.655Z"
   },
   {
     "_id": "b_17806483395072d8mo",
@@ -34,9 +34,9 @@
     "batch": "Evening Batch (07:00 PM - 08:30 PM)",
     "date": "2026-06-06T00:00:00.000Z",
     "status": "pending",
-    "paid": false,
+    "paid": true,
     "createdAt": "2026-06-05T08:32:19.507Z",
-    "updatedAt": "2026-06-05T08:32:19.507Z"
+    "updatedAt": "2026-07-09T05:18:11.998Z"
   },
   {
     "_id": "b_1780648601986yzoiu",
@@ -47,9 +47,9 @@
     "batch": "Morning (8:00 AM - 9:00 AM)",
     "date": "2026-06-06T00:00:00.000Z",
     "status": "pending",
-    "paid": false,
+    "paid": true,
     "createdAt": "2026-06-05T08:36:41.986Z",
-    "updatedAt": "2026-06-05T08:36:41.986Z"
+    "updatedAt": "2026-07-09T05:18:10.966Z"
   },
   {
     "_id": "b_1780648684055uo4vz",
@@ -60,9 +60,9 @@
     "batch": "Morning (8:00 AM - 9:00 AM)",
     "date": "2026-06-06T00:00:00.000Z",
     "status": "pending",
-    "paid": false,
+    "paid": true,
     "createdAt": "2026-06-05T08:38:04.055Z",
-    "updatedAt": "2026-06-05T12:53:15.479Z"
+    "updatedAt": "2026-07-09T05:05:41.772Z"
   },
   {
     "_id": "b_1780648756389j631u",
@@ -73,9 +73,9 @@
     "batch": "Morning (8:00 AM - 9:00 AM)",
     "date": "2026-06-06T00:00:00.000Z",
     "status": "pending",
-    "paid": false,
+    "paid": true,
     "createdAt": "2026-06-05T08:39:16.389Z",
-    "updatedAt": "2026-06-05T12:53:02.198Z"
+    "updatedAt": "2026-07-09T05:05:41.027Z"
   },
   {
     "_id": "b_1780649313632wui48",
@@ -86,9 +86,9 @@
     "batch": "Morning (8:00 AM - 9:00 AM)",
     "date": "2026-06-06T00:00:00.000Z",
     "status": "pending",
-    "paid": false,
+    "paid": true,
     "createdAt": "2026-06-05T08:48:33.632Z",
-    "updatedAt": "2026-06-05T08:48:33.632Z"
+    "updatedAt": "2026-07-09T05:05:40.170Z"
   },
   {
     "_id": "b_17806493640635kgfv",
@@ -99,9 +99,9 @@
     "batch": "Morning (8:00 AM - 9:00 AM)",
     "date": "2026-06-06T00:00:00.000Z",
     "status": "pending",
-    "paid": false,
+    "paid": true,
     "createdAt": "2026-06-05T08:49:24.063Z",
-    "updatedAt": "2026-06-05T08:49:24.063Z"
+    "updatedAt": "2026-07-09T05:05:39.345Z"
   },
   {
     "_id": "b_1780649688457hks5p",
@@ -112,9 +112,9 @@
     "batch": "Morning (8:00 AM - 9:00 AM)",
     "date": "2026-06-06T00:00:00.000Z",
     "status": "pending",
-    "paid": false,
+    "paid": true,
     "createdAt": "2026-06-05T08:54:48.457Z",
-    "updatedAt": "2026-06-05T08:54:48.457Z"
+    "updatedAt": "2026-07-09T05:05:38.120Z"
   },
   {
     "_id": "b_1780650703968de545",
@@ -125,9 +125,9 @@
     "batch": "Morning (8:00 AM - 9:00 AM)",
     "date": "2026-06-06T00:00:00.000Z",
     "status": "pending",
-    "paid": false,
+    "paid": true,
     "createdAt": "2026-06-05T09:11:43.968Z",
-    "updatedAt": "2026-06-05T09:11:43.968Z"
+    "updatedAt": "2026-07-09T05:05:37.181Z"
   },
   {
     "_id": "b_1780657352528cwmp2",
@@ -216,9 +216,9 @@
     "batch": "Evening Batch (5:00 PM - 6:00 PM)",
     "date": "2026-06-06T00:00:00.000Z",
     "status": "cancelled",
-    "paid": false,
+    "paid": true,
     "createdAt": "2026-06-06T08:25:40.423Z",
-    "updatedAt": "2026-07-06T05:33:19.721Z"
+    "updatedAt": "2026-07-09T05:03:56.540Z"
   },
   {
     "_id": "b_1782965427631qbt7r",
@@ -294,9 +294,9 @@
     "batch": "Morning (8:00 AM - 9:00 AM)",
     "date": "2026-07-03T00:00:00.000Z",
     "status": "pending",
-    "paid": false,
+    "paid": true,
     "createdAt": "2026-07-02T05:37:00.715Z",
-    "updatedAt": "2026-07-02T05:37:00.715Z"
+    "updatedAt": "2026-07-09T05:03:55.487Z"
   },
   {
     "_id": "b_1782970706079iyb85",
@@ -385,9 +385,9 @@
     "batch": "Morning (8:00 AM - 9:00 AM)",
     "date": "2026-07-07T00:00:00.000Z",
     "status": "pending",
-    "paid": false,
+    "paid": true,
     "createdAt": "2026-07-06T05:27:20.675Z",
-    "updatedAt": "2026-07-06T05:27:20.675Z"
+    "updatedAt": "2026-07-09T05:03:53.331Z"
   },
   {
     "_id": "b_1783315679430332dd",
@@ -398,9 +398,9 @@
     "batch": "Morning (8:00 AM - 9:00 AM)",
     "date": "2026-07-07T00:00:00.000Z",
     "status": "pending",
-    "paid": false,
+    "paid": true,
     "createdAt": "2026-07-06T05:27:59.430Z",
-    "updatedAt": "2026-07-06T05:27:59.430Z"
+    "updatedAt": "2026-07-09T05:03:52.382Z"
   },
   {
     "_id": "b_1783326293309tofg0",

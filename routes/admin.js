@@ -167,10 +167,15 @@ router.put("/contacts/:id/status", authenticateAdmin, async (req, res) => {
 router.get("/bookings", authenticateAdmin, async (req, res) => {
   try {
     const bookings = await dbManager.getBookings();
+    const sanitizedBookings = bookings.map(booking => {
+      const b = booking.toObject ? booking.toObject() : { ...booking };
+      b.paid = String(b.paid).toLowerCase() === 'true' || b.paid === true;
+      return b;
+    });
     res.json({
       success: true,
-      data: bookings,
-      total: bookings.length
+      data: sanitizedBookings,
+      total: sanitizedBookings.length
     });
   } catch (error) {
     console.error("Bookings fetch error:", error);
@@ -181,8 +186,8 @@ router.get("/bookings", authenticateAdmin, async (req, res) => {
 router.put("/bookings/:id/status", authenticateAdmin, async (req, res) => {
   try {
     const { status, paid } = req.body;
-    if (!status) {
-      return res.status(400).json({ success: false, message: "Status is required." });
+    if (status === undefined && paid === undefined) {
+      return res.status(400).json({ success: false, message: "Either status or paid is required." });
     }
 
     const booking = await dbManager.updateBookingStatus(req.params.id, status, paid);
