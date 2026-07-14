@@ -8,6 +8,32 @@ const getLocalDateString = (dateObj) => {
   return `${year}-${month}-${day}`;
 };
 
+const bookingSchema = {
+  validate: (data) => {
+    if (!data.name || data.name.trim().length < 2 || data.name.trim().length > 100) {
+      return { error: { details: [{ message: "Name must be at least 2 characters long." }] } };
+    }
+    const phoneRegex = /^\d{10}$/;
+    if (!data.phone || !phoneRegex.test(data.phone)) {
+      return { error: { details: [{ message: "Phone number must be exactly 10 digits." }] } };
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!data.email || !emailRegex.test(data.email)) {
+      return { error: { details: [{ message: "Please enter a valid email address." }] } };
+    }
+    if (!data.date) {
+      return { error: { details: [{ message: "Please select a valid date." }] } };
+    }
+    if (!data.batch) {
+      return { error: { details: [{ message: "Batch is required." }] } };
+    }
+    if (!data.service) {
+      return { error: { details: [{ message: "Class Name is required." }] } };
+    }
+    return { error: null, value: data };
+  }
+};
+
 export default function BookingModal({ isOpen, onClose, serviceName }) {
   const safeServiceName = serviceName || "";
   const [isTrialChecked, setIsTrialChecked] = useState(false);
@@ -69,18 +95,27 @@ export default function BookingModal({ isOpen, onClose, serviceName }) {
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name || !phone || !email || !date) {
-      alert("Please fill out all booking details.");
+    const finalService =
+      isTrialChecked && !safeServiceName.toLowerCase().includes("trial")
+        ? `${safeServiceName} (Free Trial)`
+        : safeServiceName;
+
+    const { error } = bookingSchema.validate({
+      name,
+      phone,
+      email,
+      date,
+      batch,
+      service: finalService
+    });
+
+    if (error) {
+      setResponseMsg({ text: `❌ ${error.details[0].message}`, isError: true });
       return;
     }
 
     setLoading(true);
     setResponseMsg({ text: "", isError: false });
-
-    const finalService =
-      isTrialChecked && !safeServiceName.toLowerCase().includes("trial")
-        ? `${safeServiceName} (Free Trial)`
-        : safeServiceName;
 
     const bookingData = {
       service: finalService,

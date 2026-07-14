@@ -243,16 +243,47 @@ router.put("/bookings/:id/status", authenticateAdmin, async (req, res) => {
   }
 });
 
+const Joi = require("joi");
+const Booking = require("../models/Booking");
+
+const feeCreateSchema = Joi.object({
+  studentName: Joi.string().min(2).max(100).required(),
+  phone: Joi.string().pattern(/^\d{10}$/).required().messages({
+    "string.pattern.base": "Phone number must be exactly 10 digits."
+  }),
+  email: Joi.string().email().optional().allow(''), // Made optional to support frontend
+  service: Joi.string().min(3).required(),
+  totalAmount: Joi.number().min(0).required(),
+  paidAmount: Joi.number().min(0).optional(),
+  paymentMethod: Joi.string().optional().allow(''),
+  dueDate: Joi.date().iso().required(),
+  notes: Joi.string().optional().allow('')
+});
+
+const feePaymentSchema = Joi.object({
+  amount: Joi.number().min(0.01).required(),
+  method: Joi.string().optional().allow(''),
+  notes: Joi.string().optional().allow('')
+});
+
 router.post("/bookings/create", authenticateAdmin, async (req, res) => {
   try {
-    const { name, phone, email, service, batch, date, paid, status } = req.body;
-
-    if (!name || !phone || !email || !service || !batch || !date) {
+    const tempBooking = new Booking(req.body);
+    const validationError = tempBooking.validateSync();
+    
+    if (validationError) {
+      const formattedErrors = {};
+      Object.keys(validationError.errors).forEach(key => {
+        formattedErrors[key] = validationError.errors[key].message;
+      });
       return res.status(400).json({
         success: false,
-        message: "Missing required fields (Name, Phone, Email, Class/Service, Batch, and Date are required)."
+        message: "Validation failed",
+        errors: formattedErrors
       });
     }
+
+    const { name, phone, email, service, batch, date, paid, status } = req.body;
 
     const booking = await dbManager.saveBooking({
       name,
@@ -316,14 +347,16 @@ router.get("/fees", authenticateAdmin, async (req, res) => {
 
 router.post("/fees/create", authenticateAdmin, async (req, res) => {
   try {
-    const { studentName, phone, email, service, totalAmount, paidAmount, paymentMethod, dueDate, notes } = req.body;
+    const { error, value } = feeCreateSchema.validate(req.body);
 
-    if (!studentName || !phone || !email || !service || !totalAmount || !dueDate) {
+    if (error) {
       return res.status(400).json({
         success: false,
-        message: "Missing required fields (Name, Phone, Email, Service, Total Fee, and Due Date are required)."
+        message: error.details[0].message
       });
     }
+
+    const { studentName, phone, email, service, totalAmount, paidAmount, paymentMethod, dueDate, notes } = value;
 
     const fee = await dbManager.saveFee({
       studentName,
@@ -350,14 +383,16 @@ router.post("/fees/create", authenticateAdmin, async (req, res) => {
 
 router.post("/fees/:id/payments", authenticateAdmin, async (req, res) => {
   try {
-    const { amount, method, notes } = req.body;
+    const { error, value } = feePaymentSchema.validate(req.body);
 
-    if (!amount || amount <= 0) {
+    if (error) {
       return res.status(400).json({
         success: false,
-        message: "Payment amount must be greater than zero."
+        message: error.details[0].message
       });
     }
+
+    const { amount, method, notes } = value;
 
     const fee = await dbManager.addPaymentToFee(req.params.id, { amount, method, notes });
     if (!fee) {

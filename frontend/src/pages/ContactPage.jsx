@@ -44,6 +44,19 @@ export default function ContactPage() {
 
   const handleContactSubmit = async (e) => {
     e.preventDefault();
+
+    const phoneRegex = /^\d{10}$/;
+    if (!contactPhone || !phoneRegex.test(contactPhone)) {
+      setContactResponse({ text: '❌ Phone number must be exactly 10 digits.', isError: true });
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!contactEmail || !emailRegex.test(contactEmail)) {
+      setContactResponse({ text: '❌ Please enter a valid email address.', isError: true });
+      return;
+    }
+
     setContactLoading(true);
     setContactResponse({ text: '', isError: false });
 

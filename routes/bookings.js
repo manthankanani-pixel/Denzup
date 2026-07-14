@@ -3,16 +3,27 @@ const dbManager = require("../models/utils/db");
 const { sendEmail } = require("../models/utils/email");
 const router = express.Router();
 
+const Booking = require('../models/Booking');
+
 router.post("/create", async (req, res) => {
   try {
-    const { name, phone, email, service, batch, date, paid } = req.body;
-
-    if (!name || !phone || !email || !service || !batch || !date) {
+    // Validate request body using Mongoose schema before saving
+    const tempBooking = new Booking(req.body);
+    const validationError = tempBooking.validateSync();
+    
+    if (validationError) {
+      const formattedErrors = {};
+      Object.keys(validationError.errors).forEach(key => {
+        formattedErrors[key] = validationError.errors[key].message;
+      });
       return res.status(400).json({
         success: false,
-        message: "Missing required booking details."
+        message: "Validation failed",
+        errors: formattedErrors
       });
     }
+
+    const { name, phone, email, service, batch, date, paid } = req.body;
 
     const booking = await dbManager.saveBooking({
       name,
@@ -128,6 +139,22 @@ router.post("/razorpay/verify-payment", async (req, res) => {
 
     if (generated_signature !== razorpay_signature) {
       return res.status(400).json({ success: false, message: "Payment signature verification failed." });
+    }
+
+    // Validate bookingData before saving
+    const tempBooking = new Booking(bookingData);
+    const validationError = tempBooking.validateSync();
+    
+    if (validationError) {
+      const formattedErrors = {};
+      Object.keys(validationError.errors).forEach(key => {
+        formattedErrors[key] = validationError.errors[key].message;
+      });
+      return res.status(400).json({
+        success: false,
+        message: "Validation failed",
+        errors: formattedErrors
+      });
     }
 
     const { name, phone, email, service, batch, date } = bookingData;

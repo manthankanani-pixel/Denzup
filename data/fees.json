@@ -132,50 +132,6 @@
     "updatedAt": "2026-07-02T06:07:27.566Z"
   },
   {
-    "_id": "f_1783142342656naruz",
-    "studentName": "jemish dhameliya",
-    "phone": "09313683554",
-    "email": "dhameliyajemish92@gmail.com",
-    "service": "Dance Plan",
-    "totalAmount": 1999,
-    "paidAmount": 1999,
-    "dueDate": "2026-07-03T00:00:00.000Z",
-    "status": "fully_paid",
-    "payments": [
-      {
-        "amount": 1999,
-        "method": "Card",
-        "date": "2026-07-02T06:26:58.188Z",
-        "notes": "Initial Payment"
-      }
-    ],
-    "notes": "Auto-migrated from existing paid booking.",
-    "createdAt": "2026-07-02T06:26:58.188Z",
-    "updatedAt": "2026-07-02T06:26:58.188Z"
-  },
-  {
-    "_id": "f_1783142342656xyrhm",
-    "studentName": "jemish dhameliya",
-    "phone": "09313683554",
-    "email": "dhameliyajemish92@gmail.com",
-    "service": "Professional Plan",
-    "totalAmount": 3999,
-    "paidAmount": 3999,
-    "dueDate": "2026-07-03T00:00:00.000Z",
-    "status": "fully_paid",
-    "payments": [
-      {
-        "amount": 3999,
-        "method": "Card",
-        "date": "2026-07-02T07:42:15.646Z",
-        "notes": "Initial Payment"
-      }
-    ],
-    "notes": "Auto-migrated from existing paid booking.",
-    "createdAt": "2026-07-02T07:42:15.646Z",
-    "updatedAt": "2026-07-02T07:42:15.646Z"
-  },
-  {
     "_id": "f_1783142342656xv59s",
     "studentName": "jemish",
     "phone": "9313683554",
@@ -220,47 +176,25 @@
     "updatedAt": "2026-07-06T05:25:14.371Z"
   },
   {
-    "_id": "f_1783326294574g09ow",
-    "studentName": "jemish dhameliya",
-    "phone": "09313683554",
-    "email": "dhameliyajemish92@gmail.com",
+    "_id": "f_1784028724847q4wb0",
+    "studentName": "manish",
+    "phone": "7888667778",
+    "email": "manish@gmail.com",
     "service": "Premium Plan",
     "totalAmount": 5999,
     "paidAmount": 5999,
-    "dueDate": "2026-07-07T00:00:00.000Z",
+    "dueDate": "2026-07-15T00:00:00.000Z",
     "status": "fully_paid",
     "payments": [
       {
         "amount": 5999,
         "method": "Bank Transfer",
-        "date": "2026-07-06T08:24:54.572Z",
+        "date": "2026-07-14T11:32:04.846Z",
         "notes": "Initial Payment"
       }
     ],
-    "notes": "Auto-generated from online booking. Razorpay Payment ID: pay_TA9MJ0daBMCz3S",
-    "createdAt": "2026-07-06T08:24:54.574Z",
-    "updatedAt": "2026-07-06T08:24:54.574Z"
-  },
-  {
-    "_id": "f_17833264125843vn0n",
-    "studentName": "jemish dhameliya",
-    "phone": "09313683554",
-    "email": "dhameliyajemish92@gmail.com",
-    "service": "Premium Plan",
-    "totalAmount": 5999,
-    "paidAmount": 5999,
-    "dueDate": "2026-07-07T00:00:00.000Z",
-    "status": "fully_paid",
-    "payments": [
-      {
-        "amount": 5999,
-        "method": "Bank Transfer",
-        "date": "2026-07-06T08:26:52.583Z",
-        "notes": "Initial Payment"
-      }
-    ],
-    "notes": "Auto-generated from online booking. Razorpay Payment ID: pay_TA9OTys2XvjSGh",
-    "createdAt": "2026-07-06T08:26:52.584Z",
-    "updatedAt": "2026-07-06T08:26:52.584Z"
+    "notes": "Auto-generated from online booking. Razorpay Payment ID: pay_TDMp4i6G2W0F8t",
+    "createdAt": "2026-07-14T11:32:04.847Z",
+    "updatedAt": "2026-07-14T11:32:04.847Z"
   }
 ]

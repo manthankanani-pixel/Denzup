@@ -13,7 +13,6 @@ import img6 from '../image/gallery6.jpeg';
 
 export default function GalleryPage() {
   useEffect(() => {
-    // Setup reveal on scroll
     const revealOnScroll = () => {
       const windowHeight = window.innerHeight;
       const elementVisible = 100;
@@ -41,7 +40,6 @@ export default function GalleryPage() {
     <div className="bg-brand-dark min-h-screen text-white position-relative">
       <Navbar />
 
-      {/* Gallery Section */}
       <section id="gallery" className="py-5 bg-brand-secondary">
         <div className="container py-5 px-4 px-md-5 font-sans">
           <div className="text-center mb-5 reveal">
@@ -58,26 +56,9 @@ export default function GalleryPage() {
                 </div>
               )}
           </div>
-
-          <div className="row g-4 mt-2">
-            <div className="col-12 reveal">
-              <div className="ratio ratio-9x16 overflow-hidden rounded-3 bg-black mx-auto" style={{ maxWidth: '360px', height: '520px' }}>
-                <iframe
-                  className="border-0 w-100"
-                  src="https://www.instagram.com/reel/DXI_cdaDagy/embed"
-                  scrolling="no"
-                  allowtransparency="true"
-                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                  style={{ position: 'absolute', top: '-54px', height: 'calc(100% + 175px)' }}>
-                </iframe>
-              </div>
-              <p className="text-center text-white-50 mt-3 small">Follow us on Instagram for more reels</p>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
       <section id="testimonials" className="py-5 bg-brand-dark border-top border-white border-opacity-5">
         <div className="container py-5 px-4 px-md-5 font-sans">
           <div className="text-center mb-5 reveal">
@@ -90,8 +71,9 @@ export default function GalleryPage() {
               { text: '"The yoga sessions here helped me find my balance again. Beautiful studio and very supportive instructors."', author: 'Smit Dudhat' },
               { text: '"The wedding choreography packages are absolute value for money. They personalized our steps and made us feel so confident!"', author: 'Sneha & Amit' },
               { text: '"Great atmosphere, top-tier audio systems, and trainers who actually care about your progress. Best dance studio in Surat!"', author: 'Karan Patel' },
-              { text: '"Absolutely love this place! The yoga sessions are serene, and the Zumba batches are incredibly high-energy. The perfect place for dance and fitness."', author: 'Riddhi Desai' }]
-            } />
+              { text: '"Absolutely love this place! The yoga sessions are serene, and the Zumba batches are incredibly high-energy. The perfect place for dance and fitness."', author: 'Riddhi Desai' },
+              { text: '"I joined as a complete beginner, and within a few months my confidence has grown so much. The instructors are patient, supportive, and make every class enjoyable. I always look forward to each session!"', author: 'manthan kanai' }
+            ]} />
           </div>
         </div>
       </section>
