@@ -257,7 +257,6 @@ export default function BookingModal({ isOpen, onClose, serviceName }) {
       size="lg"
       contentClassName="glass-panel rounded border border-brand-gold border-opacity-25 bg-brand-dark text-white"
       backdropClassName="bg-black bg-opacity-75"
-      dialogClassName="m-3"
     >
       <Modal.Header closeButton closeVariant="white" className="border-0 pb-0">
         <Modal.Title className="text-white font-serif">

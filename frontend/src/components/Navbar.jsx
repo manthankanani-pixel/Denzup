@@ -8,6 +8,7 @@ import {
   Offcanvas,
   Button,
   Image,
+  Dropdown,
 } from "react-bootstrap";
 
 export default function Navbar({ onOpenBooking }) {
@@ -81,7 +82,7 @@ export default function Navbar({ onOpenBooking }) {
           onClick={() => setShowOffcanvas(true)}
         />
 
-        <RBNavbar.Offcanvas
+        <Offcanvas
           id="offcanvasNavbar"
           aria-labelledby="offcanvasNavbarLabel"
           placement="end"
@@ -143,7 +144,7 @@ export default function Navbar({ onOpenBooking }) {
               ))}
             </div>
           </Offcanvas.Body>
-        </RBNavbar.Offcanvas>
+        </Offcanvas>
 
         <div className="d-none d-md-flex align-items-center gap-4">
           <Nav className="align-items-center">
@@ -181,31 +182,29 @@ export default function Navbar({ onOpenBooking }) {
             })}
           </Nav>
 
-          <NavDropdown
-            title={
-              <span
-                className="btn btn-gold rounded-0 py-2.5 px-4 btn-luxury d-flex align-items-center gap-2 text-xs font-weight-bold"
-                style={{ fontSize: "12px" }}
-              >
-                BOOK TRIAL
-              </span>
-            }
-            id="trialDropdown"
-            align="end"
-            menuVariant="dark"
-            className="nav-trial-dropdown"
-          >
-            {bookTrialItems.map((item) => (
-              <NavDropdown.Item
-                key={item.service}
-                onClick={() => handleBookingClick(item.service)}
-                className="text-white-50"
-                style={{ cursor: "pointer" }}
-              >
-                {item.label}
-              </NavDropdown.Item>
-            ))}
-          </NavDropdown>
+          <Dropdown align="end" className="nav-trial-dropdown">
+            <Dropdown.Toggle
+              id="trialDropdown"
+              variant="none"
+              className="btn btn-gold rounded-0 py-2.5 px-4 btn-luxury d-flex align-items-center gap-2 text-xs font-weight-bold"
+              style={{ fontSize: "12px" }}
+            >
+              BOOK TRIAL
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu variant="dark">
+              {bookTrialItems.map((item) => (
+                <Dropdown.Item
+                  key={item.service}
+                  onClick={() => handleBookingClick(item.service)}
+                  className="text-white-50"
+                  style={{ cursor: "pointer" }}
+                >
+                  {item.label}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
       </Container>
     </RBNavbar>
